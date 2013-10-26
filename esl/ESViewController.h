@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "SFViewController.h"
+#import "ESService.h"
 
 @interface ESViewController : SFViewController
+
+- (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion;
 
 @end

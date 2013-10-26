@@ -8,6 +8,7 @@
 
 #import "ESTrackListController.h"
 #import "ESEpisode.h"
+#import "ESServiceFactory.h"
 
 @implementation ESTrackListController {
     NSArray *episodes;
@@ -20,6 +21,14 @@
     self.title = @"episodes";
     
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self requestService:[ESServiceFactory eslEpisodes] completion:^(id resultObject, NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
