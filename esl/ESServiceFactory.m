@@ -7,192 +7,102 @@
 //
 
 #import "ESServiceFactory.h"
-#import "SFObjectServiceSession.h"
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
+#import "NSString+JavaLikeStringHandle.h"
+#import "ESEpisode.h"
+#import "ESServiceSession.h"
+#import "SFSharedCache.h"
+#import "SFObjectRepository.h"
+#import "ESHTTPRequest.h"
 
-@interface ESRequestProxyAdapter : NSObject <SFRequestProxy, ASIHTTPRequestDelegate>
-
-@property (nonatomic, copy) NSString *URLString;
-@property (nonatomic, assign) BOOL useHTTPPost;
-
-@end
-
-@interface ESRequestProxyAdapter ()
-
-@property (nonatomic, retain) ASIHTTPRequest *request;
-@property (nonatomic, copy) SFRequestProxyCompletion completion;
-
-@end
-
-@implementation ESRequestProxyAdapter
-
-- (void)dealloc
-{
-    [_request clearDelegatesAndCancel];
-}
-
-+ (instancetype)requestWithURLString:(NSString *)URLString useHTTPPost:(BOOL)useHTTPPost
-{
-    ESRequestProxyAdapter *adapter = [ESRequestProxyAdapter new];
-    adapter.URLString = URLString;
-    adapter.useHTTPPost = useHTTPPost;
-    return adapter;
-}
-
-- (void)requestWithParameters:(NSDictionary *)parameters completion:(SFRequestProxyCompletion)completion
-{
-    [self cancel];
-    self.completion = completion;
-    
-    self.request = self.useHTTPPost ? [self HTTPPostWithParameters:parameters] : [self HTTPGetWithParameters:parameters];
-    self.request.delegate = self;
-    [self.request startAsynchronous];
-}
-
-- (ASIHTTPRequest *)HTTPGetWithParameters:(NSDictionary *)parameters
-{
-    NSString *URLString = self.URLString;
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:URLString]];
-    return request;
-}
-
-- (ASIHTTPRequest *)HTTPPostWithParameters:(NSDictionary *)parameters
-{
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:self.URLString]];
-    for (NSString *key in [parameters allKeys]) {
-        [request setPostValue:[parameters valueForKey:key] forKey:key];
-    }
-    return request;
-}
-
-- (void)cancel
-{
-    [self.request clearDelegatesAndCancel];
-    self.completion = nil;
-}
-
-- (void)_notifyResponse:(id)response
-{
-    if (self.completion) {
-        self.completion(response);
-    }
-}
-
-#pragma mark - ASIHTTPRequestDelegate
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    [self _notifyResponse:request.responseString];
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request
-{
-    [self _notifyResponse:request.error];
-}
-
-@end
-
-@interface ESServiceSessionAdapter : NSObject <ESService>
-
-@property (nonatomic, copy) NSString *URLString;
-@property (nonatomic, assign) BOOL useHTTPPost;
-@property (nonatomic, copy) SFRequestProxyResponseProcessor responseProcessor;
-
-@end
-
-@interface ESServiceSessionAdapter ()
-
-@property (nonatomic, retain) SFObjectServiceSession *session;
-
-@end
-
-@implementation ESServiceSessionAdapter
-
-- (void)dealloc
-{
-    [_session cancel];
-}
-
-+ (instancetype)sessionWithURLString:(NSString *)URLString useHTTPPost:(BOOL)useHTTPPost responseProcessor:(SFRequestProxyResponseProcessor)responseProcessor
-{
-    ESServiceSessionAdapter *adapter = [ESServiceSessionAdapter new];
-    adapter.URLString = URLString;
-    adapter.useHTTPPost = useHTTPPost;
-    adapter.responseProcessor = responseProcessor;
-    return adapter;
-}
-
-- (id)init
-{
-    self = [super init];
-    
-    _session = [SFObjectServiceSession new];
-    
-    return self;
-}
-
-- (void)requestWithCompletion:(ESServiceCompletion)completion
-{
-    self.session.requestProxy = [ESRequestProxyAdapter requestWithURLString:self.URLString useHTTPPost:self.useHTTPPost];
-    [self.session setSessionDidFinishHandler:^(id resultObject) {
-        NSError *error = [resultObject isKindOfClass:[NSError class]] ? resultObject : nil;
-        if (completion) {
-            completion(error == nil ? resultObject : nil, error);
-        }
-    }];
-    [self.session start];
-}
-
-- (void)cancel
-{
-    [self.session cancel];
-}
-
-- (BOOL)isExecuting
-{
-    return [self.session isExexuting];
-}
-
-- (void)willRemoveFromObjectRepository
-{
-    [self.session willRemoveFromObjectRepository];
-}
-
-- (BOOL)shouldRemoveFromObjectRepository
-{
-    return [self.session shouldRemoveFromObjectRepository];
-}
-
-- (void)setResponseProcessor:(SFRequestProxyResponseProcessor)responseProcessor
-{
-    self.session.responseProcessor = responseProcessor;
-}
-
-- (SFRequestProxyResponseProcessor)responseProcessor
-{
-    return self.session.responseProcessor;
-}
-
-- (void)setParameterWithKey:(NSString *)key value:(NSString *)value
-{
-    [self.session setParameterValue:value forKey:key];
-}
-
-- (void)removeParameterWithKey:(NSString *)key
-{
-    [self.session removeParameterValueForKey:key];
-}
-
-@end
+NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php";
 
 @implementation ESServiceFactory
 
 + (id<ESService>)eslEpisodes
 {
-    ESServiceSessionAdapter *session = [ESServiceSessionAdapter sessionWithURLString:@"http://www.eslpod.com/website/index_new.html" useHTTPPost:NO responseProcessor:^id(id response, NSError *__autoreleasing *error) {
-        return response;
+    ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:kEpisodesListURLString useHTTPPost:NO];
+    [request setResponseDataWrapper:^id(NSData *data) {
+        return [[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding];
+    }];
+    request.useCache = YES;
+    request.cacheOperator = [ESBlockHTTPRequestCacheOperator cacheOpeartorWithReader:^NSData *(NSString *identifier) {
+        return [[SFSharedCache sharedFileCache] cachedDataWithIdentifier:identifier filter:[SFSharedCache foreverCacheFilter]];
+    } writer:^(NSData *data, NSString *identifier) {
+        [[SFSharedCache sharedFileCache] storeCacheWithIdentifier:identifier data:data];
+    }];
+    [request setRequestDidFinish:^(id response, BOOL fromCache) {
+        if(fromCache){
+            
+        }
+    }];
+    ESServiceSession *session = [ESServiceSession sessionWithRequestProxy:request responseProcessor:^id(id response, NSError *__autoreleasing *error) {
+        NSString *responseString = response;
+        NSString *const matching = @"<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"podcast_table_home\">";
+        NSString *const bottomMatching = @"</table>";
+        NSInteger beginIndex = -1;
+        NSInteger endIndex = 0;
+        
+        NSMutableArray *episodes = [NSMutableArray array];
+        while ((beginIndex = [responseString find:matching fromIndex:endIndex]) != -1
+               && (endIndex = [responseString find:bottomMatching fromIndex:beginIndex + matching.length]) != -1) {
+            NSInteger currentIndex = beginIndex += matching.length;
+            
+            ESEpisode *episode = [ESEpisode new];
+            
+            NSString *const dateMatching = @"<span class=\"date-header\">";
+            NSString *const dateBottomMatching = @"</span><br>";
+            NSInteger dateBeginIndex = [responseString find:dateMatching fromIndex:currentIndex];
+            if (dateBeginIndex != -1) {
+                dateBeginIndex += dateMatching.length;
+                NSInteger dateEndIndex = [responseString find:dateBottomMatching fromIndex:dateBeginIndex];
+                NSString *date = [responseString substringWithBeginIndex:dateBeginIndex endIndex:dateEndIndex];
+                date = [date stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                episode.date = date;
+                currentIndex = dateEndIndex;
+            }
+            
+            NSString *const titleMatching = @"class=\"podcast_title\">";
+            NSString *const titleBottomMatching = @"</a>";
+            NSInteger titleBeginIndex = [responseString find:titleMatching fromIndex:currentIndex];
+            if (titleBeginIndex != -1) {
+                titleBeginIndex += titleMatching.length;
+                NSInteger titleEndIndex = [responseString find:titleBottomMatching fromIndex:titleBeginIndex];
+                NSString *title = [responseString substringWithBeginIndex:titleBeginIndex endIndex:titleEndIndex];
+                title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                episode.title = title;
+                currentIndex = titleEndIndex;
+            }
+            
+            NSString *const soundURLStringMatching = @"Download Podcast";
+            NSInteger downloadStringIndex = [responseString find:soundURLStringMatching fromIndex:currentIndex];
+            if (downloadStringIndex != -1) {
+                NSInteger aLinkBeginIndex = [responseString find:@"<a" fromIndex:downloadStringIndex reverse:YES];
+                NSInteger aLinkEndIndex = [responseString find:@">" fromIndex:aLinkBeginIndex];
+                NSString *aLinkInnerHTML = [responseString substringWithBeginIndex:aLinkBeginIndex endIndex:aLinkEndIndex];
+                NSString *soundURLString = aLinkInnerHTML;
+                episode.soundURLString = soundURLString;
+                currentIndex = downloadStringIndex;
+            }
+            
+            NSString *const episodeDescriptionMatching = @"</span>";
+            NSInteger episodeDescriptionBeginIndex = [responseString find:episodeDescriptionMatching fromIndex:currentIndex];
+            if (episodeDescriptionBeginIndex != -1) {
+                episodeDescriptionBeginIndex += episodeDescriptionMatching.length;
+                NSInteger episodeDescriptionEndIndex = [responseString find:@"<br>" fromIndex:episodeDescriptionBeginIndex];
+                NSString *episodeDescription = [responseString substringWithBeginIndex:episodeDescriptionBeginIndex endIndex:episodeDescriptionEndIndex];
+                episodeDescription = [episodeDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                episodeDescription = [episodeDescription stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                episodeDescription = [episodeDescription stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+                episode.introdution = episodeDescription;
+//                currentIndex = episodeDescriptionEndIndex;
+            }
+            [episodes addObject:episode];
+        }
+        
+        return episodes;
     }];
     return session;
+    return nil;
 }
 
 @end

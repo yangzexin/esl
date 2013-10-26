@@ -11,6 +11,8 @@
 @interface ESEpisode : NSObject
 
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *date;
+@property (nonatomic, copy) NSString *introdution;
 @property (nonatomic, copy) NSString *soundURLString;
 
 @end
