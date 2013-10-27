@@ -29,6 +29,11 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
 
 @implementation ESEpisodeService
 
+- (void)dealloc
+{
+    [_session cancel];
+}
+
 - (void)requestWithCompletion:(ESServiceCompletion)completion
 {
     [self cancel];
@@ -41,9 +46,9 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
             [self _updateEpisodesBackground];
             [self _notifyFinishWithEpisodes:episodes error:nil];
         } else {
-            __block typeof(self) bself = self;
+            __weak typeof(self) weakSelf = self;
             [self _requestEpisodesWithCompletion:^(id resultObject, NSError *error) {
-                [bself _notifyFinishWithEpisodes:resultObject error:error];
+                [weakSelf _notifyFinishWithEpisodes:resultObject error:error];
             }];
         }
     });
@@ -73,14 +78,14 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
 - (void)_requestEpisodesWithCompletion:(ESServiceCompletion)completion
 {
     ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:kEpisodesListURLString useHTTPPost:NO];
-    __block typeof(self) bself = self;
+    __weak typeof(self) weakSelf = self;
     [request setResponseDataWrapper:^id(NSData *data) {
         NSString *string = [[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding];
-        [bself _storeCacheData:string];
+        [weakSelf _storeCacheData:string];
         return string;
     }];
     self.session = [ESServiceSession sessionWithRequestProxy:request responseProcessor:^id(id response, NSError *__autoreleasing *error) {
-        return [bself _analyzeHTML:response];
+        return [weakSelf _analyzeHTML:response];
     }];
     [self.session requestWithCompletion:^(id resultObject, NSError *error) {
         completion(resultObject, error);
@@ -184,7 +189,7 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
 
 - (BOOL)shouldRemoveFromObjectRepository
 {
-    return [self isExecuting];
+    return [self isExecuting] == NO;
 }
 
 - (void)willRemoveFromObjectRepository

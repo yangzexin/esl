@@ -17,14 +17,17 @@
 
 @end
 
-@interface ESSoundManager : NSObject
+OBJC_EXPORT NSString *ESEpisodeSoundDidDownloadNotification;
 
-@property (nonatomic, readonly) NSArray *downloadingEpisodes;
+@interface ESEpisodeManager : NSObject
 
 + (instancetype)sharedManager;
 
-- (BOOL)isEpisodeDownloading:(ESEpisode *)episode;
-- (CGFloat)downloadingPercentWithEpisode:(ESEpisode *)episode;
+- (void)addDownloadedEpisode:(ESEpisode *)episode;
+- (void)reomoveDownloadedEpisode:(ESEpisode *)episode;
+- (NSArray *)downloadedEpisodes;
+- (BOOL)isEpisodeDownloaded:(ESEpisode *)episode;
+
 - (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker;
 
 @end

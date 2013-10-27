@@ -52,12 +52,12 @@
 - (void)requestWithCompletion:(ESServiceCompletion)completion
 {
     self.session.requestProxy = self.requestProxy;
-    __block typeof(self) bself = self;
+    __weak typeof(self) weakSelf = self;
     [self.session setSessionDidStartHandler:self.sessionDidStartHandler];
     [self.session setSessionWillStartHandler:self.sessionWillStartHandler];
     [self.session setSessionDidFinishHandler:^(id resultObject, NSError *error) {
-        if (bself.sessionDidFinishHandler) {
-            bself.sessionDidFinishHandler(resultObject, error);
+        if (weakSelf.sessionDidFinishHandler) {
+            weakSelf.sessionDidFinishHandler(resultObject, error);
         }
         if (completion) {
             completion(resultObject, error);

@@ -46,9 +46,9 @@
 
 - (void)_useRequestProxyWithParameters:(NSDictionary *)parameters
 {
-    __block typeof(self) bself = self;
+    __weak typeof(self) weakSelf = self;
     [self.requestProxy requestWithParameters:parameters completion:^(id response, NSError *error) {
-        [bself _notifyResponse:response error:error];
+        [weakSelf _notifyResponse:response error:error];
     }];
 }
 

@@ -34,6 +34,13 @@
     return _keyIdentifierValueService;
 }
 
+- (void)stopRequestingServiceWithIdnentifier:(NSString *)identifier
+{
+    id<ESService> service = [self.keyIdentifierValueService objectForKey:identifier];
+    [service cancel];
+    [self.keyIdentifierValueService removeObjectForKey:identifier];
+}
+
 - (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion
 {
     [self requestService:service identifier:nil completion:completion];
@@ -42,10 +49,7 @@
 - (void)requestService:(id<ESService>)service identifier:(NSString *)identifier completion:(ESServiceCompletion)completion
 {
     if (identifier) {
-        id<ESService> existService = [self.keyIdentifierValueService objectForKey:identifier];
-        [existService cancel];
-        [self.keyIdentifierValueService removeObjectForKey:identifier];
-        
+        [self stopRequestingServiceWithIdnentifier:identifier];
         [self.keyIdentifierValueService setObject:service forKey:identifier];
     }
     [self.objectRepository addObject:service];

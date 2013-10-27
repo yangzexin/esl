@@ -12,6 +12,7 @@
 
 @interface ESViewController : SFViewController
 
+- (void)stopRequestingServiceWithIdnentifier:(NSString *)identifier;
 - (void)requestService:(id<ESService>)service identifier:(NSString *)identifier completion:(ESServiceCompletion)completion;
 - (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion;
 

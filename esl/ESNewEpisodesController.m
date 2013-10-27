@@ -10,21 +10,23 @@
 #import "ESEpisode.h"
 #import "ESEpisodeService.h"
 #import "ODRefreshControl.h"
-#import "ESSoundManager.h"
 #import "SFBlockedBarButtonItem.h"
 #import "SFDialogTools.h"
-#import "ESLocalEpisodesController.h"
 #import "ESUIDefaults.h"
+#import "ESLocalEpisodesController.h"
+#import "ESViewEpisodeController.h"
+#import "ESEpisodeManager.h"
+#import "ESSoundPlayContext.h"
 
-@interface ESNewEpisodesController () <ESProgressTracker>
+@interface ESNewEpisodesController ()
 
 @property (nonatomic, strong) UIBarButtonItem *refreshBarButtonItem;
+@property (nonatomic, strong) NSArray *episodes;
+@property (nonatomic, strong) NSDictionary *keyEpisodeUidValueCacheStateBool;
 
 @end
 
-@implementation ESNewEpisodesController {
-    NSArray *episodes;
-}
+@implementation ESNewEpisodesController
 
 - (void)dealloc
 {
@@ -43,6 +45,7 @@
 - (void)loadView
 {
     [super loadView];
+    
     if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
         ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
         [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
@@ -52,7 +55,6 @@
     NSMutableArray *toolbarItems = [NSMutableArray array];
     
     __weak typeof(self) weakSelf = self;
-    
     [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
     self.refreshBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh eventHandler:^{
         weakSelf.refreshBarButtonItem.enabled = NO;
@@ -73,14 +75,18 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_episodesDidUpdateNotification:) name:ESEpisodeDidUpdateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_backgroundUpdateEpisodeDidFinishNotification:) name:ESBackgroundUpdateEpisodeDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidStartNofitication:) name:ESSoundPlayDidStartNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidFinishNotification:) name:ESSoundPlayDidFinishNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self->episodes.count == 0) {
+    if (self.episodes.count == 0) {
         [self _requestEpisodes];
     }
+    
+    [self _updatePlayingState];
 }
 
 - (void)_requestEpisodes
@@ -106,15 +112,52 @@
     [self _episodesDidUpdate:noti.object];
 }
 
+- (void)_updatePlayingState
+{
+    __weak typeof(self) weakSelf = self;
+    if ([ESSoundPlayContext sharedContext].playingEpisode != nil) {
+        self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" eventHandler:^{
+            [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
+        }];
+    }
+}
+
 - (void)_backgroundUpdateEpisodeDidFinishNotification:(NSNotification *)noti
 {
     self.refreshBarButtonItem.enabled = YES;
 }
 
+- (void)_soundPlayDidStartNofitication:(NSNotification *)noti
+{
+    [self _updatePlayingState];
+}
+
+- (void)_soundPlayDidFinishNotification:(NSNotification *)noti
+{
+    [self _updatePlayingState];
+}
+
 - (void)_episodesDidUpdate:(NSArray *)newEpisodes
 {
-    self->episodes = newEpisodes;
+    self.episodes = newEpisodes;
+    [self _updateCacheStates];
+    
     [self.tableView reloadData];
+}
+
+- (void)_updateCacheStates
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableDictionary *keyEpisodeUidValueCacheStateBool = [NSMutableDictionary dictionary];
+        for (ESEpisode *episode in self.episodes) {
+            BOOL isCached = [[ESEpisodeManager sharedManager] isEpisodeDownloaded:episode];
+            [keyEpisodeUidValueCacheStateBool setObject:[NSNumber numberWithBool:isCached] forKey:episode.uid];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.keyEpisodeUidValueCacheStateBool = keyEpisodeUidValueCacheStateBool;
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
@@ -144,21 +187,25 @@
 - (void)progressUpdatingWithPercent:(float)percent
 {
     NSLog(@"%f", percent);
+    [self.tableView reloadData];
+}
+
+- (void)_viewEpisode:(ESEpisode *)episode
+{
+    ESViewEpisodeController *controller = [ESViewEpisodeController viewEpisodeControllerWithEpisode:episode];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ESEpisode *episode = [self->episodes objectAtIndex:indexPath.row];
-    id<ESService> soundService = [[ESSoundManager sharedManager] downloadSoundWithEpisode:episode progressTracker:self];
-    [self requestService:soundService completion:^(id resultObject, NSError *error) {
-        
-    }];
+    ESEpisode *episode = [self.episodes objectAtIndex:indexPath.row];
+    [self _viewEpisode:episode];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self->episodes.count;
+    return self.episodes.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -179,7 +226,12 @@
         cell.detailTextLabel.textColor = [UIColor darkGrayColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    ESEpisode *episode = [self->episodes objectAtIndex:indexPath.row];
+    ESEpisode *episode = [self.episodes objectAtIndex:indexPath.row];
+    NSNumber *cacheState = [self.keyEpisodeUidValueCacheStateBool objectForKey:episode.uid];
+    if (cacheState) {
+        BOOL isCached = [cacheState boolValue];
+        cell.textLabel.textColor = isCached ? [UIColor blueColor] : [UIColor blackColor];
+    }
     cell.textLabel.text = episode.title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"\n%@\n%@", episode.date, episode.introdution];
     

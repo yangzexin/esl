@@ -1,0 +1,32 @@
+//
+//  ESSoundPlayContext.h
+//  esl
+//
+//  Created by yangzexin on 10/27/13.
+//  Copyright (c) 2013 yangzexin. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@class ESEpisode;
+
+OBJC_EXPORT NSString *ESSoundPlayDidStartNotification;
+OBJC_EXPORT NSString *ESSoundPlayDidFinishNotification;
+
+@interface ESSoundPlayContext : NSObject
+
++ (instancetype)sharedContext;
+
+@property (nonatomic, readonly) ESEpisode *playingEpisode;
+@property (nonatomic, assign) NSTimeInterval currentTime;
+@property (nonatomic, readonly) NSTimeInterval duration;
+@property (nonatomic, readonly, getter = isPlaying) BOOL playing;
+@property (nonatomic, readonly, getter = isPaused) BOOL paused;
+@property (nonatomic, copy) void(^playingBlock)(NSTimeInterval currentTime, NSTimeInterval duration);
+
+- (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)())finishBlock;
+- (void)pause;
+- (void)resume;
+- (void)stop;
+
+@end

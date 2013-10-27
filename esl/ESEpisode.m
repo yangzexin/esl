@@ -10,4 +10,9 @@
 
 @implementation ESEpisode
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ %@-%@", self.uid, self.title, self.date];
+}
+
 @end
