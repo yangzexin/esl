@@ -213,7 +213,8 @@
 
 - (void)_soundPlayStateDidChangeNotification:(NSNotification *)note
 {
-    [self _updatePlayState];
+    // TODO:bug play state
+//    [self _updatePlayState];
 }
 
 #pragma mark - PlayStatusViewDelegate
