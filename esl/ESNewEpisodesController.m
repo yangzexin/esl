@@ -177,12 +177,6 @@
     [self presentViewController:[ESUIDefaults navigationControllerWithRootViewController:controller] animated:YES completion:nil];
 }
 
-- (void)progressUpdatingWithPercent:(float)percent
-{
-    NSLog(@"%f", percent);
-    [self.tableView reloadData];
-}
-
 - (void)_viewEpisode:(ESEpisode *)episode
 {
     ESViewEpisodeController *controller = [ESViewEpisodeController viewEpisodeControllerWithEpisode:episode];
