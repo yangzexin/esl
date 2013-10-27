@@ -9,6 +9,7 @@
 #import "ESTrackListController.h"
 #import "ESEpisode.h"
 #import "ESEpisodeService.h"
+#import "ODRefreshControl.h"
 
 @implementation ESTrackListController {
     NSArray *episodes;
@@ -28,6 +29,13 @@
     return self;
 }
 
+- (void)loadView
+{
+    [super loadView];
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+    [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -37,6 +45,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self->episodes.count == 0) {
+        [self _requestEpisodes];
+    }
+}
+
+- (void)_requestEpisodes
+{
     __block typeof(self) bself = self;
     [self requestService:[ESEpisodeService new] completion:^(id resultObject, NSError *error) {
         if (error == nil) {
@@ -54,6 +69,11 @@
 {
     self->episodes = newEpisodes;
     [self.tableView reloadData];
+}
+
+- (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
