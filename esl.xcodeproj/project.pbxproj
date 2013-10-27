@@ -412,6 +412,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = yangzexin;
 				TargetAttributes = {
+					3E98E105181A01B000AF8C7F = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					3E98E120181A01B000AF8C7F = {
 						TestTargetID = 3E98E105181A01B000AF8C7F;
 					};

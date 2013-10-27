@@ -84,6 +84,8 @@
     [super viewWillAppear:animated];
     if (self.episodes.count == 0) {
         [self _requestEpisodes];
+    } else {
+        [self _updateCacheStates];
     }
     
     [self _updatePlayingState];
@@ -119,6 +121,7 @@
         self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" eventHandler:^{
             [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
         }];
+        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStyleDone;
     }
 }
 

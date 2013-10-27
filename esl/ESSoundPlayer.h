@@ -19,6 +19,7 @@
 @property (nonatomic, readonly) NSTimeInterval duration;
 
 @property (nonatomic, copy) void(^playingBlock)(NSTimeInterval currentTime, NSTimeInterval duration);
+@property (nonatomic, copy) void(^playStateChanged)();
 
 - (void)playWithSoundPath:(NSString *)path finishBlock:(void(^)())finishBlock;
 - (void)resume;

@@ -48,6 +48,13 @@
         [self _playerStoped];
     } else {
         self.audioPlayer.delegate = self;
+        
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        
+        AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, audioRouteChange, (__bridge void *)(self));
+        
         [self.audioPlayer play];
         __weak typeof(self) weakSelf = self;
         [self.timer stop];
@@ -73,6 +80,9 @@
         self.pausedTime = self.currentTime;
         [self.audioPlayer pause];
         self.paused = YES;
+        if (self.playStateChanged) {
+            self.playStateChanged();
+        }
     }
 }
 
@@ -82,6 +92,9 @@
         self.currentTime = self.pausedTime - 2.0f;
         [self.audioPlayer play];
         self.paused = NO;
+        if (self.playStateChanged) {
+            self.playStateChanged();
+        }
     }
 }
 
@@ -109,6 +122,22 @@
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
     [self _playerStoped];
+}
+
+void audioRouteChange(
+                      void *                  inClientData,
+                      AudioSessionPropertyID	inID,
+                      UInt32                  inDataSize,
+                      const void *            inData)
+{
+    CFDictionaryRef    routeChangeDictionary = inData;
+    CFNumberRef routeChangeReasonRef = CFDictionaryGetValue(routeChangeDictionary, CFSTR(kAudioSession_AudioRouteChangeKey_Reason));
+    SInt32 routeChangeReason;
+    CFNumberGetValue(routeChangeReasonRef, kCFNumberSInt32Type, &routeChangeReason);
+    if(routeChangeReason == kAudioSessionRouteChangeReason_OldDeviceUnavailable){
+        [(__bridge id)inClientData pause];
+    }else if(routeChangeReason == kAudioSessionRouteChangeReason_NewDeviceAvailable){
+    }
 }
 
 @end

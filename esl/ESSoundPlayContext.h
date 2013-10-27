@@ -12,6 +12,7 @@
 
 OBJC_EXPORT NSString *ESSoundPlayDidStartNotification;
 OBJC_EXPORT NSString *ESSoundPlayDidFinishNotification;
+OBJC_EXPORT NSString *ESSoundPlayStateDidChangeNotification;
 
 @interface ESSoundPlayContext : NSObject
 

@@ -11,6 +11,7 @@
 
 NSString *ESSoundPlayDidStartNotification = @"ESSoundPlayDidStartNotification";
 NSString *ESSoundPlayDidFinishNotification = @"ESSoundPlayDidFinishNotification";
+NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNotification";
 
 @interface ESSoundPlayContext ()
 
@@ -51,6 +52,9 @@ NSString *ESSoundPlayDidFinishNotification = @"ESSoundPlayDidFinishNotification"
         if (finishBlock) {
             finishBlock();
         }
+    }];
+    [self.soundPlayer setPlayStateChanged:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayStateDidChangeNotification object:nil];
     }];
 }
 

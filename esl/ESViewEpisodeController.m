@@ -40,7 +40,7 @@
 
 - (void)dealloc
 {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)loadView
@@ -74,11 +74,7 @@
 {
     [super viewDidLoad];
     if ([[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid]) {
-        self.playing = [ESSoundPlayContext sharedContext].isPlaying;
-        self.paused = [ESSoundPlayContext sharedContext].isPaused;
-        self.playerStatusView.totalTime = [ESSoundPlayContext sharedContext].duration;
-        self.playerStatusView.currentTime = [ESSoundPlayContext sharedContext].currentTime;
-        [self _updateUIStates];
+        [self _updatePlayState];
         
         __weak typeof(self) weakSelf = self;
         [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
@@ -88,6 +84,7 @@
     } else {
         [self _updateUIStatesAnimated:self.needHideToolbar == NO];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayStateDidChangeNotification:) name:ESSoundPlayStateDidChangeNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -203,6 +200,20 @@
     } else {
         [self _togglePauseResume];
     }
+}
+
+- (void)_updatePlayState
+{
+    self.playing = [ESSoundPlayContext sharedContext].isPlaying;
+    self.paused = [ESSoundPlayContext sharedContext].isPaused;
+    self.playerStatusView.totalTime = [ESSoundPlayContext sharedContext].duration;
+    self.playerStatusView.currentTime = [ESSoundPlayContext sharedContext].currentTime;
+    [self _updateUIStates];
+}
+
+- (void)_soundPlayStateDidChangeNotification:(NSNotification *)note
+{
+    [self _updatePlayState];
 }
 
 #pragma mark - PlayStatusViewDelegate
