@@ -21,7 +21,6 @@
     self->tableView.dataSource = self;
     self->tableView.backgroundColor = [UIColor clearColor];
     self->tableView.backgroundView = [UIView new];
-    self->tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self->tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self->tableView];
 }

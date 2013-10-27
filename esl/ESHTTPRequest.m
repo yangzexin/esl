@@ -11,35 +11,6 @@
 #import "ASIFormDataRequest.h"
 #import "NSString+SFAddition.h"
 
-@interface ESBlockHTTPRequestCacheOperator ()
-
-@property (nonatomic, copy) NSData *(^reader)(NSString *);
-@property (nonatomic, copy) void (^writer)(NSData *, NSString *);
-
-@end
-
-@implementation ESBlockHTTPRequestCacheOperator
-
-- (NSData *)cachedDataWithIdentifier:(NSString *)identifier
-{
-    return self.reader(identifier);
-}
-
-- (void)storeCacheData:(NSData *)data identifier:(NSString *)identifier
-{
-    self.writer(data, identifier);
-}
-
-+ (instancetype)cacheOpeartorWithReader:(NSData *(^)(NSString *identifier))reader writer:(void(^)(NSData *data, NSString *identifier))writer
-{
-    ESBlockHTTPRequestCacheOperator *operator = [ESBlockHTTPRequestCacheOperator new];
-    operator.reader = reader;
-    operator.writer = writer;
-    return operator;
-}
-
-@end
-
 @interface ESHTTPRequest () <ASIHTTPRequestDelegate>
 
 @property (nonatomic, retain) ASIHTTPRequest *request;
@@ -67,20 +38,7 @@
 {
     [self cancel];
     self.completion = completion;
-    
-    if (self.useCache && self.cacheOperator != nil) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.cacheIdentifier = [self _cacheUniqueIdentifierWithParameters:parameters];
-            NSData *data = [self.cacheOperator cachedDataWithIdentifier:self.cacheIdentifier];
-            if (data != nil && data.length != 0) {
-                [self _finishWithData:data fromCache:YES];
-            } else {
-                [self _startRequestWithParameters:parameters];
-            }
-        });
-    } else {
-        [self _startRequestWithParameters:parameters];
-    }
+    [self _startRequestWithParameters:parameters];
 }
 
 - (void)_startRequestWithParameters:(NSDictionary *)parameters
@@ -89,22 +47,6 @@
     [self.request setTimeOutSeconds:30.0f];
     self.request.delegate = self;
     [self.request startAsynchronous];
-}
-
-- (NSString *)_cacheUniqueIdentifierWithParameters:(NSDictionary *)parameters
-{
-    NSMutableString *string = [NSMutableString stringWithString:self.URLString];
-    [string appendString:@"{"];
-    NSMutableString *paramString = [NSMutableString string];
-    for (NSString *key in [parameters allKeys]) {
-        [paramString appendFormat:@"%@:%@,", key, [parameters objectForKey:key]];
-    }
-    if (paramString.length != 0) {
-        [paramString deleteCharactersInRange:NSMakeRange(paramString.length - 1, 1)];
-    }
-    [string appendString:paramString];
-    [string appendString:@"}"];
-    return [string stringByEncryptingUsingMD5];
 }
 
 - (ASIHTTPRequest *)HTTPGetWithParameters:(NSDictionary *)parameters
@@ -138,18 +80,13 @@
     });
 }
 
-- (void)_finishWithData:(NSData *)data fromCache:(BOOL)fromCache
+- (void)_finishWithData:(NSData *)data
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         id responseData = data;
         if (self.responseDataWrapper) {
             responseData = self.responseDataWrapper(responseData);
         }
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if (self.requestDidFinish) {
-                self.requestDidFinish(responseData, fromCache);
-            }
-        });
         [self _notifyResponse:responseData error:nil];
     });
 }
@@ -158,12 +95,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     NSData *data = request.responseData;
-    [self _finishWithData:data fromCache:NO];
-    if (self.useCache && self.cacheOperator != nil) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.cacheOperator storeCacheData:data identifier:self.cacheIdentifier];
-        });
-    }
+    [self _finishWithData:data];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request

@@ -14,6 +14,7 @@
 
 @interface ESServiceSession : NSObject <ESService>
 
++ (instancetype)sessionWithRequestProxy:(id<SFRequestProxy>)requestProxy;
 + (instancetype)sessionWithRequestProxy:(id<SFRequestProxy>)requestProxy responseProcessor:(SFRequestProxyResponseProcessor)responseProcessor;
 
 - (void)setParameterWithKey:(NSString *)key value:(NSString *)value;

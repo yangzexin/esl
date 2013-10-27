@@ -1,5 +1,5 @@
 //
-//  ESServiceFactory.h
+//  ESEpisodeService.h
 //  esl
 //
 //  Created by yangzexin on 10/26/13.
@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ESService.h"
 
-@interface ESServiceFactory : NSObject
+OBJC_EXPORT NSString *ESEpisodeDidUpdateNotification;
 
-+ (id<ESService>)eslEpisodes;
+@interface ESEpisodeService : NSObject <ESService>
 
 @end

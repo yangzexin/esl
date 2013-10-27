@@ -38,7 +38,7 @@
 		3E98E197181B6DE300AF8C7F /* ESServiceSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E196181B6DE300AF8C7F /* ESServiceSession.m */; };
 		3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */; };
 		3ECA51FD181B474F00740EAF /* ESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FC181B474F00740EAF /* ESService.m */; };
-		3ECA5200181B481E00740EAF /* ESServiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FF181B481E00740EAF /* ESServiceFactory.m */; };
+		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,8 +107,8 @@
 		3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHTTPRequest.m; sourceTree = "<group>"; };
 		3ECA51FB181B474F00740EAF /* ESService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESService.h; sourceTree = "<group>"; };
 		3ECA51FC181B474F00740EAF /* ESService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESService.m; sourceTree = "<group>"; };
-		3ECA51FE181B481E00740EAF /* ESServiceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESServiceFactory.h; sourceTree = "<group>"; };
-		3ECA51FF181B481E00740EAF /* ESServiceFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESServiceFactory.m; sourceTree = "<group>"; };
+		3ECA5204181C168400740EAF /* ESEpisodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEpisodeService.h; sourceTree = "<group>"; };
+		3ECA5205181C168400740EAF /* ESEpisodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEpisodeService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,12 +273,12 @@
 			children = (
 				3ECA51FB181B474F00740EAF /* ESService.h */,
 				3ECA51FC181B474F00740EAF /* ESService.m */,
-				3ECA51FE181B481E00740EAF /* ESServiceFactory.h */,
-				3ECA51FF181B481E00740EAF /* ESServiceFactory.m */,
 				3E98E195181B6DE300AF8C7F /* ESServiceSession.h */,
 				3E98E196181B6DE300AF8C7F /* ESServiceSession.m */,
 				3E98E19A181B6E7400AF8C7F /* ESHTTPRequest.h */,
 				3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */,
+				3ECA5204181C168400740EAF /* ESEpisodeService.h */,
+				3ECA5205181C168400740EAF /* ESEpisodeService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -409,9 +409,9 @@
 				3E98E13B181A024100AF8C7F /* ESTrackListController.m in Sources */,
 				3E98E11A181A01B000AF8C7F /* AppDelegate.m in Sources */,
 				3E98E116181A01B000AF8C7F /* main.m in Sources */,
-				3ECA5200181B481E00740EAF /* ESServiceFactory.m in Sources */,
 				3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
+				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

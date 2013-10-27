@@ -23,6 +23,11 @@
     [_session cancel];
 }
 
++ (instancetype)sessionWithRequestProxy:(id<SFRequestProxy>)requestProxy
+{
+    return [self sessionWithRequestProxy:requestProxy responseProcessor:nil];
+}
+
 + (instancetype)sessionWithRequestProxy:(id<SFRequestProxy>)requestProxy responseProcessor:(SFRequestProxyResponseProcessor)responseProcessor
 {
     ESServiceSession *adapter = [ESServiceSession new];
