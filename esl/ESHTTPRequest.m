@@ -11,7 +11,7 @@
 #import "ASIFormDataRequest.h"
 #import "NSString+SFAddition.h"
 
-@interface ESHTTPRequest () <ASIHTTPRequestDelegate>
+@interface ESHTTPRequest () <ASIHTTPRequestDelegate, ASIProgressDelegate>
 
 @property (nonatomic, retain) ASIHTTPRequest *request;
 @property (nonatomic, copy) SFRequestProxyCompletion completion;
@@ -26,6 +26,11 @@
     [_request clearDelegatesAndCancel];
 }
 
++ (instancetype)requestWithURLString:(NSString *)URLString
+{
+    return [self requestWithURLString:URLString useHTTPPost:NO];
+}
+
 + (instancetype)requestWithURLString:(NSString *)URLString useHTTPPost:(BOOL)useHTTPPost
 {
     ESHTTPRequest *adapter = [ESHTTPRequest new];
@@ -34,7 +39,7 @@
     return adapter;
 }
 
-- (void)requestWithParameters:(NSDictionary *)parameters completion:(SFRequestProxyCompletion)completion
+- (void)requestWithParameters:(NSDictionary *)parameters completion:(void(^)(NSData *responseData, NSError *error))completion
 {
     [self cancel];
     self.completion = completion;
@@ -46,6 +51,7 @@
     self.request = self.useHTTPPost ? [self HTTPPostWithParameters:parameters] : [self HTTPGetWithParameters:parameters];
     [self.request setTimeOutSeconds:30.0f];
     self.request.delegate = self;
+    self.request.downloadProgressDelegate = self;
     [self.request startAsynchronous];
 }
 
@@ -92,15 +98,24 @@
 }
 
 #pragma mark - ASIHTTPRequestDelegate
+- (void)setProgress:(float)newProgress
+{
+    if (self.requestProgressDidChange) {
+        self.requestProgressDidChange(newProgress);
+    }
+}
+
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     NSData *data = request.responseData;
     [self _finishWithData:data];
+    self.request = nil;
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     [self _notifyResponse:nil error:request.error];
+    self.request = nil;
 }
 
 @end

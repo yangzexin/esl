@@ -10,6 +10,11 @@
 #import "ESEpisode.h"
 #import "ESEpisodeService.h"
 #import "ODRefreshControl.h"
+#import "ESSoundManager.h"
+
+@interface ESTrackListController () <ESProgressTracker>
+
+@end
 
 @implementation ESTrackListController {
     NSArray *episodes;
@@ -24,7 +29,7 @@
 {
     self = [super init];
     
-    self.title = @"episodes";
+    self.title = @"Episodes";
     
     return self;
 }
@@ -32,8 +37,10 @@
 - (void)loadView
 {
     [super loadView];
-    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-    [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
+        ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+        [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    }
 }
 
 - (void)viewDidLoad
@@ -73,17 +80,33 @@
 
 - (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
+    [self _requestEpisodes];
     
+    double delayInSeconds = 1.0f;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
+}
+
+- (void)progressUpdatingWithPercent:(float)percent
+{
+    NSLog(@"%f", percent);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    ESEpisode *episode = [self->episodes objectAtIndex:indexPath.row];
+    id<ESService> soundService = [ESSoundManager soundWithURLString:episode.soundURLString progressTracker:self];
+    [self requestService:soundService completion:^(id resultObject, NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return self->episodes.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
