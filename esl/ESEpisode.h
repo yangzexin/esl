@@ -10,6 +10,7 @@
 
 @interface ESEpisode : NSObject
 
+@property (nonatomic, copy) NSString *uid;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *introdution;

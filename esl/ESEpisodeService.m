@@ -12,8 +12,10 @@
 #import "SFSharedCache.h"
 #import "NSString+JavaLikeStringHandle.h"
 #import "ESEpisode.h"
+#import "NSString+SFAddition.h"
 
 NSString *ESEpisodeDidUpdateNotification = @"ESEpisodeDidUpdateNotification";
+NSString *ESBackgroundUpdateEpisodeDidFinishNotification = @"ESBackgroundUpdateEpisodeDidFinishNotification";
 
 NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php";
 
@@ -21,7 +23,7 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
 
 @property (nonatomic, assign) BOOL executing;
 @property (nonatomic, copy) ESServiceCompletion completion;
-@property (nonatomic, retain) ESServiceSession *session;
+@property (nonatomic, strong) ESServiceSession *session;
 
 @end
 
@@ -64,6 +66,7 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
         if (episodes.count != 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:ESEpisodeDidUpdateNotification object:episodes];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:ESBackgroundUpdateEpisodeDidFinishNotification object:nil];
     }];
 }
 
@@ -153,6 +156,7 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
             episode.introdution = episodeDescription;
             currentIndex = episodeDescriptionEndIndex;
         }
+        episode.uid = [[NSString stringWithFormat:@"%@-%@", episode.title, episode.date] stringByEncryptingUsingMD5];
         [episodes addObject:episode];
     }
     return episodes;

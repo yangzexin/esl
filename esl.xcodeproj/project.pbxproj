@@ -19,7 +19,7 @@
 		3E98E125181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
 		3E98E12D181A01B000AF8C7F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E98E12B181A01B000AF8C7F /* InfoPlist.strings */; };
 		3E98E12F181A01B000AF8C7F /* eslTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E12E181A01B000AF8C7F /* eslTests.m */; };
-		3E98E13B181A024100AF8C7F /* ESTrackListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E13A181A024100AF8C7F /* ESTrackListController.m */; };
+		3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E13A181A024100AF8C7F /* ESNewEpisodesController.m */; };
 		3E98E13E181A02A900AF8C7F /* ESViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E13D181A02A900AF8C7F /* ESViewController.m */; };
 		3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E140181A04D600AF8C7F /* ESTableViewController.m */; };
 		3E98E155181A061300AF8C7F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E154181A061300AF8C7F /* SystemConfiguration.framework */; };
@@ -42,6 +42,7 @@
 		3ECA51FD181B474F00740EAF /* ESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FC181B474F00740EAF /* ESService.m */; };
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA520B181CA90000740EAF /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA520A181CA90000740EAF /* ODRefreshControl.m */; };
+		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,8 +86,8 @@
 		3E98E12A181A01B000AF8C7F /* eslTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "eslTests-Info.plist"; sourceTree = "<group>"; };
 		3E98E12C181A01B000AF8C7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3E98E12E181A01B000AF8C7F /* eslTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eslTests.m; sourceTree = "<group>"; };
-		3E98E139181A024100AF8C7F /* ESTrackListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTrackListController.h; sourceTree = "<group>"; };
-		3E98E13A181A024100AF8C7F /* ESTrackListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTrackListController.m; sourceTree = "<group>"; };
+		3E98E139181A024100AF8C7F /* ESNewEpisodesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNewEpisodesController.h; sourceTree = "<group>"; };
+		3E98E13A181A024100AF8C7F /* ESNewEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESNewEpisodesController.m; sourceTree = "<group>"; };
 		3E98E13C181A02A900AF8C7F /* ESViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewController.h; sourceTree = "<group>"; };
 		3E98E13D181A02A900AF8C7F /* ESViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewController.m; sourceTree = "<group>"; };
 		3E98E13F181A04D600AF8C7F /* ESTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTableViewController.h; sourceTree = "<group>"; };
@@ -118,6 +119,8 @@
 		3ECA5205181C168400740EAF /* ESEpisodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEpisodeService.m; sourceTree = "<group>"; };
 		3ECA5209181CA90000740EAF /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODRefreshControl.h; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.h; sourceTree = SOURCE_ROOT; };
 		3ECA520A181CA90000740EAF /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODRefreshControl.m; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.m; sourceTree = SOURCE_ROOT; };
+		3ECA5213181D00C100740EAF /* ESLocalEpisodesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLocalEpisodesController.h; sourceTree = "<group>"; };
+		3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocalEpisodesController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,8 +246,10 @@
 		3E98E138181A022400AF8C7F /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				3E98E139181A024100AF8C7F /* ESTrackListController.h */,
-				3E98E13A181A024100AF8C7F /* ESTrackListController.m */,
+				3E98E139181A024100AF8C7F /* ESNewEpisodesController.h */,
+				3E98E13A181A024100AF8C7F /* ESNewEpisodesController.m */,
+				3ECA5213181D00C100740EAF /* ESLocalEpisodesController.h */,
+				3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */,
 				3E98E13C181A02A900AF8C7F /* ESViewController.h */,
 				3E98E13D181A02A900AF8C7F /* ESViewController.m */,
 				3E98E13F181A04D600AF8C7F /* ESTableViewController.h */,
@@ -439,9 +444,10 @@
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
 				3ECA520B181CA90000740EAF /* ODRefreshControl.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
-				3E98E13B181A024100AF8C7F /* ESTrackListController.m in Sources */,
+				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,
 				3E98E1A8181CADDA00AF8C7F /* ESSoundManager.m in Sources */,
 				3E98E11A181A01B000AF8C7F /* AppDelegate.m in Sources */,
+				3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */,
 				3E98E116181A01B000AF8C7F /* main.m in Sources */,
 				3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,

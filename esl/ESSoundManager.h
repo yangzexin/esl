@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ESService.h"
 
+@class ESEpisode;
+
 @protocol ESProgressTracker <NSObject>
 
 - (void)progressUpdatingWithPercent:(float)percent;
@@ -17,6 +19,12 @@
 
 @interface ESSoundManager : NSObject
 
-+ (id<ESService>)soundWithURLString:(NSString *)URLString progressTracker:(id<ESProgressTracker>)progressTracker;
+@property (nonatomic, readonly) NSArray *downloadingEpisodes;
+
++ (instancetype)sharedManager;
+
+- (BOOL)isEpisodeDownloading:(ESEpisode *)episode;
+- (CGFloat)downloadingPercentWithEpisode:(ESEpisode *)episode;
+- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker;
 
 @end

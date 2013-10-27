@@ -10,8 +10,6 @@
 #import "ESService.h"
 #import "SFObjectServiceSession.h"
 
-@protocol SFCacheFilter;
-
 @interface ESServiceSession : NSObject <ESService>
 
 + (instancetype)sessionWithRequestProxy:(id<SFRequestProxy>)requestProxy;
@@ -19,5 +17,9 @@
 
 - (void)setParameterWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeParameterWithKey:(NSString *)key;
+
+- (void)setSessionWillStartHandler:(void(^)())handler;
+- (void)setSessionDidStartHandler:(void(^)())handler;
+- (void)setSessionDidFinishHandler:(void(^)(id resultObject, NSError *error))handler;
 
 @end

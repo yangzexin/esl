@@ -10,9 +10,13 @@
 
 @interface ESServiceSession ()
 
-@property (nonatomic, retain) SFObjectServiceSession *session;
-@property (nonatomic, retain) id<SFRequestProxy> requestProxy;
+@property (nonatomic, strong) SFObjectServiceSession *session;
+@property (nonatomic, strong) id<SFRequestProxy> requestProxy;
 @property (nonatomic, copy) SFRequestProxyResponseProcessor responseProcessor;
+
+@property (nonatomic, copy) void(^sessionWillStartHandler)();
+@property (nonatomic, copy) void(^sessionDidStartHandler)();
+@property (nonatomic, copy) void(^sessionDidFinishHandler)(id resultObject, NSError *error);
 
 @end
 
@@ -48,9 +52,15 @@
 - (void)requestWithCompletion:(ESServiceCompletion)completion
 {
     self.session.requestProxy = self.requestProxy;
+    __block typeof(self) bself = self;
+    [self.session setSessionDidStartHandler:self.sessionDidStartHandler];
+    [self.session setSessionWillStartHandler:self.sessionWillStartHandler];
     [self.session setSessionDidFinishHandler:^(id resultObject, NSError *error) {
+        if (bself.sessionDidFinishHandler) {
+            bself.sessionDidFinishHandler(resultObject, error);
+        }
         if (completion) {
-            completion(error == nil ? resultObject : nil, error);
+            completion(resultObject, error);
         }
     }];
     [self.session start];

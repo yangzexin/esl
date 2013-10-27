@@ -13,7 +13,7 @@
 
 @interface ESHTTPRequest () <ASIHTTPRequestDelegate, ASIProgressDelegate>
 
-@property (nonatomic, retain) ASIHTTPRequest *request;
+@property (nonatomic, strong) ASIHTTPRequest *request;
 @property (nonatomic, copy) SFRequestProxyCompletion completion;
 @property (nonatomic, copy) NSString *cacheIdentifier;
 

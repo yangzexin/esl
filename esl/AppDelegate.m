@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ESTrackListController.h"
+#import "ESNewEpisodesController.h"
 #import "ESUIDefaults.h"
 
 @implementation AppDelegate
@@ -19,7 +19,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    self.window.rootViewController = [ESUIDefaults navigationControllerWithRootViewController:[ESTrackListController new]];
+    self.window.rootViewController = [ESUIDefaults navigationControllerWithRootViewController:[ESNewEpisodesController new]];
     
     return YES;
 }

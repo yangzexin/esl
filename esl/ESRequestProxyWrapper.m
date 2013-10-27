@@ -10,7 +10,7 @@
 
 @interface ESRequestProxyWrapper ()
 
-@property (nonatomic, retain) id<SFRequestProxy> requestProxy;
+@property (nonatomic, strong) id<SFRequestProxy> requestProxy;
 @property (nonatomic, copy) id(^resultGetter)(NSDictionary *parameters);
 @property (nonatomic, copy) SFRequestProxyCompletion completion;
 

@@ -6,17 +6,23 @@
 //  Copyright (c) 2013 yangzexin. All rights reserved.
 //
 
-#import "ESTrackListController.h"
+#import "ESNewEpisodesController.h"
 #import "ESEpisode.h"
 #import "ESEpisodeService.h"
 #import "ODRefreshControl.h"
 #import "ESSoundManager.h"
+#import "SFBlockedBarButtonItem.h"
+#import "SFDialogTools.h"
+#import "ESLocalEpisodesController.h"
+#import "ESUIDefaults.h"
 
-@interface ESTrackListController () <ESProgressTracker>
+@interface ESNewEpisodesController () <ESProgressTracker>
+
+@property (nonatomic, strong) UIBarButtonItem *refreshBarButtonItem;
 
 @end
 
-@implementation ESTrackListController {
+@implementation ESNewEpisodesController {
     NSArray *episodes;
 }
 
@@ -41,12 +47,32 @@
         ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
         [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     }
+    
+    [self.navigationController setToolbarHidden:NO];
+    NSMutableArray *toolbarItems = [NSMutableArray array];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
+    self.refreshBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh eventHandler:^{
+        weakSelf.refreshBarButtonItem.enabled = NO;
+        [weakSelf _requestEpisodes];
+    }];
+    [toolbarItems addObject:self.refreshBarButtonItem];
+    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
+    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks eventHandler:^{
+        [weakSelf _bookmarkButtonTapped];
+    }]];
+    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
+    
+    [self setToolbarItems:toolbarItems];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_episodesDidUpdateNotification:) name:ESEpisodeDidUpdateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_backgroundUpdateEpisodeDidFinishNotification:) name:ESBackgroundUpdateEpisodeDidFinishNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,10 +85,18 @@
 
 - (void)_requestEpisodes
 {
-    __block typeof(self) bself = self;
-    [self requestService:[ESEpisodeService new] completion:^(id resultObject, NSError *error) {
+    [self _requestEpisodesWithCompletion:nil];
+}
+
+- (void)_requestEpisodesWithCompletion:(void(^)())completion
+{
+    __weak typeof(self) weakSelf = self;
+    [self requestService:[ESEpisodeService new] identifier:@"episodes" completion:^(id resultObject, NSError *error) {
         if (error == nil) {
-            [bself _episodesDidUpdate:resultObject];
+            [weakSelf _episodesDidUpdate:resultObject];
+        }
+        if (completion) {
+            completion();
         }
     }];
 }
@@ -70,6 +104,11 @@
 - (void)_episodesDidUpdateNotification:(NSNotification *)noti
 {
     [self _episodesDidUpdate:noti.object];
+}
+
+- (void)_backgroundUpdateEpisodeDidFinishNotification:(NSNotification *)noti
+{
+    self.refreshBarButtonItem.enabled = YES;
 }
 
 - (void)_episodesDidUpdate:(NSArray *)newEpisodes
@@ -89,6 +128,19 @@
     });
 }
 
+- (void)_bookmarkButtonTapped
+{
+    ESLocalEpisodesController *controller = [ESLocalEpisodesController new];
+    [self presentViewController:[ESUIDefaults navigationControllerWithRootViewController:controller] animated:YES completion:nil];
+}
+
+- (void)_actionButtonTapped
+{
+    [SFDialogTools actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+        
+    } cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Local Episodes", @"Download Manager", nil];
+}
+
 - (void)progressUpdatingWithPercent:(float)percent
 {
     NSLog(@"%f", percent);
@@ -98,7 +150,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ESEpisode *episode = [self->episodes objectAtIndex:indexPath.row];
-    id<ESService> soundService = [ESSoundManager soundWithURLString:episode.soundURLString progressTracker:self];
+    id<ESService> soundService = [[ESSoundManager sharedManager] downloadSoundWithEpisode:episode progressTracker:self];
     [self requestService:soundService completion:^(id resultObject, NSError *error) {
         
     }];

@@ -10,6 +10,7 @@
 #import "ESService.h"
 
 OBJC_EXPORT NSString *ESEpisodeDidUpdateNotification;
+OBJC_EXPORT NSString *ESBackgroundUpdateEpisodeDidFinishNotification;
 
 @interface ESEpisodeService : NSObject <ESService>
 

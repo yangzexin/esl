@@ -1,14 +1,14 @@
 //
-//  TrackListController.h
+//  ESLocalEpisodesController.h
 //  esl
 //
-//  Created by yangzexin on 10/25/13.
+//  Created by yangzexin on 10/27/13.
 //  Copyright (c) 2013 yangzexin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "ESTableViewController.h"
 
-@interface ESTrackListController : ESTableViewController
+@interface ESLocalEpisodesController : ESTableViewController
 
 @end
