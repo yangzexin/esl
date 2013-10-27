@@ -122,7 +122,7 @@
     if (self.downloading) {
         __weak typeof(self) weakSelf = self;
         self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"0%" eventHandler:^{
-            [SFDialogTools alertWithTitle:@"" message:@"Do u want to cancel downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [SFDialogTools alertWithTitle:@"Download" message:@"Do u want to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf stopRequestingServiceWithIdnentifier:@"download_sound"];
                     weakSelf.downloading = NO;
@@ -187,7 +187,7 @@
             [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
                 weakSelf.downloading = NO;
                 if (error != nil) {
-                    [SFDialogTools alertWithTitle:@"" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                    [SFDialogTools alertWithTitle:@"Download" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                         if (buttonIndex != 0) {
                             [weakSelf _playControlBarButtonItemTapped];
                         } else {

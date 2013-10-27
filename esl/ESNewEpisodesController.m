@@ -177,13 +177,6 @@
     [self presentViewController:[ESUIDefaults navigationControllerWithRootViewController:controller] animated:YES completion:nil];
 }
 
-- (void)_actionButtonTapped
-{
-    [SFDialogTools actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
-        
-    } cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Local Episodes", @"Download Manager", nil];
-}
-
 - (void)progressUpdatingWithPercent:(float)percent
 {
     NSLog(@"%f", percent);
