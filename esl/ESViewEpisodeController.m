@@ -138,6 +138,7 @@
             } cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         }];
     }
+    self.playerStatusView.userInteractionEnabled = self.playing;
     [toolbarItems addObject:self.playControlBarButtonItem];
     [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
     

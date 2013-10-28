@@ -79,6 +79,7 @@
     self.totalTimeLabel.backgroundColor = [UIColor clearColor];
     self.totalTimeLabel.textColor = [UIColor blackColor];
     self.totalTimeLabel.font = timeFont;
+    self.totalTimeLabel.textAlignment = NSTextAlignmentRight;
     
     return self;
 }

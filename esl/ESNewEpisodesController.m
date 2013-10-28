@@ -21,6 +21,7 @@
 @interface ESNewEpisodesController ()
 
 @property (nonatomic, strong) UIBarButtonItem *refreshBarButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *nowPlayingBarButtonItem;
 @property (nonatomic, strong) NSArray *episodes;
 @property (nonatomic, strong) NSDictionary *keyEpisodeUidValueCacheStateBool;
 
@@ -51,10 +52,16 @@
         [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     }
     
+    __weak typeof(self) weakSelf = self;
+    
+    self.nowPlayingBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" eventHandler:^{
+        [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
+    }];
+    self.nowPlayingBarButtonItem.style = UIBarButtonItemStyleDone;
+    
     [self.navigationController setToolbarHidden:NO];
     NSMutableArray *toolbarItems = [NSMutableArray array];
     
-    __weak typeof(self) weakSelf = self;
     [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
     self.refreshBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh eventHandler:^{
         weakSelf.refreshBarButtonItem.enabled = NO;
@@ -116,12 +123,8 @@
 
 - (void)_updatePlayingState
 {
-    __weak typeof(self) weakSelf = self;
     if ([ESSoundPlayContext sharedContext].isPlaying) {
-        self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" eventHandler:^{
-            [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
-        }];
-        self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStyleDone;
+        self.navigationItem.rightBarButtonItem = self.nowPlayingBarButtonItem;
     } else {
         self.navigationItem.rightBarButtonItem = nil;
     }

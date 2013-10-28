@@ -140,6 +140,7 @@
 
 - (void)setCurrentTime:(NSTimeInterval)currentTime
 {
+    self.pausedTime = currentTime;
     self.audioPlayer.currentTime = currentTime;
 }
 
