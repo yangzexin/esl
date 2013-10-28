@@ -50,6 +50,10 @@
     if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
         ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
         [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    } else {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+        [self.tableView addSubview:refreshControl];
     }
     
     __weak typeof(self) weakSelf = self;
@@ -169,6 +173,17 @@
 }
 
 - (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    [self _requestEpisodes];
+    
+    double delayInSeconds = 1.0f;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
+}
+
+- (void)_refreshControlDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
     [self _requestEpisodes];
     
