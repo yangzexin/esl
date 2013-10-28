@@ -13,6 +13,8 @@
 		3E2AE563181D3D42001AAE9D /* ESSoundPlayContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE562181D3D42001AAE9D /* ESSoundPlayContext.m */; };
 		3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2AE564181D40BF001AAE9D /* AVFoundation.framework */; };
 		3E2AE56A181D4C3D001AAE9D /* PlayerStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE569181D4C3D001AAE9D /* PlayerStatusView.m */; };
+		3E2AE577181E3C2B001AAE9D /* ApplicationKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE576181E3C2B001AAE9D /* ApplicationKeeper.m */; };
+		3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */; };
 		3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E109181A01B000AF8C7F /* Foundation.framework */; };
 		3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */; };
 		3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
@@ -87,6 +89,9 @@
 		3E2AE564181D40BF001AAE9D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E2AE568181D4C3D001AAE9D /* PlayerStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerStatusView.h; sourceTree = "<group>"; };
 		3E2AE569181D4C3D001AAE9D /* PlayerStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerStatusView.m; sourceTree = "<group>"; };
+		3E2AE575181E3C2B001AAE9D /* ApplicationKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationKeeper.h; sourceTree = "<group>"; };
+		3E2AE576181E3C2B001AAE9D /* ApplicationKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationKeeper.m; sourceTree = "<group>"; };
+		3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ApplicationKeeper.mp3; sourceTree = "<group>"; };
 		3E98E106181A01B000AF8C7F /* esl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = esl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E98E109181A01B000AF8C7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -193,6 +198,16 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		3E2AE574181E3C24001AAE9D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */,
+				3E2AE575181E3C2B001AAE9D /* ApplicationKeeper.h */,
+				3E2AE576181E3C2B001AAE9D /* ApplicationKeeper.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		3E98E0FD181A01B000AF8C7F = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +252,7 @@
 		3E98E10F181A01B000AF8C7F /* esl */ = {
 			isa = PBXGroup;
 			children = (
+				3E2AE574181E3C24001AAE9D /* Utils */,
 				3E98E1A0181B6F0800AF8C7F /* Service */,
 				3E98E169181A07DE00AF8C7F /* Model */,
 				3E98E165181A075800AF8C7F /* ESUIDefaults.h */,
@@ -472,6 +488,7 @@
 			files = (
 				3E98E114181A01B000AF8C7F /* InfoPlist.strings in Resources */,
 				3E98E11C181A01B000AF8C7F /* Images.xcassets in Resources */,
+				3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E98E197181B6DE300AF8C7F /* ESServiceSession.m in Sources */,
+				3E2AE577181E3C2B001AAE9D /* ApplicationKeeper.m in Sources */,
 				3E2AE56A181D4C3D001AAE9D /* PlayerStatusView.m in Sources */,
 				3ECA51FD181B474F00740EAF /* ESService.m in Sources */,
 				3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */,

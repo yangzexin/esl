@@ -45,6 +45,10 @@
 - (void)_viewEpisode:(ESEpisode *)episode
 {
     ESViewEpisodeController *controller = [ESViewEpisodeController viewEpisodeControllerWithEpisode:episode];
+    __weak typeof(self) weakSelf = self;
+    controller.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemDone eventHandler:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    }];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
