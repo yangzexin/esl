@@ -25,6 +25,7 @@ OBJC_EXPORT NSString *ESSoundPlayDidResumeNotification;
 @property (nonatomic, readonly, getter = isPlaying) BOOL playing;
 @property (nonatomic, readonly, getter = isPaused) BOOL paused;
 @property (nonatomic, copy) void(^playingBlock)(NSTimeInterval currentTime, NSTimeInterval duration);
+@property (nonatomic, copy) void(^playFinishBlock)();
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
 

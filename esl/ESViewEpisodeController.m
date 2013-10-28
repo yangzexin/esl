@@ -51,7 +51,6 @@
     
     self.playerStatusView = [[PlayerStatusView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
     self.playerStatusView.delegate = self;
-    [self addView:self.playerStatusView];
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
     self.titleLabel.text = self.episode.title;
@@ -84,11 +83,14 @@
         self.playerStatusView.totalTime = [ESSoundPlayContext sharedContext].duration;
         self.playerStatusView.currentTime = [ESSoundPlayContext sharedContext].currentTime;
         [self _updateUIStates];
+        [self insertView:self.playerStatusView atIndex:0];
         
         __weak typeof(self) weakSelf = self;
         [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
-            weakSelf.playerStatusView.totalTime = duration;
-            weakSelf.playerStatusView.currentTime = currentTime;
+            [weakSelf _playingWithCurrentTime:currentTime duration:duration];
+        }];
+        [[ESSoundPlayContext sharedContext] setPlayFinishBlock:^{
+            [weakSelf _playFinished];
         }];
     } else {
         [self _updateUIStatesAnimated:self.needHideToolbar == NO];
@@ -107,7 +109,7 @@
 
 - (void)progressUpdatingWithPercent:(float)percent
 {
-    self.playControlBarButtonItem.title = [NSString stringWithFormat:@"%.0f%%", percent * 100];
+    self.playControlBarButtonItem.title = [NSString stringWithFormat:@" %.0f%% ", percent * 100];
 }
 
 - (void)_updateUIStatesAnimated:(BOOL)animated
@@ -137,6 +139,7 @@
                 }
             } cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         }];
+        self.playControlBarButtonItem.style = UIBarButtonItemStyleDone;
     }
     self.playerStatusView.userInteractionEnabled = self.playing;
     [toolbarItems addObject:self.playControlBarButtonItem];
@@ -150,18 +153,30 @@
     [self _updateUIStatesAnimated:NO];
 }
 
+- (void)_playFinished
+{
+    self.playing = NO;
+    self.paused = NO;
+    [self _updateUIStates];
+    [self removeView:self.playerStatusView animated:YES];
+}
+
+- (void)_playingWithCurrentTime:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration
+{
+    self.playerStatusView.currentTime = currentTime;
+    self.playerStatusView.totalTime = duration;
+}
+
 - (void)_playWithSoundPath:(NSString *)soundPath
 {
-    [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:soundPath finishBlock:^{
-        self.playing = NO;
-        self.paused = NO;
-        [self _updateUIStates];
-    }];
     __weak typeof(self) weakSelf = self;
     [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
-        weakSelf.playerStatusView.totalTime = duration;
-        weakSelf.playerStatusView.currentTime = currentTime;
+        [weakSelf _playingWithCurrentTime:currentTime duration:duration];
     }];
+    [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:soundPath finishBlock:^{
+        [weakSelf _playFinished];
+    }];
+    [self insertView:self.playerStatusView atIndex:0 animated:YES];
     self.playing = YES;
     self.paused = NO;
     [self _updateUIStates];

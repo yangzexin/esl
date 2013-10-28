@@ -45,13 +45,14 @@ NSString *ESSoundPlayDidResumeNotification = @"ESSoundPlayDidResumeNotification"
 - (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)())finishBlock
 {
     self.playingEpisode = episode;
+    self.playFinishBlock = finishBlock;
     [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidStartNotification object:nil];
     __weak typeof(self) weakSelf = self;
     [self.soundPlayer playWithSoundPath:soundPath finishBlock:^{
         weakSelf.playingEpisode = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidFinishNotification object:nil];
-        if (finishBlock) {
-            finishBlock();
+        if (weakSelf.playFinishBlock) {
+            weakSelf.playFinishBlock();
         }
     }];
     [self.soundPlayer setPlayStateChanged:^{
