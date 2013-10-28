@@ -201,6 +201,8 @@
 		3E2AE574181E3C24001AAE9D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3E2AE55E181D3C90001AAE9D /* ESSoundPlayer.h */,
+				3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */,
 				3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */,
 				3E2AE575181E3C2B001AAE9D /* ApplicationKeeper.h */,
 				3E2AE576181E3C2B001AAE9D /* ApplicationKeeper.m */,
@@ -259,8 +261,6 @@
 				3E98E166181A075800AF8C7F /* ESUIDefaults.m */,
 				3E98E1A6181CADDA00AF8C7F /* ESEpisodeManager.h */,
 				3E98E1A7181CADDA00AF8C7F /* ESEpisodeManager.m */,
-				3E2AE55E181D3C90001AAE9D /* ESSoundPlayer.h */,
-				3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */,
 				3E2AE561181D3D42001AAE9D /* ESSoundPlayContext.h */,
 				3E2AE562181D3D42001AAE9D /* ESSoundPlayContext.m */,
 				3E98E138181A022400AF8C7F /* ViewController */,
