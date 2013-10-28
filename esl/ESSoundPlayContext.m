@@ -11,7 +11,8 @@
 
 NSString *ESSoundPlayDidStartNotification = @"ESSoundPlayDidStartNotification";
 NSString *ESSoundPlayDidFinishNotification = @"ESSoundPlayDidFinishNotification";
-NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNotification";
+NSString *ESSoundPlayDidPauseNotification = @"ESSoundPlayStateDidChangeNotification";
+NSString *ESSoundPlayDidResumeNotification = @"ESSoundPlayDidResumeNotification";
 
 @interface ESSoundPlayContext ()
 
@@ -54,7 +55,11 @@ NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNot
         }
     }];
     [self.soundPlayer setPlayStateChanged:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayStateDidChangeNotification object:nil];
+        if (weakSelf.soundPlayer.isPaused) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidPauseNotification object:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidResumeNotification object:nil];
+        }
     }];
 }
 
@@ -106,6 +111,11 @@ NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNot
 - (NSTimeInterval)duration
 {
     return self.soundPlayer.duration;
+}
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    [self.soundPlayer remoteControlReceivedWithEvent:event];
 }
 
 @end

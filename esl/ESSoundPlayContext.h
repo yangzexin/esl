@@ -12,7 +12,8 @@
 
 OBJC_EXPORT NSString *ESSoundPlayDidStartNotification;
 OBJC_EXPORT NSString *ESSoundPlayDidFinishNotification;
-OBJC_EXPORT NSString *ESSoundPlayStateDidChangeNotification;
+OBJC_EXPORT NSString *ESSoundPlayDidPauseNotification;
+OBJC_EXPORT NSString *ESSoundPlayDidResumeNotification;
 
 @interface ESSoundPlayContext : NSObject
 
@@ -24,6 +25,8 @@ OBJC_EXPORT NSString *ESSoundPlayStateDidChangeNotification;
 @property (nonatomic, readonly, getter = isPlaying) BOOL playing;
 @property (nonatomic, readonly, getter = isPaused) BOOL paused;
 @property (nonatomic, copy) void(^playingBlock)(NSTimeInterval currentTime, NSTimeInterval duration);
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event;
 
 - (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)())finishBlock;
 - (void)pause;

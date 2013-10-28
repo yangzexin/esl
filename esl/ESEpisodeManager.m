@@ -127,7 +127,12 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
     return downloaded;
 }
 
-- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker
+- (id<ESService>)cachedSoundWithEpisode:(ESEpisode *)episode
+{
+    return [self downloadSoundWithEpisode:episode progressTracker:nil sync:YES];
+}
+
+- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker sync:(BOOL)sync
 {
     NSString *URLString = episode.soundURLString;
     ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:URLString];
@@ -151,6 +156,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
         }
         return result;
     }];
+    wrappedRequest.runSynchronously = sync;
     ESServiceSession *session = [ESServiceSession sessionWithRequestProxy:wrappedRequest];
     __weak typeof(self) weakSelf = self;
     [session setSessionDidFinishHandler:^(id resultObject, NSError *error) {
@@ -159,6 +165,11 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
         }
     }];
     return session;
+}
+
+- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker
+{
+    return [self downloadSoundWithEpisode:episode progressTracker:progressTracker sync:NO];
 }
 
 @end

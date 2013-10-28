@@ -11,6 +11,8 @@
 
 @interface ESRequestProxyWrapper : NSObject <SFRequestProxy>
 
+@property (nonatomic, assign) BOOL runSynchronously;
+
 + (instancetype)wrapperWithRequestProxy:(id<SFRequestProxy>)requestProxy resultGetter:(id(^)(NSDictionary *parameters))resultGetter;
 
 @end

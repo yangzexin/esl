@@ -46,6 +46,16 @@
     [self.tableView reloadData];
 }
 
+- (void)setBounces:(BOOL)bounces
+{
+    self.tableView.bounces = bounces;
+}
+
+- (BOOL)bounces
+{
+    return self.tableView.bounces;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIView *view = [self.views objectAtIndex:indexPath.row];

@@ -11,6 +11,8 @@
 
 @interface ESLinearController : ESTableViewController
 
+@property (nonatomic, assign) BOOL bounces;
+
 - (void)addView:(UIView *)view;
 - (void)insertView:(UIView *)view atIndex:(NSInteger)index;
 - (void)removeView:(UIView *)view;

@@ -31,16 +31,28 @@
 {
     self.completion = completion;
     if (self.resultGetter) {
+        if (self.runSynchronously) {
+            [self _useResultGetterWithParameters:parameters];
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self _useResultGetterWithParameters:parameters];
+            });
+        }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            id result = self.resultGetter(parameters);
-            if (result == nil) {
-                [self _useRequestProxyWithParameters:parameters];
-            } else {
-                [self _notifyResponse:result error:nil];
-            }
+            
         });
     } else {
         [self _useRequestProxyWithParameters:parameters];
+    }
+}
+
+- (void)_useResultGetterWithParameters:(NSDictionary *)parameters
+{
+    id result = self.resultGetter(parameters);
+    if (result == nil) {
+        [self _useRequestProxyWithParameters:parameters];
+    } else {
+        [self _notifyResponse:result error:nil];
     }
 }
 

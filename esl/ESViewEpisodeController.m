@@ -47,11 +47,7 @@
 {
     [super loadView];
     self.title = @"Episode";
-    
-    if (self.navigationController.toolbarHidden) {
-        self.needHideToolbar = YES;
-        self.navigationController.toolbarHidden = NO;
-    }
+    self.bounces = NO;
     
     self.playerStatusView = [[PlayerStatusView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
     self.playerStatusView.delegate = self;
@@ -70,11 +66,24 @@
     [self addView:self.introdutionLabel];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.navigationController.toolbarHidden) {
+        self.needHideToolbar = YES;
+        [self.navigationController setToolbarHidden:NO animated:YES];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     if ([[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid]) {
-        [self _updatePlayState];
+        self.playing = [ESSoundPlayContext sharedContext].isPlaying;
+        self.paused = [ESSoundPlayContext sharedContext].isPaused;
+        self.playerStatusView.totalTime = [ESSoundPlayContext sharedContext].duration;
+        self.playerStatusView.currentTime = [ESSoundPlayContext sharedContext].currentTime;
+        [self _updateUIStates];
         
         __weak typeof(self) weakSelf = self;
         [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
@@ -84,7 +93,8 @@
     } else {
         [self _updateUIStatesAnimated:self.needHideToolbar == NO];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayStateDidChangeNotification:) name:ESSoundPlayStateDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidPauseNotification:) name:ESSoundPlayDidPauseNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidResumeNotification:) name:ESSoundPlayDidResumeNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -97,7 +107,7 @@
 
 - (void)progressUpdatingWithPercent:(float)percent
 {
-    self.playControlBarButtonItem.title = [NSString stringWithFormat:@"%.0f%%", percent];
+    self.playControlBarButtonItem.title = [NSString stringWithFormat:@"%.0f%%", percent * 100];
 }
 
 - (void)_updateUIStatesAnimated:(BOOL)animated
@@ -119,7 +129,7 @@
     if (self.downloading) {
         __weak typeof(self) weakSelf = self;
         self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"0%" eventHandler:^{
-            [SFDialogTools alertWithTitle:@"Download" message:@"Do u want to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [SFDialogTools alertWithTitle:@"Download" message:@"r u sure to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf stopRequestingServiceWithIdnentifier:@"download_sound"];
                     weakSelf.downloading = NO;
@@ -171,7 +181,7 @@
 {
     if (self.playing == NO) {
         if ([[ESEpisodeManager sharedManager] isEpisodeDownloaded:self.episode]) {
-            id<ESService> downloadSoundService = [[ESEpisodeManager sharedManager] downloadSoundWithEpisode:self.episode progressTracker:self];
+            id<ESService> downloadSoundService = [[ESEpisodeManager sharedManager] cachedSoundWithEpisode:self.episode];
             __weak typeof(self) weakSelf = self;
             [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
                 [weakSelf _playWithSoundPath:resultObject];
@@ -202,19 +212,16 @@
     }
 }
 
-- (void)_updatePlayState
+- (void)_soundPlayDidPauseNotification:(NSNotification *)note
 {
-    self.playing = [ESSoundPlayContext sharedContext].isPlaying;
-    self.paused = [ESSoundPlayContext sharedContext].isPaused;
-    self.playerStatusView.totalTime = [ESSoundPlayContext sharedContext].duration;
-    self.playerStatusView.currentTime = [ESSoundPlayContext sharedContext].currentTime;
+    self.paused = YES;
     [self _updateUIStates];
 }
 
-- (void)_soundPlayStateDidChangeNotification:(NSNotification *)note
+- (void)_soundPlayDidResumeNotification:(NSNotification *)note
 {
-    // TODO:bug play state
-//    [self _updatePlayState];
+    self.paused = NO;
+    [self _updateUIStates];
 }
 
 #pragma mark - PlayStatusViewDelegate

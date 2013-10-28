@@ -28,6 +28,7 @@ OBJC_EXPORT NSString *ESEpisodeSoundDidDownloadNotification;
 - (NSArray *)downloadedEpisodes;
 - (BOOL)isEpisodeDownloaded:(ESEpisode *)episode;
 
+- (id<ESService>)cachedSoundWithEpisode:(ESEpisode *)episode;
 - (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker;
 
 @end

@@ -52,6 +52,7 @@
     [self.request setTimeOutSeconds:30.0f];
     self.request.delegate = self;
     self.request.downloadProgressDelegate = self;
+    self.request.showAccurateProgress = YES;
     [self.request startAsynchronous];
 }
 

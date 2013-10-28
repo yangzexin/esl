@@ -117,11 +117,13 @@
 - (void)_updatePlayingState
 {
     __weak typeof(self) weakSelf = self;
-    if ([ESSoundPlayContext sharedContext].playingEpisode != nil) {
+    if ([ESSoundPlayContext sharedContext].isPlaying) {
         self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" eventHandler:^{
             [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
         }];
         self.navigationItem.rightBarButtonItem.style = UIBarButtonItemStyleDone;
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
     }
 }
 
