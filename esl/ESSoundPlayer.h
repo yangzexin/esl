@@ -20,10 +20,11 @@
 
 @property (nonatomic, copy) void(^playingBlock)(NSTimeInterval currentTime, NSTimeInterval duration);
 @property (nonatomic, copy) void(^playStateChanged)();
+@property (nonatomic, copy) void(^playStartedBlock)();
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
 
-- (void)playWithSoundPath:(NSString *)path finishBlock:(void(^)())finishBlock;
+- (void)playWithSoundPath:(NSString *)path finishBlock:(void(^)(BOOL success, NSError *error))finishBlock;
 - (void)resume;
 - (void)pause;
 - (void)stop;

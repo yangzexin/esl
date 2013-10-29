@@ -161,7 +161,7 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
             episode.introdution = episodeDescription;
             currentIndex = episodeDescriptionEndIndex;
         }
-        episode.uid = [[NSString stringWithFormat:@"%@-%@", episode.title, episode.date] stringByEncryptingUsingMD5];
+        episode.uid = [[NSString stringWithFormat:@"%@", episode.title] stringByEncryptingUsingMD5];
         [episodes addObject:episode];
     }
     return episodes;

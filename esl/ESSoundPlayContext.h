@@ -24,12 +24,14 @@ OBJC_EXPORT NSString *ESSoundPlayDidResumeNotification;
 @property (nonatomic, readonly) NSTimeInterval duration;
 @property (nonatomic, readonly, getter = isPlaying) BOOL playing;
 @property (nonatomic, readonly, getter = isPaused) BOOL paused;
+
 @property (nonatomic, copy) void(^playingBlock)(NSTimeInterval currentTime, NSTimeInterval duration);
-@property (nonatomic, copy) void(^playFinishBlock)();
+@property (nonatomic, copy) void(^playStartedBlock)();
+@property (nonatomic, copy) void(^playFinishedBlock)(BOOL success, NSError *error);
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
 
-- (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)())finishBlock;
+- (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)(BOOL success, NSError *error))finishBlock;
 - (void)pause;
 - (void)resume;
 - (void)stop;

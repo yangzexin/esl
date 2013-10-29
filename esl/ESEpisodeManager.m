@@ -129,12 +129,14 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 
 - (id<ESService>)cachedSoundWithEpisode:(ESEpisode *)episode
 {
-    return [self downloadSoundWithEpisode:episode progressTracker:nil sync:YES];
+    return [self downloadSoundWithEpisode:episode progressTracker:nil sync:YES forceDownload:NO];
 }
 
-- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker sync:(BOOL)sync
+- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker sync:(BOOL)sync forceDownload:(BOOL)forceDownload
 {
     NSString *URLString = episode.soundURLString;
+    id<SFRequestProxy> requestProxy = nil;
+    
     ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:URLString];
     [request setResponseDataWrapper:^id(NSData * data) {
         NSString *identifier = [URLString stringByEncryptingUsingMD5];
@@ -146,18 +148,23 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
     [request setRequestProgressDidChange:^(float percent) {
         [weakProgressTracker progressUpdatingWithPercent:percent];
     }];
-    ESRequestProxyWrapper *wrappedRequest = [ESRequestProxyWrapper wrapperWithRequestProxy:request resultGetter:^id(NSDictionary *parameters) {
-        id result = nil;
-        NSString *identifier = [URLString stringByEncryptingUsingMD5];
-        NSData *data = [self.cacheManager cachedDataWithIdentifier:identifier filter:[SFSharedCache foreverCacheFilter]];
-        if (data != nil) {
-            NSString *cachedDataFilePath = [self.cacheManager cachedDataFilePathWithIdentifier:identifier];
-            result = cachedDataFilePath;
-        }
-        return result;
-    }];
-    wrappedRequest.runSynchronously = sync;
-    ESServiceSession *session = [ESServiceSession sessionWithRequestProxy:wrappedRequest];
+    requestProxy = request;
+    if (forceDownload == NO) {
+        ESRequestProxyWrapper *wrappedRequest = [ESRequestProxyWrapper wrapperWithRequestProxy:requestProxy resultGetter:^id(NSDictionary *parameters) {
+            id result = nil;
+            NSString *identifier = [URLString stringByEncryptingUsingMD5];
+            NSData *data = [self.cacheManager cachedDataWithIdentifier:identifier filter:[SFSharedCache foreverCacheFilter]];
+            if (data != nil) {
+                NSString *cachedDataFilePath = [self.cacheManager cachedDataFilePathWithIdentifier:identifier];
+                result = cachedDataFilePath;
+            }
+            return result;
+        }];
+        wrappedRequest.runSynchronously = sync;
+        requestProxy = wrappedRequest;
+    }
+    
+    ESServiceSession *session = [ESServiceSession sessionWithRequestProxy:requestProxy];
     __weak typeof(self) weakSelf = self;
     [session setSessionDidFinishHandler:^(id resultObject, NSError *error) {
         if (error == nil) {
@@ -169,7 +176,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 
 - (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker
 {
-    return [self downloadSoundWithEpisode:episode progressTracker:progressTracker sync:NO];
+    return [self downloadSoundWithEpisode:episode progressTracker:progressTracker sync:NO forceDownload:YES];
 }
 
 @end

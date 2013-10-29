@@ -16,7 +16,7 @@
 @property (nonatomic, assign, getter = isPaused) BOOL paused;
 @property (nonatomic, assign) NSTimeInterval pausedTime;
 @property (nonatomic, copy) NSString *playingSoundPath;
-@property (nonatomic, copy) void(^finishBlock)();
+@property (nonatomic, copy) void(^playFinishedBlock)(BOOL success, NSError *error);
 @property (nonatomic, strong) SFRepeatTimer *timer;
 @property (nonatomic, assign) BOOL pausedByPlugout;
 
@@ -37,16 +37,16 @@
     return instance;
 }
 
-- (void)playWithSoundPath:(NSString *)path finishBlock:(void(^)())finishBlock
+- (void)playWithSoundPath:(NSString *)path finishBlock:(void(^)(BOOL success, NSError *error))finishBlock
 {
     [self.audioPlayer stop];
     self.playingSoundPath = path;
-    self.finishBlock = finishBlock;
+    self.playFinishedBlock = finishBlock;
     self.playing = YES;
     NSError *error = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
     if (error != nil) {
-        [self _playerStoped];
+        [self _playerStopedWithError:error];
     } else {
         self.audioPlayer.delegate = self;
         
@@ -57,6 +57,9 @@
         AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, audioRouteChange, (__bridge void *)(self));
         [self _playStateChanged];
         [self.audioPlayer play];
+        if (self.playStartedBlock) {
+            self.playStartedBlock();
+        }
         __weak typeof(self) weakSelf = self;
         [self.timer stop];
         self.timer = [SFRepeatTimer timerWithTimeInterval:0.50f tick:^{
@@ -79,13 +82,18 @@
     }
 }
 
-- (void)_playerStoped
+- (void)_playerStopedWithError:(NSError *)error
 {
     self.playing = NO;
     [self.timer stop]; self.timer = nil;
-    if (self.finishBlock) {
-        self.finishBlock();
+    if (self.playFinishedBlock) {
+        self.playFinishedBlock(error == nil, error);
     }
+}
+
+- (void)_playerStoped
+{
+    [self _playerStopedWithError:nil];
 }
 
 - (void)pause
@@ -173,6 +181,11 @@
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
     [self _playerStoped];
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
+{
+    [self _playerStopedWithError:error];
 }
 
 void audioRouteChange(

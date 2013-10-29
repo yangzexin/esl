@@ -42,17 +42,22 @@ NSString *ESSoundPlayDidResumeNotification = @"ESSoundPlayDidResumeNotification"
     return self;
 }
 
-- (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)())finishBlock
+- (void)playWithEpisode:(ESEpisode *)episode soundPath:(NSString *)soundPath finishBlock:(void(^)(BOOL success, NSError *error))finishBlock
 {
     self.playingEpisode = episode;
-    self.playFinishBlock = finishBlock;
+    self.playFinishedBlock = finishBlock;
     [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidStartNotification object:nil];
     __weak typeof(self) weakSelf = self;
-    [self.soundPlayer playWithSoundPath:soundPath finishBlock:^{
+    [self.soundPlayer setPlayStartedBlock:^{
+        if (weakSelf.playStartedBlock) {
+            weakSelf.playStartedBlock();
+        }
+    }];
+    [self.soundPlayer playWithSoundPath:soundPath finishBlock:^(BOOL success, NSError *error){
         weakSelf.playingEpisode = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidFinishNotification object:nil];
-        if (weakSelf.playFinishBlock) {
-            weakSelf.playFinishBlock();
+        if (weakSelf.playFinishedBlock) {
+            weakSelf.playFinishedBlock(success, error);
         }
     }];
     [self.soundPlayer setPlayStateChanged:^{

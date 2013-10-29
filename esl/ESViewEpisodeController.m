@@ -89,7 +89,7 @@
         [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
             [weakSelf _playingWithCurrentTime:currentTime duration:duration];
         }];
-        [[ESSoundPlayContext sharedContext] setPlayFinishBlock:^{
+        [[ESSoundPlayContext sharedContext] setPlayFinishedBlock:^(BOOL success, NSError *error){
             [weakSelf _playFinished];
         }];
     } else {
@@ -167,19 +167,33 @@
     self.playerStatusView.totalTime = duration;
 }
 
-- (void)_playWithSoundPath:(NSString *)soundPath
+- (void)_playStarted
 {
-    __weak typeof(self) weakSelf = self;
-    [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
-        [weakSelf _playingWithCurrentTime:currentTime duration:duration];
-    }];
-    [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:soundPath finishBlock:^{
-        [weakSelf _playFinished];
-    }];
     [self insertView:self.playerStatusView atIndex:0 animated:YES];
     self.playing = YES;
     self.paused = NO;
     [self _updateUIStates];
+}
+
+- (void)_playWithSoundPath:(NSString *)soundPath
+{
+    __weak typeof(self) weakSelf = self;
+    [[ESSoundPlayContext sharedContext] setPlayStartedBlock:^{
+        [weakSelf _playStarted];
+    }];
+    [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
+        [weakSelf _playingWithCurrentTime:currentTime duration:duration];
+    }];
+    [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:soundPath finishBlock:^(BOOL success, NSError *error){
+        [weakSelf _playFinished];
+        if (error) {
+            [SFDialogTools alertWithTitle:@"Error" message:@"It seems error encountered when playing sound, would u want to redownload this sound?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                if (buttonIndex != 0) {
+                    [weakSelf _downloadSoundAndPlay:YES];
+                }
+            } cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        }
+    }];
 }
 
 - (void)_togglePauseResume
@@ -193,6 +207,31 @@
     [self _updateUIStates];
 }
 
+- (void)_downloadSoundAndPlay:(BOOL)playWhenDownloadFinished
+{
+    self.downloading = YES;
+    [self _updateUIStates];
+    id<ESService> downloadSoundService = [[ESEpisodeManager sharedManager] downloadSoundWithEpisode:self.episode progressTracker:self];
+    __weak typeof(self) weakSelf = self;
+    [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
+        weakSelf.downloading = NO;
+        if (error != nil) {
+            [SFDialogTools alertWithTitle:@"Download" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                if (buttonIndex != 0) {
+                    [weakSelf _downloadSoundAndPlay:playWhenDownloadFinished];
+                } else {
+                    [weakSelf _updateUIStates];
+                }
+            } cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil];
+        } else {
+            [weakSelf _updateUIStates];
+            if (playWhenDownloadFinished) {
+                [weakSelf _playWithSoundPath:resultObject];
+            }
+        }
+    }];
+}
+
 - (void)_playControlBarButtonItemTapped
 {
     if (self.playing == NO) {
@@ -203,25 +242,7 @@
                 [weakSelf _playWithSoundPath:resultObject];
             }];
         } else {
-            self.downloading = YES;
-            [self _updateUIStates];
-            id<ESService> downloadSoundService = [[ESEpisodeManager sharedManager] downloadSoundWithEpisode:self.episode progressTracker:self];
-            __weak typeof(self) weakSelf = self;
-            [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
-                weakSelf.downloading = NO;
-                if (error != nil) {
-                    [SFDialogTools alertWithTitle:@"Download" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
-                        if (buttonIndex != 0) {
-                            [weakSelf _playControlBarButtonItemTapped];
-                        } else {
-                            [weakSelf _updateUIStates];
-                        }
-                    } cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil];
-                } else {
-                    [weakSelf _updateUIStates];
-                    [weakSelf _playWithSoundPath:resultObject];
-                }
-            }];
+            [self _downloadSoundAndPlay:YES];
         }
     } else {
         [self _togglePauseResume];

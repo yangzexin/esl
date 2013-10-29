@@ -22,6 +22,12 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    self.views = nil;
+}
+
 - (void)addView:(UIView *)view
 {
     [self addView:view animated:NO];

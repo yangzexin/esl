@@ -52,4 +52,11 @@
     return cell;
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [self->tableView removeFromSuperview];
+    self->tableView = nil;
+}
+
 @end
