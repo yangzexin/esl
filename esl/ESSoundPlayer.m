@@ -62,7 +62,7 @@
         }
         __weak typeof(self) weakSelf = self;
         [self.timer stop];
-        self.timer = [SFRepeatTimer timerWithTimeInterval:0.50f tick:^{
+        self.timer = [SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
             if (weakSelf.playingBlock) {
                 weakSelf.playingBlock(weakSelf.currentTime, weakSelf.duration);
             }

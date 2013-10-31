@@ -16,6 +16,7 @@
 #import "ESEpisode.h"
 #import "SFObject2Dict.h"
 #import "SFDict2Object.h"
+#import "SFBuildInCacheFilters.h"
 
 NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 
@@ -63,7 +64,8 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 
 - (NSMutableArray *)_downloadedEpisodes
 {
-    NSData *dataOfDownloadedEpisodes = [self.cacheManager cachedDataWithIdentifier:downloadedEpisodesCacheIdentifier filter:[SFSharedCache foreverCacheFilter]];
+    NSData *dataOfDownloadedEpisodes = [self.cacheManager cachedDataWithIdentifier:downloadedEpisodesCacheIdentifier
+                                                                            filter:[SFBuildInCacheFilters foreverCacheFilter]];
     NSMutableArray *downloadedEpisodes = nil;
     if (dataOfDownloadedEpisodes.length != 0) {
         downloadedEpisodes = [NSKeyedUnarchiver unarchiveObjectWithData:dataOfDownloadedEpisodes];
@@ -153,7 +155,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
         ESRequestProxyWrapper *wrappedRequest = [ESRequestProxyWrapper wrapperWithRequestProxy:requestProxy resultGetter:^id(NSDictionary *parameters) {
             id result = nil;
             NSString *identifier = [URLString stringByEncryptingUsingMD5];
-            NSData *data = [self.cacheManager cachedDataWithIdentifier:identifier filter:[SFSharedCache foreverCacheFilter]];
+            NSData *data = [self.cacheManager cachedDataWithIdentifier:identifier filter:[SFBuildInCacheFilters foreverCacheFilter]];
             if (data != nil) {
                 NSString *cachedDataFilePath = [self.cacheManager cachedDataFilePathWithIdentifier:identifier];
                 result = cachedDataFilePath;

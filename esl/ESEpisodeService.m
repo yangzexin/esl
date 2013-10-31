@@ -13,6 +13,7 @@
 #import "NSString+JavaLikeStringHandle.h"
 #import "ESEpisode.h"
 #import "NSString+SFAddition.h"
+#import "SFBuildInCacheFilters.h"
 
 NSString *ESEpisodeDidUpdateNotification = @"ESEpisodeDidUpdateNotification";
 NSString *ESBackgroundUpdateEpisodeDidFinishNotification = @"ESBackgroundUpdateEpisodeDidFinishNotification";
@@ -61,7 +62,7 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
 
 - (NSString *)_cachedData
 {
-    return [[SFSharedCache sharedFileCache] cachedStringWithIdentifier:@"episodes" filter:[SFSharedCache foreverCacheFilter]];
+    return [[SFSharedCache sharedFileCache] cachedStringWithIdentifier:@"episodes" filter:[SFBuildInCacheFilters foreverCacheFilter]];
 }
 
 - (void)_updateEpisodesBackground
