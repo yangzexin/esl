@@ -11,7 +11,7 @@
 #import "SFBlockedBarButtonItem.h"
 #import "UILabel+SFAddition.h"
 #import "ESEpisodeManager.h"
-#import "SFDialogTools.h"
+#import "UIAlertView+SFAddition.h"
 #import "ESSoundPlayContext.h"
 #import "PlayerStatusView.h"
 
@@ -131,7 +131,7 @@
     if (self.downloading) {
         __weak typeof(self) weakSelf = self;
         self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"0%" eventHandler:^{
-            [SFDialogTools alertWithTitle:@"Download" message:@"r u sure to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"Download" message:@"r u sure to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf stopRequestingServiceWithIdnentifier:@"download_sound"];
                     weakSelf.downloading = NO;
@@ -187,7 +187,7 @@
     [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:soundPath finishBlock:^(BOOL success, NSError *error){
         [weakSelf _playFinished];
         if (error) {
-            [SFDialogTools alertWithTitle:@"Error" message:@"It seems error encountered when playing sound, would u want to redownload this sound?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"Error" message:@"It seems error encountered when playing sound, would u want to redownload this sound?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf _downloadSoundAndPlay:YES];
                 }
@@ -216,7 +216,7 @@
     [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
         weakSelf.downloading = NO;
         if (error != nil) {
-            [SFDialogTools alertWithTitle:@"Download" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"Download" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf _downloadSoundAndPlay:playWhenDownloadFinished];
                 } else {

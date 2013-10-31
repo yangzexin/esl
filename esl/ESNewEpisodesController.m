@@ -11,7 +11,7 @@
 #import "ESEpisodeService.h"
 #import "ODRefreshControl.h"
 #import "SFBlockedBarButtonItem.h"
-#import "SFDialogTools.h"
+#import "UIAlertView+SFAddition.h"
 #import "ESUIDefaults.h"
 #import "ESLocalEpisodesController.h"
 #import "ESViewEpisodeController.h"
