@@ -8,11 +8,12 @@
 
 #import "ESServiceSession.h"
 
-@interface ESServiceSession ()
+@interface ESServiceSession () <SFObjectServiceSessionDelegate>
 
 @property (nonatomic, strong) SFObjectServiceSession *session;
 @property (nonatomic, strong) id<SFRequestProxy> requestProxy;
 @property (nonatomic, copy) SFRequestProxyResponseProcessor responseProcessor;
+@property (nonatomic, copy) ESServiceCompletion completion;
 
 @property (nonatomic, copy) void(^sessionWillStartHandler)();
 @property (nonatomic, copy) void(^sessionDidStartHandler)();
@@ -52,17 +53,7 @@
 - (void)requestWithCompletion:(ESServiceCompletion)completion
 {
     self.session.requestProxy = self.requestProxy;
-    __weak typeof(self) weakSelf = self;
-    [self.session setSessionDidStartHandler:self.sessionDidStartHandler];
-    [self.session setSessionWillStartHandler:self.sessionWillStartHandler];
-    [self.session setSessionDidFinishHandler:^(id resultObject, NSError *error) {
-        if (weakSelf.sessionDidFinishHandler) {
-            weakSelf.sessionDidFinishHandler(resultObject, error);
-        }
-        if (completion) {
-            completion(resultObject, error);
-        }
-    }];
+    self.session.delegate = self;
     [self.session start];
 }
 
@@ -71,19 +62,9 @@
     [self.session cancel];
 }
 
-- (void)setResponseProcessor:(SFRequestProxyResponseProcessor)responseProcessor
-{
-    [self.session setResponseProcessor:responseProcessor];
-}
-
-- (SFRequestProxyResponseProcessor)responseProcessor
-{
-    return self.session.responseProcessor;
-}
-
 - (BOOL)isExecuting
 {
-    return [self.session isExexuting];
+    return [self.session isExecuting];
 }
 
 - (void)willRemoveFromObjectRepository
@@ -104,6 +85,39 @@
 - (void)removeParameterWithKey:(NSString *)key
 {
     [self.session removeParameterValueWithKey:key];
+}
+
+#pragma mark - SFObjectServiceSession
+- (id)objectServiceSession:(SFObjectServiceSession *)session objectByProcessingWithResponse:(id)response outError:(NSError **)outError
+{
+    if (self.responseProcessor) {
+        self.responseProcessor(response, outError);
+    }
+    return response;
+}
+
+- (void)objectServiceSessionWillStart:(SFObjectServiceSession *)session
+{
+    if (self.sessionWillStartHandler) {
+        self.sessionWillStartHandler();
+    }
+}
+
+- (void)objectServiceSessionDidStart:(SFObjectServiceSession *)session
+{
+    if (self.sessionDidStartHandler) {
+        self.sessionDidStartHandler();
+    }
+}
+
+- (void)objectServiceSession:(SFObjectServiceSession *)session didFinishWithResultObject:(id)resultObject error:(NSError *)error
+{
+    if (self.sessionDidFinishHandler) {
+        self.sessionDidFinishHandler(resultObject, error);
+    }
+    if (self.completion) {
+        self.completion(resultObject, error);
+    }
 }
 
 @end
