@@ -52,6 +52,7 @@
 
 - (void)requestWithCompletion:(ESServiceCompletion)completion
 {
+    self.completion = completion;
     self.session.requestProxy = self.requestProxy;
     self.session.delegate = self;
     [self.session start];
