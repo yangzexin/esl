@@ -185,6 +185,7 @@
 
 - (void)_refreshControlDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
+    self.refreshBarButtonItem.enabled = YES;
     [self _requestEpisodes];
     
     double delayInSeconds = 1.0f;

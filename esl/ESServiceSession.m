@@ -92,7 +92,7 @@
 - (id)objectServiceSession:(SFObjectServiceSession *)session objectByProcessingWithResponse:(id)response outError:(NSError **)outError
 {
     if (self.responseProcessor) {
-        self.responseProcessor(response, outError);
+        response = self.responseProcessor(response, outError);
     }
     return response;
 }
