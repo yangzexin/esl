@@ -38,7 +38,6 @@
 		3E98E15F181A064400AF8C7F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E15E181A064400AF8C7F /* libxml2.dylib */; };
 		3E98E161181A065100AF8C7F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E160181A065100AF8C7F /* CoreLocation.framework */; };
 		3E98E163181A065700AF8C7F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E162181A065700AF8C7F /* CFNetwork.framework */; };
-		3E98E164181A065D00AF8C7F /* libSimpleFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E14E181A056800AF8C7F /* libSimpleFramework.a */; };
 		3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E166181A075800AF8C7F /* ESUIDefaults.m */; };
 		3E98E168181A075800AF8C7F /* ESUIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E166181A075800AF8C7F /* ESUIDefaults.m */; };
 		3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E16B181A087700AF8C7F /* ESEpisode.m */; };
@@ -51,6 +50,8 @@
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
 		3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA521F181EB5F800740EAF /* ODRefreshControl.m */; };
+		3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF620F11828DB790057A6FE /* libSFFoundation.a */; };
+		3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF620FA1828DB830057A6FE /* libSFiOSKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,19 +62,19 @@
 			remoteGlobalIDString = 3E98E105181A01B000AF8C7F;
 			remoteInfo = esl;
 		};
-		3E98E14D181A056800AF8C7F /* PBXContainerItemProxy */ = {
+		3EF620F01828DB790057A6FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3E98E146181A056700AF8C7F /* SimpleFramework.xcodeproj */;
+			containerPortal = 3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 3ED2D900179FE96700F1CB39;
-			remoteInfo = SimpleFramework;
+			remoteGlobalIDString = 3EC67D611828D10000B6190E;
+			remoteInfo = SFFoundation;
 		};
-		3E98E14F181A056800AF8C7F /* PBXContainerItemProxy */ = {
+		3EF620F91828DB830057A6FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3E98E146181A056700AF8C7F /* SimpleFramework.xcodeproj */;
+			containerPortal = 3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 3ED2D911179FE96700F1CB39;
-			remoteInfo = SimpleFrameworkTests;
+			remoteGlobalIDString = 3ED59DB91828D33A002531DD;
+			remoteInfo = SFiOSKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -114,7 +115,6 @@
 		3E98E13D181A02A900AF8C7F /* ESViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewController.m; sourceTree = "<group>"; };
 		3E98E13F181A04D600AF8C7F /* ESTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTableViewController.h; sourceTree = "<group>"; };
 		3E98E140181A04D600AF8C7F /* ESTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTableViewController.m; sourceTree = "<group>"; };
-		3E98E146181A056700AF8C7F /* SimpleFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SimpleFramework.xcodeproj; path = ../../SimpleFramework/SimpleFramework.xcodeproj; sourceTree = "<group>"; };
 		3E98E154181A061300AF8C7F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3E98E156181A061800AF8C7F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3E98E158181A062800AF8C7F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -143,6 +143,8 @@
 		3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocalEpisodesController.m; sourceTree = "<group>"; };
 		3ECA521E181EB5F800740EAF /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODRefreshControl.h; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.h; sourceTree = "<group>"; };
 		3ECA521F181EB5F800740EAF /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODRefreshControl.m; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.m; sourceTree = "<group>"; };
+		3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFFoundation.xcodeproj; path = ../../SFFoundation/SFFoundation.xcodeproj; sourceTree = "<group>"; };
+		3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFiOSKit.xcodeproj; path = ../../SFiOSKit/SFiOSKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,8 +152,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */,
+				3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
-				3E98E164181A065D00AF8C7F /* libSimpleFramework.a in Frameworks */,
 				3E98E163181A065700AF8C7F /* CFNetwork.framework in Frameworks */,
 				3E98E161181A065100AF8C7F /* CoreLocation.framework in Frameworks */,
 				3E98E15F181A064400AF8C7F /* libxml2.dylib in Frameworks */,
@@ -322,19 +325,11 @@
 		3E98E145181A054700AF8C7F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				3E98E146181A056700AF8C7F /* SimpleFramework.xcodeproj */,
+				3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */,
+				3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */,
 			);
 			name = Dependencies;
 			path = esl;
-			sourceTree = "<group>";
-		};
-		3E98E147181A056700AF8C7F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3E98E14E181A056800AF8C7F /* libSimpleFramework.a */,
-				3E98E150181A056800AF8C7F /* SimpleFrameworkTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3E98E169181A07DE00AF8C7F /* Model */ = {
@@ -378,6 +373,22 @@
 				3ECA521F181EB5F800740EAF /* ODRefreshControl.m */,
 			);
 			name = ODRefreshControl;
+			sourceTree = "<group>";
+		};
+		3EF620ED1828DB790057A6FE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3EF620F11828DB790057A6FE /* libSFFoundation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3EF620F31828DB820057A6FE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3EF620FA1828DB830057A6FE /* libSFiOSKit.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,8 +463,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3E98E147181A056700AF8C7F /* Products */;
-					ProjectRef = 3E98E146181A056700AF8C7F /* SimpleFramework.xcodeproj */;
+					ProductGroup = 3EF620ED1828DB790057A6FE /* Products */;
+					ProjectRef = 3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */;
+				},
+				{
+					ProductGroup = 3EF620F31828DB820057A6FE /* Products */;
+					ProjectRef = 3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -465,18 +480,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3E98E14E181A056800AF8C7F /* libSimpleFramework.a */ = {
+		3EF620F11828DB790057A6FE /* libSFFoundation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libSimpleFramework.a;
-			remoteRef = 3E98E14D181A056800AF8C7F /* PBXContainerItemProxy */;
+			path = libSFFoundation.a;
+			remoteRef = 3EF620F01828DB790057A6FE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3E98E150181A056800AF8C7F /* SimpleFrameworkTests.octest */ = {
+		3EF620FA1828DB830057A6FE /* libSFiOSKit.a */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SimpleFrameworkTests.octest;
-			remoteRef = 3E98E14F181A056800AF8C7F /* PBXContainerItemProxy */;
+			fileType = archive.ar;
+			path = libSFiOSKit.a;
+			remoteRef = 3EF620F91828DB830057A6FE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -660,7 +675,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "../SimpleFramework/**";
+				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -682,7 +697,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "../SimpleFramework/**";
+				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
