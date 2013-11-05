@@ -37,7 +37,12 @@
 {
     [super viewWillAppear:animated];
     if (self.episodes.count == 0) {
-        self.episodes = [[ESEpisodeManager sharedManager] downloadedEpisodes];
+        NSArray *episodes = [[ESEpisodeManager sharedManager] downloadedEpisodes];
+        NSMutableArray *reversedEpisodes = [NSMutableArray array];
+        [episodes enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [reversedEpisodes addObject:obj];
+        }];
+        self.episodes = reversedEpisodes;
         [self.tableView reloadData];
     }
 }
@@ -62,6 +67,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.episodes.count;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[ESEpisodeManager sharedManager] removeDownloadedEpisode:[self.episodes objectAtIndex:indexPath.row]];
+        NSMutableArray *newEpisodes = [NSMutableArray arrayWithArray:self.episodes];
+        [newEpisodes removeObjectAtIndex:indexPath.row];
+        self.episodes = newEpisodes;
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView endUpdates];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

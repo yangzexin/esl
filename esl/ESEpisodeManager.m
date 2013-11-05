@@ -77,6 +77,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 
 - (void)addDownloadedEpisode:(ESEpisode *)episode
 {
+    [self removeDownloadedEpisode:episode];
     NSMutableArray *downloadedEpisodes = [self _downloadedEpisodes];
     
     BOOL exists = NO;
@@ -94,7 +95,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
     }
 }
 
-- (void)reomoveDownloadedEpisode:(ESEpisode *)episode
+- (void)removeDownloadedEpisode:(ESEpisode *)episode
 {
     NSMutableArray *downloadedEpisodes = [self _downloadedEpisodes];
     
@@ -111,6 +112,11 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
         [downloadedEpisodes removeObjectAtIndex:index];
         [self _saveDownloadedEpisodes:downloadedEpisodes];
     }
+}
+
+- (void)exchangePositionWithSourceEpisode:(ESEpisode *)sourceEpisode destinationEpisode:(ESEpisode *)destinationEpisode
+{
+    
 }
 
 - (NSArray *)downloadedEpisodes
