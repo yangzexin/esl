@@ -53,12 +53,12 @@
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
     self.titleLabel.text = self.episode.title;
-    self.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    self.titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [self.titleLabel fitHeightByTextUsingCurrentFontWithMaxHeight:0];
     [self addView:self.titleLabel];
     
     self.introdutionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
-    self.introdutionLabel.font = [UIFont systemFontOfSize:12.0f];
+    self.introdutionLabel.font = [UIFont systemFontOfSize:14.0f];
     self.introdutionLabel.userInteractionEnabled = YES;
     [self.introdutionLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_introdutionLabelTapped:)]];
     [self _toggleIntroducationLabelDisplay];
