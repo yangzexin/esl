@@ -8,14 +8,12 @@
 
 #import "ESNewEpisodesController.h"
 #import "ESEpisode.h"
-#import "ESEpisodeService.h"
 #import "ODRefreshControl.h"
 #import "SFBlockedBarButtonItem.h"
 #import "UIAlertView+SFAddition.h"
 #import "ESUIDefaults.h"
 #import "ESLocalEpisodesController.h"
 #import "ESViewEpisodeController.h"
-#import "ESEpisodeManager.h"
 #import "ESSoundPlayContext.h"
 
 @interface ESNewEpisodesController ()
@@ -62,30 +60,11 @@
         [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
     }];
     self.nowPlayingBarButtonItem.style = UIBarButtonItemStyleDone;
-    
-    [self.navigationController setToolbarHidden:NO];
-    NSMutableArray *toolbarItems = [NSMutableArray array];
-    
-    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
-    self.refreshBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh eventHandler:^{
-        weakSelf.refreshBarButtonItem.enabled = NO;
-        [weakSelf _requestEpisodes];
-    }];
-    [toolbarItems addObject:self.refreshBarButtonItem];
-    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
-    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks eventHandler:^{
-        [weakSelf _bookmarkButtonTapped];
-    }]];
-    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
-    
-    [self setToolbarItems:toolbarItems];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_episodesDidUpdateNotification:) name:ESEpisodeDidUpdateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_backgroundUpdateEpisodeDidFinishNotification:) name:ESBackgroundUpdateEpisodeDidFinishNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidStartNofitication:) name:ESSoundPlayDidStartNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidFinishNotification:) name:ESSoundPlayDidFinishNotification object:nil];
 }
@@ -104,13 +83,29 @@
 
 - (void)_requestEpisodes
 {
-    [self _requestEpisodesWithCompletion:nil];
+    __weak typeof(self) weakSelf = self;
+    [self _requestEpisodesWithCompletion:^{
+        [weakSelf _requestEpisodesWithService:[weakSelf.episodeManager newestEpisodes] completion:nil];
+    }];
+}
+
+- (void)_requestNewestEpisodes
+{
+    __weak typeof(self) weakSelf = self;
+    [self _requestEpisodesWithService:[self.episodeManager newestEpisodes] completion:^{
+        weakSelf.refreshBarButtonItem.enabled = YES;
+    }];
 }
 
 - (void)_requestEpisodesWithCompletion:(void(^)())completion
 {
+    [self _requestEpisodesWithService:[self.episodeManager episodes] completion:completion];
+}
+
+- (void)_requestEpisodesWithService:(id<ESService>)service completion:(void(^)())completion
+{
     __weak typeof(self) weakSelf = self;
-    [self requestService:[ESEpisodeService new] identifier:@"episodes" completion:^(id resultObject, NSError *error) {
+    [self requestService:service identifier:@"episodes" completion:^(id resultObject, NSError *error) {
         if (error == nil) {
             [weakSelf _episodesDidUpdate:resultObject];
         }
@@ -132,11 +127,6 @@
     } else {
         self.navigationItem.rightBarButtonItem = nil;
     }
-}
-
-- (void)_backgroundUpdateEpisodeDidFinishNotification:(NSNotification *)noti
-{
-    self.refreshBarButtonItem.enabled = YES;
 }
 
 - (void)_soundPlayDidStartNofitication:(NSNotification *)noti
@@ -162,7 +152,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableDictionary *keyEpisodeUidValueCacheStateBool = [NSMutableDictionary dictionary];
         for (ESEpisode *episode in self.episodes) {
-            BOOL isCached = [[ESEpisodeManager sharedManager] isEpisodeDownloaded:episode];
+            BOOL isCached = [self.episodeManager isEpisodeDownloaded:episode];
             [keyEpisodeUidValueCacheStateBool setObject:[NSNumber numberWithBool:isCached] forKey:episode.uid];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -174,7 +164,7 @@
 
 - (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
-    [self _requestEpisodes];
+    [self _requestNewestEpisodes];
     
     double delayInSeconds = 1.0f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -186,7 +176,7 @@
 - (void)_refreshControlDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
     self.refreshBarButtonItem.enabled = YES;
-    [self _requestEpisodes];
+    [self _requestNewestEpisodes];
     
     double delayInSeconds = 1.0f;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -195,15 +185,11 @@
     });
 }
 
-- (void)_bookmarkButtonTapped
-{
-    ESLocalEpisodesController *controller = [ESLocalEpisodesController new];
-    [self presentViewController:[ESUIDefaults navigationControllerWithRootViewController:controller] animated:YES completion:nil];
-}
-
 - (void)_viewEpisode:(ESEpisode *)episode
 {
     ESViewEpisodeController *controller = [ESViewEpisodeController viewEpisodeControllerWithEpisode:episode];
+    controller.episodeManager = self.episodeManager;
+    controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

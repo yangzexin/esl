@@ -21,6 +21,8 @@
 - (void)insertView:(UIView *)view atIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)removeView:(UIView *)view animated:(BOOL)animated;
 
+- (void)reloadView:(UIView *)view animated:(BOOL)animated;
+
 - (BOOL)isViewExists:(UIView *)view;
 
 @end

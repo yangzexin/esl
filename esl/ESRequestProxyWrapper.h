@@ -14,5 +14,6 @@
 @property (nonatomic, assign) BOOL runSynchronously;
 
 + (instancetype)wrapperWithRequestProxy:(id<SFRequestProxy>)requestProxy resultGetter:(id(^)(NSDictionary *parameters))resultGetter;
++ (instancetype)wrapperWithResultGetter:(id(^)(NSDictionary *parameters))resultGetter;
 
 @end

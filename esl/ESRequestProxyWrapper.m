@@ -27,6 +27,11 @@
     return wrapper;
 }
 
++ (instancetype)wrapperWithResultGetter:(id(^)(NSDictionary *parameters))resultGetter
+{
+    return [self wrapperWithRequestProxy:nil resultGetter:resultGetter];
+}
+
 - (void)requestWithParameters:(NSDictionary *)parameters completion:(SFRequestProxyCompletion)completion
 {
     self.completion = completion;
@@ -58,10 +63,14 @@
 
 - (void)_useRequestProxyWithParameters:(NSDictionary *)parameters
 {
-    __weak typeof(self) weakSelf = self;
-    [self.requestProxy requestWithParameters:parameters completion:^(id response, NSError *error) {
-        [weakSelf _notifyResponse:response error:error];
-    }];
+    if (self.requestProxy == nil) {
+        [self _notifyResponse:nil error:[NSError errorWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey : @"requestProxy or resultGetter should not be nil at least one"}]];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        [self.requestProxy requestWithParameters:parameters completion:^(id response, NSError *error) {
+            [weakSelf _notifyResponse:response error:error];
+        }];
+    }
 }
 
 - (void)_notifyResponse:(id)response error:(NSError *)error

@@ -48,12 +48,18 @@
 
 - (void)requestService:(id<ESService>)service identifier:(NSString *)identifier completion:(ESServiceCompletion)completion
 {
-    if (identifier) {
-        [self stopRequestingServiceWithIdnentifier:identifier];
-        [self.keyIdentifierValueService setObject:service forKey:identifier];
+    if (service) {
+        if (identifier) {
+            [self stopRequestingServiceWithIdnentifier:identifier];
+            [self.keyIdentifierValueService setObject:service forKey:identifier];
+        }
+        [self.objectRepository addObject:service];
+        [service requestWithCompletion:completion];
+    } else {
+        if (completion) {
+            completion(nil, [NSError errorWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey : @"service cannot be nil"}]);
+        }
     }
-    [self.objectRepository addObject:service];
-    [service requestWithCompletion:completion];
 }
 
 @end

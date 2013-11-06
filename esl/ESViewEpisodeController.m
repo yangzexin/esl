@@ -10,7 +10,6 @@
 #import "ESEpisode.h"
 #import "SFBlockedBarButtonItem.h"
 #import "UILabel+SFAddition.h"
-#import "ESEpisodeManager.h"
 #import "UIAlertView+SFAddition.h"
 #import "ESSoundPlayContext.h"
 #import "PlayerStatusView.h"
@@ -47,7 +46,7 @@
 {
     [super loadView];
     self.title = @"Episode";
-    self.bounces = NO;
+    self.bounces = YES;
     
     self.playerStatusView = [[PlayerStatusView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
     self.playerStatusView.delegate = self;
@@ -59,9 +58,10 @@
     [self addView:self.titleLabel];
     
     self.introdutionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
-    self.introdutionLabel.text = [NSString stringWithFormat:@"%@\n%@", self.episode.date, self.episode.introdution];
     self.introdutionLabel.font = [UIFont systemFontOfSize:12.0f];
-    [self.introdutionLabel fitHeightByTextUsingCurrentFontWithMaxHeight:0];
+    self.introdutionLabel.userInteractionEnabled = YES;
+    [self.introdutionLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_introdutionLabelTapped:)]];
+    [self _toggleIntroducationLabelDisplay];
     [self addView:self.introdutionLabel];
 }
 
@@ -110,6 +110,23 @@
 - (void)progressUpdatingWithPercent:(float)percent
 {
     self.playControlBarButtonItem.title = [NSString stringWithFormat:@" %.0f%% ", percent * 100];
+}
+
+- (void)_introdutionLabelTapped:(UITapGestureRecognizer *)gr
+{
+    [self _toggleIntroducationLabelDisplay];
+}
+
+- (void)_toggleIntroducationLabelDisplay
+{
+    BOOL collapsed = [self.introdutionLabel.text isEqualToString:self.episode.date];
+    
+    self.introdutionLabel.text = collapsed ? [NSString stringWithFormat:@"%@\n\n%@", self.episode.date, self.episode.introdution] : [NSString stringWithFormat:@"%@", self.episode.date];
+    [self.introdutionLabel fitHeightByTextUsingCurrentFontWithMaxHeight:0];
+    CGRect tmpRect = self.introdutionLabel.frame;
+    tmpRect.size.height += 20;
+    self.introdutionLabel.frame = tmpRect;
+    [self reloadView:self.introdutionLabel animated:YES];
 }
 
 - (void)_updateUIStatesAnimated:(BOOL)animated
@@ -211,7 +228,7 @@
 {
     self.downloading = YES;
     [self _updateUIStates];
-    id<ESService> downloadSoundService = [[ESEpisodeManager sharedManager] downloadSoundWithEpisode:self.episode progressTracker:self];
+    id<ESService> downloadSoundService = [self.episodeManager soundPathWithEpisode:self.episode progressTracker:self];
     __weak typeof(self) weakSelf = self;
     [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
         weakSelf.downloading = NO;
@@ -226,7 +243,11 @@
         } else {
             [weakSelf _updateUIStates];
             if (playWhenDownloadFinished) {
-                [weakSelf _playWithSoundPath:resultObject];
+                [UIAlertView alertWithTitle:@"Download" message:@"Download finished, would u like to play now?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                    if (buttonIndex != 0) {
+                        [weakSelf _playWithSoundPath:resultObject];
+                    }
+                } cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
             }
         }
     }];
@@ -235,8 +256,8 @@
 - (void)_playControlBarButtonItemTapped
 {
     if (self.playing == NO) {
-        if ([[ESEpisodeManager sharedManager] isEpisodeDownloaded:self.episode]) {
-            id<ESService> downloadSoundService = [[ESEpisodeManager sharedManager] cachedSoundWithEpisode:self.episode];
+        if ([self.episodeManager isEpisodeDownloaded:self.episode]) {
+            id<ESService> downloadSoundService = [self.episodeManager soundPathWithEpisode:self.episode];
             __weak typeof(self) weakSelf = self;
             [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
                 [weakSelf _playWithSoundPath:resultObject];

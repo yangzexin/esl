@@ -10,6 +10,9 @@
 #import "ESNewEpisodesController.h"
 #import "ESUIDefaults.h"
 #import "ESSoundPlayContext.h"
+#import "ESSharedEpisodeManager.h"
+#import "ESLocalEpisodesController.h"
+#import "SFBlockedBarButtonItem.h"
 
 @implementation AppDelegate
 
@@ -20,7 +23,28 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    self.window.rootViewController = [ESUIDefaults navigationControllerWithRootViewController:[ESNewEpisodesController new]];
+    ESNewEpisodesController *englishpodController = [ESNewEpisodesController new];
+    englishpodController.tabBarItem.image = [UIImage imageNamed:@"icon_local_list"];
+    englishpodController.title = @"Englishpod";
+    englishpodController.episodeManager = [ESSharedEpisodeManager englishpodEpisodeManager];
+    
+    ESNewEpisodesController *eslController = [ESNewEpisodesController new];
+    eslController.tabBarItem.image = [UIImage imageNamed:@"icon_news_list"];
+    eslController.title = @"ESL";
+    eslController.episodeManager = [ESSharedEpisodeManager eslEpisodeManager];
+    __weak typeof(eslController) weakEslController = eslController;
+    eslController.navigationItem.leftBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks eventHandler:^{
+        ESLocalEpisodesController *controller = [ESLocalEpisodesController new];
+        [weakEslController presentViewController:[ESUIDefaults navigationControllerWithRootViewController:controller] animated:YES completion:nil];
+    }];
+    
+    UITabBarController *tabController = [UITabBarController new];
+    tabController.viewControllers = @[
+                                      [ESUIDefaults navigationControllerWithRootViewController:eslController]
+                                      , [ESUIDefaults navigationControllerWithRootViewController:englishpodController]
+                                      ];
+    
+    self.window.rootViewController = tabController;
     
     return YES;
 }

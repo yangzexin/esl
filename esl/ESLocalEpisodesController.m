@@ -9,7 +9,7 @@
 #import "ESLocalEpisodesController.h"
 #import "SFBlockedBarButtonItem.h"
 #import "ESEpisode.h"
-#import "ESEpisodeManager.h"
+#import "ESESLEpisodeManager.h"
 #import "ESViewEpisodeController.h"
 #import "ESUIDefaults.h"
 
@@ -37,7 +37,7 @@
 {
     [super viewWillAppear:animated];
     if (self.episodes.count == 0) {
-        NSArray *episodes = [[ESEpisodeManager sharedManager] downloadedEpisodes];
+        NSArray *episodes = [[ESESLEpisodeManager sharedManager] downloadedEpisodes];
         NSMutableArray *reversedEpisodes = [NSMutableArray array];
         [episodes enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [reversedEpisodes addObject:obj];
@@ -72,7 +72,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[ESEpisodeManager sharedManager] removeDownloadedEpisode:[self.episodes objectAtIndex:indexPath.row]];
+        [[ESESLEpisodeManager sharedManager] removeDownloadedEpisode:[self.episodes objectAtIndex:indexPath.row]];
         NSMutableArray *newEpisodes = [NSMutableArray arrayWithArray:self.episodes];
         [newEpisodes removeObjectAtIndex:indexPath.row];
         self.episodes = newEpisodes;

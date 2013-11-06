@@ -85,6 +85,17 @@
     }
 }
 
+- (void)reloadView:(UIView *)view animated:(BOOL)animated
+{
+    NSUInteger index = [self.views indexOfObject:view];
+    if (index != NSNotFound) {
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+}
+
 - (BOOL)isViewExists:(UIView *)view
 {
     return self.views.count !=0 && [self.views indexOfObject:view] != NSNotFound;

@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ESLinearController.h"
+#import "ESEpisodeManager.h"
 
 @class ESEpisode;
 
 @interface ESViewEpisodeController : ESLinearController
+
+@property (nonatomic, strong) id<ESEpisodeManager> episodeManager;
 
 + (instancetype)viewEpisodeControllerWithEpisode:(ESEpisode *)episode;
 

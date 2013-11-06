@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ESTableViewController.h"
+#import "ESEpisodeManager.h"
 
 @interface ESNewEpisodesController : ESTableViewController
+
+@property (nonatomic, strong) id<ESEpisodeManager> episodeManager;
 
 @end

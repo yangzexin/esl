@@ -1,15 +1,15 @@
 //
-//  ESSoundManager.h
+//  ESEpisodeManager.h
 //  esl
 //
-//  Created by yangzexin on 10/27/13.
+//  Created by yangzexin on 11/6/13.
 //  Copyright (c) 2013 yangzexin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ESService.h"
 
 @class ESEpisode;
+@protocol ESService;
 
 @protocol ESProgressTracker <NSObject>
 
@@ -17,19 +17,12 @@
 
 @end
 
-OBJC_EXPORT NSString *ESEpisodeSoundDidDownloadNotification;
+@protocol ESEpisodeManager <NSObject>
 
-@interface ESEpisodeManager : NSObject
-
-+ (instancetype)sharedManager;
-
-- (void)addDownloadedEpisode:(ESEpisode *)episode;
-- (void)removeDownloadedEpisode:(ESEpisode *)episode;
-- (NSArray *)downloadedEpisodes;
 - (BOOL)isEpisodeDownloaded:(ESEpisode *)episode;
-- (void)exchangePositionWithSourceEpisode:(ESEpisode *)sourceEpisode destinationEpisode:(ESEpisode *)destinationEpisode;
-
-- (id<ESService>)cachedSoundWithEpisode:(ESEpisode *)episode;
-- (id<ESService>)downloadSoundWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker;
+- (id<ESService>)episodes;
+- (id<ESService>)newestEpisodes;
+- (id<ESService>)soundPathWithEpisode:(ESEpisode *)episode;
+- (id<ESService>)soundPathWithEpisode:(ESEpisode *)episode progressTracker:(id<ESProgressTracker>)progressTracker;
 
 @end

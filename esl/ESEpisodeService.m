@@ -35,14 +35,23 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
     [_session cancel];
 }
 
+- (id)init
+{
+    self = [super init];
+    
+    _useCache = YES;
+    
+    return self;
+}
+
 - (void)requestWithCompletion:(ESServiceCompletion)completion
 {
     [self cancel];
     self.completion = completion;
     self.executing = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *_cachedHTML = [self _cachedData];
-        if (_cachedHTML.length != 0) {
+        NSString *_cachedHTML = nil;
+        if (self.useCache && (_cachedHTML = [self _cachedData]) && _cachedHTML.length != 0) {
             NSArray *episodes = [self _analyzeHTML:_cachedHTML];
             [self _updateEpisodesBackground];
             [self _notifyFinishWithEpisodes:episodes error:nil];

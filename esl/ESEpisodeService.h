@@ -14,4 +14,6 @@ OBJC_EXPORT NSString *ESBackgroundUpdateEpisodeDidFinishNotification;
 
 @interface ESEpisodeService : NSObject <ESService>
 
+@property (nonatomic, assign) BOOL useCache;
+
 @end

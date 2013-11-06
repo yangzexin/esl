@@ -44,12 +44,20 @@
 		3E98E16D181A087700AF8C7F /* ESEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E16B181A087700AF8C7F /* ESEpisode.m */; };
 		3E98E197181B6DE300AF8C7F /* ESServiceSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E196181B6DE300AF8C7F /* ESServiceSession.m */; };
 		3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */; };
-		3E98E1A8181CADDA00AF8C7F /* ESEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1A7181CADDA00AF8C7F /* ESEpisodeManager.m */; };
+		3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */; };
 		3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */; };
 		3ECA51FD181B474F00740EAF /* ESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FC181B474F00740EAF /* ESService.m */; };
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
 		3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA521F181EB5F800740EAF /* ODRefreshControl.m */; };
+		3EF0F057182A1BBA0032DC7F /* libid3Parser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF0F056182A1BB20032DC7F /* libid3Parser.a */; };
+		3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */; };
+		3EF0F060182A1EA80032DC7F /* ESSharedEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F05F182A1EA80032DC7F /* ESSharedEpisodeManager.m */; };
+		3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F062182A1EE60032DC7F /* ESEpisodeManager.m */; };
+		3EF0F076182A38F60032DC7F /* icon_local_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F072182A38F60032DC7F /* icon_local_list.png */; };
+		3EF0F077182A38F60032DC7F /* icon_local_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F073182A38F60032DC7F /* icon_local_list@2x.png */; };
+		3EF0F078182A38F60032DC7F /* icon_news_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F074182A38F60032DC7F /* icon_news_list.png */; };
+		3EF0F079182A38F60032DC7F /* icon_news_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F075182A38F60032DC7F /* icon_news_list@2x.png */; };
 		3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF620F11828DB790057A6FE /* libSFFoundation.a */; };
 		3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF620FA1828DB830057A6FE /* libSFiOSKit.a */; };
 /* End PBXBuildFile section */
@@ -61,6 +69,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3E98E105181A01B000AF8C7F;
 			remoteInfo = esl;
+		};
+		3EF0F055182A1BB20032DC7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3EB96456182A190700F2CEB4;
+			remoteInfo = id3Parser;
 		};
 		3EF620F01828DB790057A6FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -131,8 +146,8 @@
 		3E98E196181B6DE300AF8C7F /* ESServiceSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESServiceSession.m; sourceTree = "<group>"; };
 		3E98E19A181B6E7400AF8C7F /* ESHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESHTTPRequest.h; sourceTree = "<group>"; };
 		3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHTTPRequest.m; sourceTree = "<group>"; };
-		3E98E1A6181CADDA00AF8C7F /* ESEpisodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEpisodeManager.h; sourceTree = "<group>"; };
-		3E98E1A7181CADDA00AF8C7F /* ESEpisodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEpisodeManager.m; sourceTree = "<group>"; };
+		3E98E1A6181CADDA00AF8C7F /* ESESLEpisodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESESLEpisodeManager.h; sourceTree = "<group>"; };
+		3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESESLEpisodeManager.m; sourceTree = "<group>"; };
 		3E98E1AC181CB19300AF8C7F /* ESRequestProxyWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRequestProxyWrapper.h; sourceTree = "<group>"; };
 		3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRequestProxyWrapper.m; sourceTree = "<group>"; };
 		3ECA51FB181B474F00740EAF /* ESService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESService.h; sourceTree = "<group>"; };
@@ -143,6 +158,17 @@
 		3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocalEpisodesController.m; sourceTree = "<group>"; };
 		3ECA521E181EB5F800740EAF /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODRefreshControl.h; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.h; sourceTree = "<group>"; };
 		3ECA521F181EB5F800740EAF /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODRefreshControl.m; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.m; sourceTree = "<group>"; };
+		3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = id3Parser.xcodeproj; path = Vendor/id3Parser/id3Parser.xcodeproj; sourceTree = SOURCE_ROOT; };
+		3EF0F05B182A1E430032DC7F /* ESEnglishpodManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEnglishpodManager.h; sourceTree = "<group>"; };
+		3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEnglishpodManager.m; sourceTree = "<group>"; };
+		3EF0F05E182A1EA80032DC7F /* ESSharedEpisodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSharedEpisodeManager.h; sourceTree = "<group>"; };
+		3EF0F05F182A1EA80032DC7F /* ESSharedEpisodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESSharedEpisodeManager.m; sourceTree = "<group>"; };
+		3EF0F061182A1EE60032DC7F /* ESEpisodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEpisodeManager.h; sourceTree = "<group>"; };
+		3EF0F062182A1EE60032DC7F /* ESEpisodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEpisodeManager.m; sourceTree = "<group>"; };
+		3EF0F072182A38F60032DC7F /* icon_local_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_local_list.png; sourceTree = "<group>"; };
+		3EF0F073182A38F60032DC7F /* icon_local_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_local_list@2x.png"; sourceTree = "<group>"; };
+		3EF0F074182A38F60032DC7F /* icon_news_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_news_list.png; sourceTree = "<group>"; };
+		3EF0F075182A38F60032DC7F /* icon_news_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_news_list@2x.png"; sourceTree = "<group>"; };
 		3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFFoundation.xcodeproj; path = ../../SFFoundation/SFFoundation.xcodeproj; sourceTree = "<group>"; };
 		3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFiOSKit.xcodeproj; path = ../../SFiOSKit/SFiOSKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF0F057182A1BBA0032DC7F /* libid3Parser.a in Frameworks */,
 				3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */,
 				3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
@@ -257,16 +284,15 @@
 		3E98E10F181A01B000AF8C7F /* esl */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0F06C182A1F670032DC7F /* ESEpisodeManager */,
 				3E2AE574181E3C24001AAE9D /* Utils */,
 				3E98E1A0181B6F0800AF8C7F /* Service */,
 				3E98E169181A07DE00AF8C7F /* Model */,
+				3E98E138181A022400AF8C7F /* ViewController */,
 				3E98E165181A075800AF8C7F /* ESUIDefaults.h */,
 				3E98E166181A075800AF8C7F /* ESUIDefaults.m */,
-				3E98E1A6181CADDA00AF8C7F /* ESEpisodeManager.h */,
-				3E98E1A7181CADDA00AF8C7F /* ESEpisodeManager.m */,
 				3E2AE561181D3D42001AAE9D /* ESSoundPlayContext.h */,
 				3E2AE562181D3D42001AAE9D /* ESSoundPlayContext.m */,
-				3E98E138181A022400AF8C7F /* ViewController */,
 				3E98E118181A01B000AF8C7F /* AppDelegate.h */,
 				3E98E119181A01B000AF8C7F /* AppDelegate.m */,
 				3E98E11B181A01B000AF8C7F /* Images.xcassets */,
@@ -278,6 +304,7 @@
 		3E98E110181A01B000AF8C7F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0F071182A38EC0032DC7F /* Images */,
 				3E98E111181A01B000AF8C7F /* esl-Info.plist */,
 				3E98E112181A01B000AF8C7F /* InfoPlist.strings */,
 				3E98E115181A01B000AF8C7F /* main.m */,
@@ -325,6 +352,7 @@
 		3E98E145181A054700AF8C7F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */,
 				3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */,
 				3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */,
 			);
@@ -373,6 +401,40 @@
 				3ECA521F181EB5F800740EAF /* ODRefreshControl.m */,
 			);
 			name = ODRefreshControl;
+			sourceTree = "<group>";
+		};
+		3EF0F052182A1BB20032DC7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3EF0F056182A1BB20032DC7F /* libid3Parser.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3EF0F06C182A1F670032DC7F /* ESEpisodeManager */ = {
+			isa = PBXGroup;
+			children = (
+				3EF0F061182A1EE60032DC7F /* ESEpisodeManager.h */,
+				3EF0F062182A1EE60032DC7F /* ESEpisodeManager.m */,
+				3E98E1A6181CADDA00AF8C7F /* ESESLEpisodeManager.h */,
+				3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */,
+				3EF0F05B182A1E430032DC7F /* ESEnglishpodManager.h */,
+				3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */,
+				3EF0F05E182A1EA80032DC7F /* ESSharedEpisodeManager.h */,
+				3EF0F05F182A1EA80032DC7F /* ESSharedEpisodeManager.m */,
+			);
+			name = ESEpisodeManager;
+			sourceTree = "<group>";
+		};
+		3EF0F071182A38EC0032DC7F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3EF0F072182A38F60032DC7F /* icon_local_list.png */,
+				3EF0F073182A38F60032DC7F /* icon_local_list@2x.png */,
+				3EF0F074182A38F60032DC7F /* icon_news_list.png */,
+				3EF0F075182A38F60032DC7F /* icon_news_list@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		3EF620ED1828DB790057A6FE /* Products */ = {
@@ -463,6 +525,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 3EF0F052182A1BB20032DC7F /* Products */;
+					ProjectRef = 3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */;
+				},
+				{
 					ProductGroup = 3EF620ED1828DB790057A6FE /* Products */;
 					ProjectRef = 3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */;
 				},
@@ -480,6 +546,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3EF0F056182A1BB20032DC7F /* libid3Parser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libid3Parser.a;
+			remoteRef = 3EF0F055182A1BB20032DC7F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		3EF620F11828DB790057A6FE /* libSFFoundation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -501,9 +574,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF0F076182A38F60032DC7F /* icon_local_list.png in Resources */,
+				3EF0F078182A38F60032DC7F /* icon_news_list.png in Resources */,
 				3E98E114181A01B000AF8C7F /* InfoPlist.strings in Resources */,
 				3E98E11C181A01B000AF8C7F /* Images.xcassets in Resources */,
+				3EF0F079182A38F60032DC7F /* icon_news_list@2x.png in Resources */,
 				3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */,
+				3EF0F077182A38F60032DC7F /* icon_local_list@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,12 +606,15 @@
 				3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */,
 				3E2AE563181D3D42001AAE9D /* ESSoundPlayContext.m in Sources */,
 				3E98E13E181A02A900AF8C7F /* ESViewController.m in Sources */,
+				3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */,
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
 				3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
 				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
 				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,
-				3E98E1A8181CADDA00AF8C7F /* ESEpisodeManager.m in Sources */,
+				3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */,
+				3EF0F060182A1EA80032DC7F /* ESSharedEpisodeManager.m in Sources */,
+				3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */,
 				3E98E11A181A01B000AF8C7F /* AppDelegate.m in Sources */,
 				3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */,
 				3E2AE553181D24F9001AAE9D /* ESLinearController.m in Sources */,
@@ -675,7 +755,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/**";
+				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -697,7 +777,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/**";
+				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
