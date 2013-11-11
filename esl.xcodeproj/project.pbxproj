@@ -50,7 +50,6 @@
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
 		3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA521F181EB5F800740EAF /* ODRefreshControl.m */; };
-		3EF0F057182A1BBA0032DC7F /* libid3Parser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF0F056182A1BB20032DC7F /* libid3Parser.a */; };
 		3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */; };
 		3EF0F060182A1EA80032DC7F /* ESSharedEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F05F182A1EA80032DC7F /* ESSharedEpisodeManager.m */; };
 		3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F062182A1EE60032DC7F /* ESEpisodeManager.m */; };
@@ -69,13 +68,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3E98E105181A01B000AF8C7F;
 			remoteInfo = esl;
-		};
-		3EF0F055182A1BB20032DC7F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3EB96456182A190700F2CEB4;
-			remoteInfo = id3Parser;
 		};
 		3EF620F01828DB790057A6FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -158,7 +150,6 @@
 		3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocalEpisodesController.m; sourceTree = "<group>"; };
 		3ECA521E181EB5F800740EAF /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODRefreshControl.h; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.h; sourceTree = "<group>"; };
 		3ECA521F181EB5F800740EAF /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODRefreshControl.m; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.m; sourceTree = "<group>"; };
-		3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = id3Parser.xcodeproj; path = Vendor/id3Parser/id3Parser.xcodeproj; sourceTree = SOURCE_ROOT; };
 		3EF0F05B182A1E430032DC7F /* ESEnglishpodManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEnglishpodManager.h; sourceTree = "<group>"; };
 		3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEnglishpodManager.m; sourceTree = "<group>"; };
 		3EF0F05E182A1EA80032DC7F /* ESSharedEpisodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSharedEpisodeManager.h; sourceTree = "<group>"; };
@@ -178,7 +169,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF0F057182A1BBA0032DC7F /* libid3Parser.a in Frameworks */,
 				3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */,
 				3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
@@ -352,7 +342,6 @@
 		3E98E145181A054700AF8C7F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */,
 				3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */,
 				3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */,
 			);
@@ -401,14 +390,6 @@
 				3ECA521F181EB5F800740EAF /* ODRefreshControl.m */,
 			);
 			name = ODRefreshControl;
-			sourceTree = "<group>";
-		};
-		3EF0F052182A1BB20032DC7F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3EF0F056182A1BB20032DC7F /* libid3Parser.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3EF0F06C182A1F670032DC7F /* ESEpisodeManager */ = {
@@ -525,10 +506,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3EF0F052182A1BB20032DC7F /* Products */;
-					ProjectRef = 3EF0F051182A1BB20032DC7F /* id3Parser.xcodeproj */;
-				},
-				{
 					ProductGroup = 3EF620ED1828DB790057A6FE /* Products */;
 					ProjectRef = 3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */;
 				},
@@ -546,13 +523,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3EF0F056182A1BB20032DC7F /* libid3Parser.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libid3Parser.a;
-			remoteRef = 3EF0F055182A1BB20032DC7F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		3EF620F11828DB790057A6FE /* libSFFoundation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

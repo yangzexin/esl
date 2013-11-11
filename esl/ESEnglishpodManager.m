@@ -10,7 +10,6 @@
 #import "ESRequestProxyWrapper.h"
 #import "ESServiceSession.h"
 #import "ESEpisode.h"
-#import "ID3Parser.h"
 #import <AVFoundation/AVFoundation.h>
 
 @implementation ESEnglishpodManager
@@ -72,23 +71,16 @@
                 NSString *year = nil;
                 NSString *lyrics = nil;
                 
-                NSData *data = [NSData dataWithContentsOfFile:soundPath];
-                NSArray *tags = [ID3Parser parseTagWithData:data error:nil];
-                
-                if (tags.count != 0) {
-                    for (NSDictionary *tag in tags) {
-                        if ([[tag valueForKey:@"frameID"] isEqualToString:@"TIT2"]) {
-                            soundTitle = [tag valueForKey:@"value"];
-                        } else if ([[tag valueForKey:@"frameID"] isEqualToString:@"TRCK"]) {
-                            trackNo = [tag valueForKey:@"value"];
-                        } else if ([[tag valueForKey:@"frameID"] isEqualToString:@"TYER"]) {
-                            year = [tag valueForKey:@"value"];
-                        }
-                    }
-                }
-                
                 AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:soundPath] options:nil];
                 lyrics = asset.lyrics;
+                NSArray *metadata = asset.commonMetadata;
+                for (AVMetadataItem *item in metadata) {
+                    if ([item.commonKey isEqualToString:@"title"]) {
+                        soundTitle = item.stringValue;
+                    } else if ([item.commonKey isEqualToString:@"creator"]) {
+                        year = item.stringValue;
+                    }
+                }
                 
                 if (soundTitle.length == 0) {
                     soundTitle = [soundPath lastPathComponent];
@@ -106,7 +98,13 @@
                 episode.uid = uid;
                 episode.soundURLString = soundPath;
                 episode.title = soundTitle;
-                episode.date = [NSString stringWithFormat:@"%@ - %@", year, trackNo];
+                if (year.length != 0 && trackNo.length != 0) {
+                    episode.date = [NSString stringWithFormat:@"%@ - %@", year, trackNo];
+                } else if (year.length != 0) {
+                    episode.date = year;
+                } else {
+                    episode.date = @"-";
+                }
                 episode.introdution = lyrics;
                 [episodes addObject:episode];
             }
