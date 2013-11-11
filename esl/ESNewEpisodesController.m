@@ -141,10 +141,12 @@
 
 - (void)_episodesDidUpdate:(NSArray *)newEpisodes
 {
-    self.episodes = newEpisodes;
-    [self _updateCacheStates];
-    
-    [self.tableView reloadData];
+    if (newEpisodes.count != 0) {
+        self.episodes = newEpisodes;
+        [self _updateCacheStates];
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (void)_updateCacheStates

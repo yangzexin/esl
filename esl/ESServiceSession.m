@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-    [_session cancel];
+    [_session cancel]; _session.delegate = nil;
 }
 
 + (instancetype)sessionWithRequestProxy:(id<SFRequestProxy>)requestProxy
