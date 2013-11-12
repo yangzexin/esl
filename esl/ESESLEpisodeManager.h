@@ -16,8 +16,6 @@
 
 + (instancetype)sharedManager;
 
-+ (id<ESEpisodeManager>)sharedEnglishpodManager;
-
 - (void)addDownloadedEpisode:(ESEpisode *)episode;
 - (void)removeDownloadedEpisode:(ESEpisode *)episode;
 - (NSArray *)downloadedEpisodes;

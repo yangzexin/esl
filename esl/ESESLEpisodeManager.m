@@ -39,11 +39,6 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
     return instance;
 }
 
-+ (id<ESEpisodeManager>)sharedEnglishpodManager
-{
-    return nil;
-}
-
 - (id)init
 {
     self = [super init];

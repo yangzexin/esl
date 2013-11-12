@@ -13,18 +13,22 @@
 #import "UIAlertView+SFAddition.h"
 #import "ESSoundPlayContext.h"
 #import "PlayerStatusView.h"
+#import "ESAutoHeightWebView.h"
+#import "ESHighlightManager.h"
 
-@interface ESViewEpisodeController () <ESProgressTracker, PlayerStatusViewDelegate>
+@interface ESViewEpisodeController () <ESProgressTracker, PlayerStatusViewDelegate, ESAutoHeightWebViewDelegate>
 
 @property (nonatomic, strong) ESEpisode *episode;
 @property (nonatomic, strong) UIBarButtonItem *playControlBarButtonItem;
 @property (nonatomic, strong) PlayerStatusView *playerStatusView;
+@property (nonatomic, strong) UIView *fakeStatusView;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *introdutionLabel;
-@property (nonatomic, assign) BOOL playing;
-@property (nonatomic, assign) BOOL paused;
+@property (nonatomic, strong) ESAutoHeightWebView *introdutionWebView;
+@property (nonatomic, assign, readonly) BOOL playing;
+@property (nonatomic, assign, readonly) BOOL paused;
 @property (nonatomic, assign) BOOL downloading;
 @property (nonatomic, assign) BOOL needHideToolbar;
+@property (nonatomic, strong) id<ESHighlightManager> highlightManager;
 
 @end
 
@@ -53,16 +57,18 @@
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
     self.titleLabel.text = self.episode.title;
-    self.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    self.titleLabel.font = [UIFont systemFontOfSize:20.0f];
     [self.titleLabel fitHeightByTextUsingCurrentFontWithMaxHeight:0];
     [self addView:self.titleLabel];
-    
-    self.introdutionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
-    self.introdutionLabel.font = [UIFont systemFontOfSize:14.0f];
-    self.introdutionLabel.userInteractionEnabled = YES;
-    [self.introdutionLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_introdutionLabelTapped:)]];
-    [self _toggleIntroducationLabelDisplay];
-    [self addView:self.introdutionLabel];
+
+    self.introdutionWebView = [[ESAutoHeightWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 7)];
+    self.introdutionWebView.delegate = self;
+    __weak typeof(self) weakSelf = self;
+    [self.introdutionWebView loadWitHTMLString:self.episode.formattedIntrodution autoFitHeightCompletion:^(CGFloat height) {
+        weakSelf.introdutionWebView.frame = CGRectMake(0, 0, weakSelf.view.frame.size.width, height);
+        [weakSelf reloadView:weakSelf.introdutionWebView animated:YES];
+    }];
+    [self addView:self.introdutionWebView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,13 +83,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.highlightManager = [ESSharedHighlightManager highlightManagerWithIdentifier:self.episode.uid];
+    
     if ([[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid]) {
-        self.playing = [ESSoundPlayContext sharedContext].isPlaying;
-        self.paused = [ESSoundPlayContext sharedContext].isPaused;
         self.playerStatusView.totalTime = [ESSoundPlayContext sharedContext].duration;
         self.playerStatusView.currentTime = [ESSoundPlayContext sharedContext].currentTime;
         [self _updateUIStates];
-        [self insertView:self.playerStatusView atIndex:0];
+        [self _showPlayStatusViewAnimated:NO];
         
         __weak typeof(self) weakSelf = self;
         [[ESSoundPlayContext sharedContext] setPlayingBlock:^(NSTimeInterval currentTime, NSTimeInterval duration) {
@@ -97,6 +103,7 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidPauseNotification:) name:ESSoundPlayDidPauseNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayDidResumeNotification:) name:ESSoundPlayDidResumeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundPlayStateDidChangeNotification:) name:ESSoundPlayStateDidChangeNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -112,29 +119,14 @@
     self.playControlBarButtonItem.title = [NSString stringWithFormat:@" %.0f%% ", percent * 100];
 }
 
-- (void)_introdutionLabelTapped:(UITapGestureRecognizer *)gr
-{
-    [self _toggleIntroducationLabelDisplay];
-}
-
-- (void)_toggleIntroducationLabelDisplay
-{
-    BOOL collapsed = [self.introdutionLabel.text isEqualToString:self.episode.date];
-    
-    self.introdutionLabel.text = collapsed ? [NSString stringWithFormat:@"%@\n\n%@", self.episode.date, self.episode.introdution] : [NSString stringWithFormat:@"%@", self.episode.date];
-    [self.introdutionLabel fitHeightByTextUsingCurrentFontWithMaxHeight:0];
-    CGRect tmpRect = self.introdutionLabel.frame;
-    tmpRect.size.height += 20;
-    self.introdutionLabel.frame = tmpRect;
-    [self reloadView:self.introdutionLabel animated:YES];
-}
-
 - (void)_updateUIStatesAnimated:(BOOL)animated
 {
     NSMutableArray *toolbarItems = [NSMutableArray array];
     
     [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
-    if (self.playing == NO || self.paused == YES) {
+    if (self.playing == NO
+        || self.paused == YES
+        || (self.playing == YES && ![[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid])) {
         __weak typeof(self) weakSelf = self;
         self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemPlay eventHandler:^{
             [weakSelf _playControlBarButtonItemTapped];
@@ -170,12 +162,39 @@
     [self _updateUIStatesAnimated:NO];
 }
 
+- (void)_showPlayStatusViewAnimated:(BOOL)animated
+{
+    self.fakeStatusView = [[UIView alloc] initWithFrame:self.playerStatusView.bounds];
+    [self insertView:self.fakeStatusView atIndex:0];
+    
+    CGRect tmpRect = self.playerStatusView.frame;
+    tmpRect.origin.y = - self.playerStatusView.frame.size.height;
+    self.playerStatusView.frame = tmpRect;
+    [self.view addSubview:self.playerStatusView];
+    [UIView animateWithDuration:animated ? 0.25f : 0.0f animations:^{
+        CGRect tmpRect = self.playerStatusView.frame;
+        tmpRect.origin.y = 0;
+        self.playerStatusView.frame = tmpRect;
+    }];
+}
+
+- (void)_hidePlayStatusView
+{
+    [self removeView:self.fakeStatusView animated:YES];
+    
+    [UIView animateWithDuration:0.25f animations:^{
+        CGRect tmpRect = self.playerStatusView.frame;
+        tmpRect.origin.y = - self.playerStatusView.frame.size.height;
+        self.playerStatusView.frame = tmpRect;
+    } completion:^(BOOL finished) {
+        [self.playerStatusView removeFromSuperview];
+    }];
+}
+
 - (void)_playFinished
 {
-    self.playing = NO;
-    self.paused = NO;
     [self _updateUIStates];
-    [self removeView:self.playerStatusView animated:YES];
+    [self _hidePlayStatusView];
 }
 
 - (void)_playingWithCurrentTime:(NSTimeInterval)currentTime duration:(NSTimeInterval)duration
@@ -186,9 +205,7 @@
 
 - (void)_playStarted
 {
-    [self insertView:self.playerStatusView atIndex:0 animated:YES];
-    self.playing = YES;
-    self.paused = NO;
+    [self _showPlayStatusViewAnimated:YES];
     [self _updateUIStates];
 }
 
@@ -220,7 +237,6 @@
     } else {
         [[ESSoundPlayContext sharedContext] pause];
     }
-    self.paused = !self.paused;
     [self _updateUIStates];
 }
 
@@ -233,7 +249,7 @@
     [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
         weakSelf.downloading = NO;
         if (error != nil) {
-            [UIAlertView alertWithTitle:@"Download" message:@"Download failed" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"Download" message:[NSString stringWithFormat:@"Download failed:%@", error.localizedDescription] completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf _downloadSoundAndPlay:playWhenDownloadFinished];
                 } else {
@@ -255,7 +271,8 @@
 
 - (void)_playControlBarButtonItemTapped
 {
-    if (self.playing == NO) {
+    if (self.playing == NO
+        || (self.playing == YES && ![[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid])) {
         if ([self.episodeManager isEpisodeDownloaded:self.episode]) {
             id<ESService> downloadSoundService = [self.episodeManager soundPathWithEpisode:self.episode];
             __weak typeof(self) weakSelf = self;
@@ -272,14 +289,45 @@
 
 - (void)_soundPlayDidPauseNotification:(NSNotification *)note
 {
-    self.paused = YES;
     [self _updateUIStates];
 }
 
 - (void)_soundPlayDidResumeNotification:(NSNotification *)note
 {
-    self.paused = NO;
     [self _updateUIStates];
+}
+
+- (void)_soundPlayStateDidChangeNotification:(NSNotification *)note
+{
+    [self _updateUIStates];
+}
+
+- (BOOL)paused
+{
+    return [[ESSoundPlayContext sharedContext] isPaused];
+}
+
+- (BOOL)playing
+{
+    return [[ESSoundPlayContext sharedContext] isPlaying];
+}
+
+#pragma mark - ESAutoHeightWebViewDelegate
+- (void)autoHeightWebView:(ESAutoHeightWebView *)webView highlightingText:(NSString *)text
+{
+    ESHighlight *highlight = [ESHighlight new];
+    highlight.text = text;
+    
+    [self.highlightManager addHighlight:highlight];
+}
+
+- (void)autoHeightWebView:(ESAutoHeightWebView *)webView unhighlightingText:(NSString *)text
+{
+}
+
+- (BOOL)autoHeightWebView:(ESAutoHeightWebView *)web shouldUnhightText:(NSString *)text
+{
+    return NO;
 }
 
 #pragma mark - PlayStatusViewDelegate

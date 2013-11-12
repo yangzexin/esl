@@ -50,6 +50,7 @@
 - (void)_viewEpisode:(ESEpisode *)episode
 {
     ESViewEpisodeController *controller = [ESViewEpisodeController viewEpisodeControllerWithEpisode:episode];
+    controller.episodeManager = [ESESLEpisodeManager sharedManager];
     __weak typeof(self) weakSelf = self;
     controller.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemDone eventHandler:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -102,7 +103,7 @@
     }
     ESEpisode *episode = [self.episodes objectAtIndex:indexPath.row];
     cell.textLabel.text = episode.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"\n%@\n%@", episode.date, episode.introdution];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"\n%@\n%@", episode.date, episode.formattedIntrodution];
     
     return cell;
 }

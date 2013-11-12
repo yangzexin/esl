@@ -86,7 +86,7 @@
                     soundTitle = [soundPath lastPathComponent];
                 }
                 if (trackNo.length == 0) {
-                    trackNo = @"";
+                    trackNo = [NSString stringWithFormat:@"E%d", [uid integerValue]];
                 }
                 if (year.length == 0) {
                     year = @"";
@@ -98,14 +98,14 @@
                 episode.uid = uid;
                 episode.soundURLString = soundPath;
                 episode.title = soundTitle;
-                if (year.length != 0 && trackNo.length != 0) {
-                    episode.date = [NSString stringWithFormat:@"%@ - %@", year, trackNo];
-                } else if (year.length != 0) {
-                    episode.date = year;
-                } else {
-                    episode.date = @"-";
+                episode.date = [NSString stringWithFormat:@"%@ - %@", trackNo, year];
+                NSString *(^lyricsWrapper)(NSString *) = self.lyricsWrapper;
+                if (lyricsWrapper == nil) {
+                    lyricsWrapper = _defaultHTMLLyricsWrapper;
                 }
                 episode.introdution = lyrics;
+                lyrics = lyricsWrapper(lyrics);
+                episode.formattedIntrodution = lyrics;
                 [episodes addObject:episode];
             }
         }
@@ -124,5 +124,15 @@
 {
     return [self soundPathWithEpisode:episode];
 }
+
+NSString *(^_defaultHTMLLyricsWrapper)(NSString *lyrics) = ^NSString *(NSString *lyrics){
+    NSString *HTMLString = [NSString stringWithFormat:@"<html><head>$header</head><body style=\"$bodyStyle\">$content</body></html>"];
+    lyrics = [lyrics stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"];
+    HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"$content" withString:lyrics];
+    HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"$header"
+                                                       withString:@"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><meta name=\"viewport\" content=\"width=device-width,minimum-scale=1.0,maximum-scale=1.0\"/>"];
+    HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"$bodyStyle" withString:@"padding-bottom:20px;font-family:Verdana;padding-top:10px;"];
+    return HTMLString;
+};
 
 @end

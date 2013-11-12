@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */; };
+		3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D6691831FC990048A788 /* ESHighlightManager.m */; };
+		3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D66C1831FCA70048A788 /* ESHighlight.m */; };
 		3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */; };
 		3E2AE553181D24F9001AAE9D /* ESLinearController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE552181D24F9001AAE9D /* ESLinearController.m */; };
 		3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */; };
@@ -86,6 +89,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E19D65B1831D1A90048A788 /* ESAutoHeightWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAutoHeightWebView.h; sourceTree = "<group>"; };
+		3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAutoHeightWebView.m; sourceTree = "<group>"; };
+		3E19D6681831FC990048A788 /* ESHighlightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESHighlightManager.h; sourceTree = "<group>"; };
+		3E19D6691831FC990048A788 /* ESHighlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHighlightManager.m; sourceTree = "<group>"; };
+		3E19D66B1831FCA70048A788 /* ESHighlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESHighlight.h; sourceTree = "<group>"; };
+		3E19D66C1831FCA70048A788 /* ESHighlight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHighlight.m; sourceTree = "<group>"; };
 		3E2AE54C181D216C001AAE9D /* ESViewEpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewEpisodeController.h; sourceTree = "<group>"; };
 		3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewEpisodeController.m; sourceTree = "<group>"; };
 		3E2AE551181D24F9001AAE9D /* ESLinearController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLinearController.h; sourceTree = "<group>"; };
@@ -199,6 +208,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E19D6671831FC680048A788 /* ESHighlight */ = {
+			isa = PBXGroup;
+			children = (
+				3E19D6681831FC990048A788 /* ESHighlightManager.h */,
+				3E19D6691831FC990048A788 /* ESHighlightManager.m */,
+				3E19D66B1831FCA70048A788 /* ESHighlight.h */,
+				3E19D66C1831FCA70048A788 /* ESHighlight.m */,
+			);
+			name = ESHighlight;
+			sourceTree = "<group>";
+		};
 		3E2AE566181D4C2E001AAE9D /* ESViewEpisodeController */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +234,8 @@
 			children = (
 				3E2AE568181D4C3D001AAE9D /* PlayerStatusView.h */,
 				3E2AE569181D4C3D001AAE9D /* PlayerStatusView.m */,
+				3E19D65B1831D1A90048A788 /* ESAutoHeightWebView.h */,
+				3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -274,6 +296,7 @@
 		3E98E10F181A01B000AF8C7F /* esl */ = {
 			isa = PBXGroup;
 			children = (
+				3E19D6671831FC680048A788 /* ESHighlight */,
 				3EF0F06C182A1F670032DC7F /* ESEpisodeManager */,
 				3E2AE574181E3C24001AAE9D /* Utils */,
 				3E98E1A0181B6F0800AF8C7F /* Service */,
@@ -577,11 +600,14 @@
 				3E2AE563181D3D42001AAE9D /* ESSoundPlayContext.m in Sources */,
 				3E98E13E181A02A900AF8C7F /* ESViewController.m in Sources */,
 				3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */,
+				3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */,
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
 				3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */,
+				3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
 				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
 				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,
+				3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */,
 				3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */,
 				3EF0F060182A1EA80032DC7F /* ESSharedEpisodeManager.m in Sources */,
 				3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */,

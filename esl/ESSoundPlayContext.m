@@ -13,6 +13,7 @@ NSString *ESSoundPlayDidStartNotification = @"ESSoundPlayDidStartNotification";
 NSString *ESSoundPlayDidFinishNotification = @"ESSoundPlayDidFinishNotification";
 NSString *ESSoundPlayDidPauseNotification = @"ESSoundPlayStateDidChangeNotification";
 NSString *ESSoundPlayDidResumeNotification = @"ESSoundPlayDidResumeNotification";
+NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNotification";
 
 @interface ESSoundPlayContext ()
 
@@ -66,6 +67,7 @@ NSString *ESSoundPlayDidResumeNotification = @"ESSoundPlayDidResumeNotification"
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayDidResumeNotification object:nil];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:ESSoundPlayStateDidChangeNotification object:nil];
     }];
 }
 

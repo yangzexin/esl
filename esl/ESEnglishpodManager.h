@@ -11,4 +11,6 @@
 
 @interface ESEnglishpodManager : NSObject <ESEpisodeManager>
 
+@property (nonatomic, copy) NSString *(^lyricsWrapper)(NSString *lyrics);
+
 @end

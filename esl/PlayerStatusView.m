@@ -40,13 +40,13 @@
     // position slider
     self.topBlackBar = [[UIView alloc] init];
     [self addSubview:self.topBlackBar];
-    self.topBlackBar.backgroundColor = [UIColor lightGrayColor];
-    self.topBlackBar.alpha = 0.12f;
+    self.topBlackBar.backgroundColor = [UIColor blackColor];
+    self.topBlackBar.alpha = 0.72f;
     
     self.bottomLine = [[UIView alloc] init];
     [self addSubview:self.bottomLine];
-    self.bottomLine.backgroundColor = [UIColor lightGrayColor];
-    self.bottomLine.alpha = 0.17f;
+    self.bottomLine.backgroundColor = [UIColor darkGrayColor];
+    self.bottomLine.alpha = 0.32f;
     
     self.positionSilder = [[UISlider alloc] init];
     [self.positionSilder addTarget:self 
@@ -71,13 +71,13 @@
     self.currentTimeLabel = [[UILabel alloc] init];
     [self addSubview:self.currentTimeLabel];
     self.currentTimeLabel.backgroundColor = [UIColor clearColor];
-    self.currentTimeLabel.textColor = [UIColor blackColor];
+    self.currentTimeLabel.textColor = [UIColor whiteColor];
     self.currentTimeLabel.font = timeFont;
     
     self.totalTimeLabel = [[UILabel alloc] init];
     [self addSubview:self.totalTimeLabel];
     self.totalTimeLabel.backgroundColor = [UIColor clearColor];
-    self.totalTimeLabel.textColor = [UIColor blackColor];
+    self.totalTimeLabel.textColor = [UIColor whiteColor];
     self.totalTimeLabel.font = timeFont;
     self.totalTimeLabel.textAlignment = NSTextAlignmentRight;
     
