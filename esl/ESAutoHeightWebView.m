@@ -28,6 +28,8 @@
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:_webView];
     
+    [_webView compatibleGetScrollView].bounces = NO;
+    
 //    [[UIMenuController sharedMenuController] addMenuItemIfNotExistsWithTitle:@"Highlight" action:@selector(_highlightMenuItemTapped)];
 //    [[UIMenuController sharedMenuController] addMenuItemIfNotExistsWithTitle:@"Unhighlight" action:@selector(_unhighlightMenuItemTapped)];
     

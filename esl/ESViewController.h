@@ -16,4 +16,6 @@
 - (void)requestService:(id<ESService>)service identifier:(NSString *)identifier completion:(ESServiceCompletion)completion;
 - (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion;
 
+- (CGFloat)startYPositionOfView;
+
 @end

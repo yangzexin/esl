@@ -173,7 +173,7 @@
     [self.view addSubview:self.playerStatusView];
     [UIView animateWithDuration:animated ? 0.25f : 0.0f animations:^{
         CGRect tmpRect = self.playerStatusView.frame;
-        tmpRect.origin.y = 0;
+        tmpRect.origin.y = [self startYPositionOfView];
         self.playerStatusView.frame = tmpRect;
     }];
 }

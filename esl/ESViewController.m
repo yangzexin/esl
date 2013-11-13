@@ -62,4 +62,9 @@
     }
 }
 
+- (CGFloat)startYPositionOfView
+{
+    return [UIDevice currentDevice].systemVersion.floatValue < 7.0f ? 0.0f : self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+}
+
 @end
