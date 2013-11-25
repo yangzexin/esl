@@ -124,7 +124,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 {
     NSArray *downloadedEpisides = [self _downloadedEpisodes];
     NSArray *episides = [[SFDict2Object dict2ObjectWithObjectMapping:
-                          [SFObjectMapping objectMappingWithObjectClass:[ESEpisode class]]] objectsWithDictionaries:downloadedEpisides];
+                          [SFObjectMapping objectMappingWithClass:[ESEpisode class]]] objectsWithDictionaries:downloadedEpisides];
     
     return episides;
 }
