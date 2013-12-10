@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E105E821856D9FB007326BE /* libSFFoundation.a */; };
+		3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E105E891856D9FD007326BE /* libSFiOSKit.a */; };
 		3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */; };
 		3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D6691831FC990048A788 /* ESHighlightManager.m */; };
 		3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D66C1831FCA70048A788 /* ESHighlight.m */; };
@@ -60,8 +62,6 @@
 		3EF0F077182A38F60032DC7F /* icon_local_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F073182A38F60032DC7F /* icon_local_list@2x.png */; };
 		3EF0F078182A38F60032DC7F /* icon_news_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F074182A38F60032DC7F /* icon_news_list.png */; };
 		3EF0F079182A38F60032DC7F /* icon_news_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0F075182A38F60032DC7F /* icon_news_list@2x.png */; };
-		3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF620F11828DB790057A6FE /* libSFFoundation.a */; };
-		3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF620FA1828DB830057A6FE /* libSFiOSKit.a */; };
 		3EF77C801855CE8500B95134 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF77C691855CE8500B95134 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3EF77C811855CE8500B95134 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF77C6C1855CE8500B95134 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3EF77C821855CE8500B95134 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF77C6E1855CE8500B95134 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -75,6 +75,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3E105E811856D9FB007326BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3EC67D611828D10000B6190E;
+			remoteInfo = SFFoundation;
+		};
+		3E105E881856D9FD007326BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3ED59DB91828D33A002531DD;
+			remoteInfo = SFiOSKit;
+		};
 		3E98E126181A01B000AF8C7F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3E98E0FE181A01B000AF8C7F /* Project object */;
@@ -82,23 +96,11 @@
 			remoteGlobalIDString = 3E98E105181A01B000AF8C7F;
 			remoteInfo = esl;
 		};
-		3EF620F01828DB790057A6FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3EC67D611828D10000B6190E;
-			remoteInfo = SFFoundation;
-		};
-		3EF620F91828DB830057A6FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3ED59DB91828D33A002531DD;
-			remoteInfo = SFiOSKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFFoundation.xcodeproj; path = ../../SFLibraries/SFFoundation/SFFoundation.xcodeproj; sourceTree = "<group>"; };
+		3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFiOSKit.xcodeproj; path = ../../SFLibraries/SFiOSKit/SFiOSKit.xcodeproj; sourceTree = "<group>"; };
 		3E19D65B1831D1A90048A788 /* ESAutoHeightWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAutoHeightWebView.h; sourceTree = "<group>"; };
 		3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAutoHeightWebView.m; sourceTree = "<group>"; };
 		3E19D6681831FC990048A788 /* ESHighlightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESHighlightManager.h; sourceTree = "<group>"; };
@@ -179,8 +181,6 @@
 		3EF0F073182A38F60032DC7F /* icon_local_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_local_list@2x.png"; sourceTree = "<group>"; };
 		3EF0F074182A38F60032DC7F /* icon_news_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_news_list.png; sourceTree = "<group>"; };
 		3EF0F075182A38F60032DC7F /* icon_news_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_news_list@2x.png"; sourceTree = "<group>"; };
-		3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFFoundation.xcodeproj; path = ../../SFFoundation/SFFoundation.xcodeproj; sourceTree = "<group>"; };
-		3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFiOSKit.xcodeproj; path = ../../SFiOSKit/SFiOSKit.xcodeproj; sourceTree = "<group>"; };
 		3EF77C681855CE8500B95134 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		3EF77C691855CE8500B95134 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		3EF77C6A1855CE8500B95134 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -212,8 +212,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF620FB1828DB9F0057A6FE /* libSFFoundation.a in Frameworks */,
-				3EF620FC1828DB9F0057A6FE /* libSFiOSKit.a in Frameworks */,
+				3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */,
+				3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
 				3E98E163181A065700AF8C7F /* CFNetwork.framework in Frameworks */,
 				3E98E161181A065100AF8C7F /* CoreLocation.framework in Frameworks */,
@@ -242,6 +242,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E105E7E1856D9FB007326BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3E105E821856D9FB007326BE /* libSFFoundation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3E105E841856D9FD007326BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3E105E891856D9FD007326BE /* libSFiOSKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3E19D6671831FC680048A788 /* ESHighlight */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,8 +415,8 @@
 		3E98E145181A054700AF8C7F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */,
-				3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */,
+				3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */,
+				3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */,
 			);
 			name = Dependencies;
 			path = esl;
@@ -474,22 +490,6 @@
 				3EF0F075182A38F60032DC7F /* icon_news_list@2x.png */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		3EF620ED1828DB790057A6FE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3EF620F11828DB790057A6FE /* libSFFoundation.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		3EF620F31828DB820057A6FE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3EF620FA1828DB830057A6FE /* libSFiOSKit.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3EF77C671855CE8500B95134 /* asi-http-request */ = {
@@ -596,12 +596,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3EF620ED1828DB790057A6FE /* Products */;
-					ProjectRef = 3EF620EC1828DB790057A6FE /* SFFoundation.xcodeproj */;
+					ProductGroup = 3E105E7E1856D9FB007326BE /* Products */;
+					ProjectRef = 3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */;
 				},
 				{
-					ProductGroup = 3EF620F31828DB820057A6FE /* Products */;
-					ProjectRef = 3EF620F21828DB820057A6FE /* SFiOSKit.xcodeproj */;
+					ProductGroup = 3E105E841856D9FD007326BE /* Products */;
+					ProjectRef = 3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -613,18 +613,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3EF620F11828DB790057A6FE /* libSFFoundation.a */ = {
+		3E105E821856D9FB007326BE /* libSFFoundation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSFFoundation.a;
-			remoteRef = 3EF620F01828DB790057A6FE /* PBXContainerItemProxy */;
+			remoteRef = 3E105E811856D9FB007326BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3EF620FA1828DB830057A6FE /* libSFiOSKit.a */ = {
+		3E105E891856D9FD007326BE /* libSFiOSKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSFiOSKit.a;
-			remoteRef = 3EF620F91828DB830057A6FE /* PBXContainerItemProxy */;
+			remoteRef = 3E105E881856D9FD007326BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -829,7 +829,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/** Vendor/**";
+				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -852,7 +852,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				USER_HEADER_SEARCH_PATHS = "../SFFoundation/** ../SFiOSKit/** Vendor/**";
+				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
