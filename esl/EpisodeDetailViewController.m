@@ -38,12 +38,9 @@
         textView.font = [UIFont systemFontOfSize:15.0f];
         [self.view addSubview:textView];
         self.textView = textView;
+        
+        RAC(self.textView, text) = _viewModel.episodeDetailSignal;
     }
-    
-    RAC(_textView, text) = _viewModel.episodeDetailSignal;
-    [_viewModel.episodeDetailSignal subscribeNext:^(id x) {
-        NSLog(@"%@", x);
-    }];
 }
 
 @end

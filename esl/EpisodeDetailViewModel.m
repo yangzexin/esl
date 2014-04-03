@@ -35,6 +35,8 @@
                 NSData *responseData = [value last];
                 NSString *HTML = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
                 value = HTML;
+            } else {
+                value = @"";
             }
             return value;
         }] deliverOn:[RACScheduler mainThreadScheduler]] publish] autoconnect];
