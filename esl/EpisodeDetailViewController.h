@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "ESTableViewController.h"
 
-@class ESEpisode;
+@class EpisodeDetailViewModel;
 
 @interface EpisodeDetailViewController : ESViewController
 
-+ (instancetype)controllerWithEpisode:(ESEpisode *)episode;
++ (instancetype)controllerWithViewModel:(EpisodeDetailViewModel *)viewModel;
 
 @end

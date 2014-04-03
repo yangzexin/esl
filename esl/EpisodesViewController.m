@@ -12,6 +12,7 @@
 #import "ESEpisode.h"
 
 #import "EpisodesViewModel.h"
+#import "EpisodeDetailViewModel.h"
 
 #import "ODRefreshControl.h"
 
@@ -79,7 +80,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithEpisode:episode] animated:YES];
+    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

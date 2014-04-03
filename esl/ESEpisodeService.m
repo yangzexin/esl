@@ -19,6 +19,7 @@ NSString *ESEpisodeDidUpdateNotification = @"ESEpisodeDidUpdateNotification";
 NSString *ESBackgroundUpdateEpisodeDidFinishNotification = @"ESBackgroundUpdateEpisodeDidFinishNotification";
 
 NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php";
+NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
 
 @interface ESEpisodeService ()
 
@@ -127,6 +128,17 @@ NSString *kEpisodesListURLString = @"http://www.eslpod.com/website/show_all.php"
             date = [date stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             episode.date = date;
             currentIndex = dateEndIndex;
+        }
+        
+        NSString *const podcastDetailPageMatching = @"show_podcast.php?";
+        NSInteger podcastDetailPageIndex = [responseString find:podcastDetailPageMatching fromIndex:currentIndex];
+        if (podcastDetailPageIndex != -1) {
+            NSInteger podcastDetailPageEndIndex = [responseString find:@"\"" fromIndex:podcastDetailPageIndex];
+            if (podcastDetailPageEndIndex != -1) {
+                NSString *podcastDetailPageLink = [responseString substringWithBeginIndex:podcastDetailPageIndex endIndex:podcastDetailPageEndIndex];
+                episode.contentURLString = [NSString stringWithFormat:@"%@%@", kEpisodesContentPrefixURLString, podcastDetailPageLink];
+                currentIndex = podcastDetailPageEndIndex;
+            }
         }
         
         NSString *const titleMatching = @"class=\"podcast_title\">";

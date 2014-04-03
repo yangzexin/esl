@@ -18,6 +18,7 @@ typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 @property (nonatomic, copy) NSString *introdution;
 @property (nonatomic, copy) NSString *formattedIntrodution;
 @property (nonatomic, copy) NSString *soundURLString;
+@property (nonatomic, copy) NSString *contentURLString;
 
 @property (nonatomic, copy) ESEpisodeIntrodutionFormatter introdutionFormatter;
 

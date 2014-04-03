@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class ESEpisode;
+
 @interface EpisodeDetailViewModel : NSObject
+
+@property (nonatomic, strong, readonly) ESEpisode *episode;
+
+@property (nonatomic, strong, readonly) RACSignal *episodeDetailSignal;
+
++ (instancetype)viewModelWithEpisode:(ESEpisode *)episode;
 
 @end
