@@ -41,6 +41,11 @@
     [self.keyIdentifierValueService removeObjectForKey:identifier];
 }
 
+- (BOOL)shouldSideMenuControllerTriggerGesture:(id)sideMenuController
+{
+    return self.navigationController.viewControllers.count == 1;
+}
+
 - (void)loadView
 {
     [super loadView];

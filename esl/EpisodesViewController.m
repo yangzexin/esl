@@ -56,6 +56,11 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 #pragma mark - UI events
 - (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
@@ -95,7 +100,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.textLabel.numberOfLines = 1;
         cell.detailTextLabel.numberOfLines = 4;
-        cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
         cell.detailTextLabel.textColor = [UIColor darkGrayColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

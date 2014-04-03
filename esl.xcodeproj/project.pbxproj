@@ -24,6 +24,10 @@
 		3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641618E4668A006B2B12 /* EpisodesViewModel.m */; };
 		3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */; };
 		3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */; };
+		3E72472618ED074B0055EB66 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472518ED074B0055EB66 /* MenuController.m */; };
+		3E72472B18ED1AFD0055EB66 /* DownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472A18ED1AFD0055EB66 /* DownloadsViewController.m */; };
+		3E72473218ED205E0055EB66 /* LocalEpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */; };
+		3E72473518ED209E0055EB66 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72473418ED209E0055EB66 /* SettingsViewController.m */; };
 		3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E109181A01B000AF8C7F /* Foundation.framework */; };
 		3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */; };
 		3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
@@ -134,6 +138,14 @@
 		3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewController.m; sourceTree = "<group>"; };
 		3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewModel.h; sourceTree = "<group>"; };
 		3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewModel.m; sourceTree = "<group>"; };
+		3E72472418ED074B0055EB66 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		3E72472518ED074B0055EB66 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
+		3E72472918ED1AFD0055EB66 /* DownloadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadsViewController.h; sourceTree = "<group>"; };
+		3E72472A18ED1AFD0055EB66 /* DownloadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadsViewController.m; sourceTree = "<group>"; };
+		3E72473018ED205E0055EB66 /* LocalEpisodesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalEpisodesViewController.h; sourceTree = "<group>"; };
+		3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalEpisodesViewController.m; sourceTree = "<group>"; };
+		3E72473318ED209E0055EB66 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		3E72473418ED209E0055EB66 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3E98E106181A01B000AF8C7F /* esl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = esl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E98E109181A01B000AF8C7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -329,6 +341,14 @@
 				3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */,
 				3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */,
 				3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */,
+				3E72472418ED074B0055EB66 /* MenuController.h */,
+				3E72472518ED074B0055EB66 /* MenuController.m */,
+				3E72472918ED1AFD0055EB66 /* DownloadsViewController.h */,
+				3E72472A18ED1AFD0055EB66 /* DownloadsViewController.m */,
+				3E72473018ED205E0055EB66 /* LocalEpisodesViewController.h */,
+				3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */,
+				3E72473318ED209E0055EB66 /* SettingsViewController.h */,
+				3E72473418ED209E0055EB66 /* SettingsViewController.m */,
 			);
 			name = MVVM;
 			sourceTree = "<group>";
@@ -740,8 +760,10 @@
 				3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */,
 				3EF77C811855CE8500B95134 /* ASIDataCompressor.m in Sources */,
 				3EF77C801855CE8500B95134 /* ASIAuthenticationDialog.m in Sources */,
+				3E72473518ED209E0055EB66 /* SettingsViewController.m in Sources */,
 				3EF77C831855CE8500B95134 /* ASIDownloadCache.m in Sources */,
 				3E2AE563181D3D42001AAE9D /* ESSoundPlayContext.m in Sources */,
+				3E72472618ED074B0055EB66 /* MenuController.m in Sources */,
 				3E98E13E181A02A900AF8C7F /* ESViewController.m in Sources */,
 				3E40641418E465E0006B2B12 /* EpisodesViewController.m in Sources */,
 				3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */,
@@ -764,10 +786,12 @@
 				3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */,
 				3EF77C881855CE8500B95134 /* ASIWebPageRequest.m in Sources */,
 				3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */,
+				3E72472B18ED1AFD0055EB66 /* DownloadsViewController.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
 				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,
 				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,
+				3E72473218ED205E0055EB66 /* LocalEpisodesViewController.m in Sources */,
 				3EF77C821855CE8500B95134 /* ASIDataDecompressor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,17 @@
 #import "ESLocalEpisodesController.h"
 #import "SFBlockedBarButtonItem.h"
 #import "EpisodesViewController.h"
+#import "SFSideMenuController.h"
+#import "MenuController.h"
+#import "DownloadsViewController.h"
+#import "SFCompatibleTabController.h"
+#import "LocalEpisodesViewController.h"
+#import "SettingsViewController.h"
+#import "UIImage+SFAddition.h"
+
+@interface AppDelegate () <SFSideMenuControllerDelegate>
+
+@end
 
 @implementation AppDelegate
 
@@ -21,7 +32,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor darkGrayColor];
     [self.window makeKeyAndVisible];
     
 //    ESNewEpisodesController *englishpodController = [ESNewEpisodesController new];
@@ -47,7 +58,39 @@
 //    
 //    self.window.rootViewController = tabController;
     
-    self.window.rootViewController = [ESUIDefaults navigationControllerWithRootViewController:[EpisodesViewController new]];
+    
+    SFCompatibleTabController *tabBarController = [SFCompatibleTabController new];
+    tabBarController.viewControllers = @[
+                                         [ESUIDefaults navigationControllerWithRootViewController:[EpisodesViewController new]]
+                                         , [ESUIDefaults navigationControllerWithRootViewController:[LocalEpisodesViewController new]]
+                                         , [ESUIDefaults navigationControllerWithRootViewController:[DownloadsViewController new]]
+                                         , [ESUIDefaults navigationControllerWithRootViewController:[SettingsViewController new]]
+                                         ];
+    
+    NSString *menuItemTitleNews = NSLocalizedString(@"News", nil);
+    NSString *menuItemTitleLocal = NSLocalizedString(@"Local", nil);
+    NSString *menuItemTitleDownloads = NSLocalizedString(@"Downloads", nil);
+    NSString *menuItemTitleSettings = NSLocalizedString(@"Settings", nil);
+    MenuController *menuController = [MenuController controllerWithMenuItemTitles:@[
+                                                                                    menuItemTitleNews
+                                                                                    , menuItemTitleLocal
+                                                                                    , menuItemTitleDownloads
+                                                                                    , menuItemTitleSettings
+                                                                                    ]];
+    
+    SFSideMenuController *sideMenuController = [[SFSideMenuController alloc] initWithMenuViewController:menuController contentViewController:tabBarController];
+    sideMenuController.delegate = self;
+    self.window.rootViewController = sideMenuController;
+    
+    @weakify(menuController);
+    [menuController setMenuItemSelectHandler:^(NSString *menuItemTitle) {
+        @strongify(menuController);
+        NSUInteger indexOfMenuItemTitle = [menuController.menuItemTitles indexOfObject:menuItemTitle];
+        if (indexOfMenuItemTitle != NSNotFound) {
+            tabBarController.selectedIndex = indexOfMenuItemTitle;
+            [sideMenuController showContentViewControllerAnimated:YES completion:nil];
+        }
+    }];
     
     return YES;
 }
@@ -87,6 +130,17 @@
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+#pragma mark - SFSideMenuControllerDelegate
+- (void)sideMenuControllerMenuViewControllerDidShown:(SFSideMenuController *)sideMenuController
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void)sideMenuControllerContentViewControllerDidShown:(SFSideMenuController *)sideMenuController
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 @end
