@@ -10,4 +10,8 @@
 
 @interface EpisodesViewModel : NSObject
 
+@property (nonatomic, strong, readonly) NSArray *episodes;
+
+@property (nonatomic, strong, readonly) RACSignal *refreshEpisodesSignal;
+
 @end

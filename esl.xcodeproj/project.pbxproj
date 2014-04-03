@@ -22,6 +22,8 @@
 		3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */; };
 		3E40641418E465E0006B2B12 /* EpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641318E465E0006B2B12 /* EpisodesViewController.m */; };
 		3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641618E4668A006B2B12 /* EpisodesViewModel.m */; };
+		3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */; };
+		3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */; };
 		3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E109181A01B000AF8C7F /* Foundation.framework */; };
 		3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */; };
 		3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
@@ -128,6 +130,10 @@
 		3E40641318E465E0006B2B12 /* EpisodesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesViewController.m; sourceTree = "<group>"; };
 		3E40641518E4668A006B2B12 /* EpisodesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodesViewModel.h; sourceTree = "<group>"; };
 		3E40641618E4668A006B2B12 /* EpisodesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesViewModel.m; sourceTree = "<group>"; };
+		3E72471C18ED003A0055EB66 /* EpisodeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewController.h; sourceTree = "<group>"; };
+		3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewController.m; sourceTree = "<group>"; };
+		3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewModel.h; sourceTree = "<group>"; };
+		3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewModel.m; sourceTree = "<group>"; };
 		3E98E106181A01B000AF8C7F /* esl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = esl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E98E109181A01B000AF8C7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -319,6 +325,10 @@
 				3E40641318E465E0006B2B12 /* EpisodesViewController.m */,
 				3E40641518E4668A006B2B12 /* EpisodesViewModel.h */,
 				3E40641618E4668A006B2B12 /* EpisodesViewModel.m */,
+				3E72471C18ED003A0055EB66 /* EpisodeDetailViewController.h */,
+				3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */,
+				3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */,
+				3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */,
 			);
 			name = MVVM;
 			sourceTree = "<group>";
@@ -753,8 +763,10 @@
 				3E98E116181A01B000AF8C7F /* main.m in Sources */,
 				3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */,
 				3EF77C881855CE8500B95134 /* ASIWebPageRequest.m in Sources */,
+				3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
+				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,
 				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,
 				3EF77C821855CE8500B95134 /* ASIDataDecompressor.m in Sources */,
 			);

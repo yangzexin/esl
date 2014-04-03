@@ -41,6 +41,12 @@
     [self.keyIdentifierValueService removeObjectForKey:identifier];
 }
 
+- (void)loadView
+{
+    [super loadView];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
 - (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion
 {
     [self requestService:service identifier:nil completion:completion];
