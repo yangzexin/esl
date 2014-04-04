@@ -16,6 +16,10 @@
 
 @property (nonatomic, strong, readonly) RACSignal *episodeDetailSignal;
 
+@property (nonatomic, assign, readonly, getter = isSoundDownloaded) BOOL soundDownloaded;
+
+@property (nonatomic, assign, readonly) float downloadPercent;
+
 + (instancetype)viewModelWithEpisode:(ESEpisode *)episode;
 
 @end

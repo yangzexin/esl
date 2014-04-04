@@ -59,6 +59,7 @@
 		3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */; };
 		3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */; };
 		3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */; };
+		3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */; };
 		3ECA51FD181B474F00740EAF /* ESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FC181B474F00740EAF /* ESService.m */; };
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
@@ -188,6 +189,8 @@
 		3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESESLEpisodeManager.m; sourceTree = "<group>"; };
 		3E98E1AC181CB19300AF8C7F /* ESRequestProxyWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRequestProxyWrapper.h; sourceTree = "<group>"; };
 		3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRequestProxyWrapper.m; sourceTree = "<group>"; };
+		3EC70D0E18EE8A6A00DA777A /* ESSoundDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSoundDownloadManager.h; sourceTree = "<group>"; };
+		3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESSoundDownloadManager.m; sourceTree = "<group>"; };
 		3ECA51FB181B474F00740EAF /* ESService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESService.h; sourceTree = "<group>"; };
 		3ECA51FC181B474F00740EAF /* ESService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESService.m; sourceTree = "<group>"; };
 		3ECA5204181C168400740EAF /* ESEpisodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEpisodeService.h; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 				3ECA5205181C168400740EAF /* ESEpisodeService.m */,
 				3E98E1AC181CB19300AF8C7F /* ESRequestProxyWrapper.h */,
 				3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */,
+				3EC70D0E18EE8A6A00DA777A /* ESSoundDownloadManager.h */,
+				3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -771,6 +776,7 @@
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
 				3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */,
 				3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */,
+				3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
 				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
 				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,

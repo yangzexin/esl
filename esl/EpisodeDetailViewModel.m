@@ -9,12 +9,19 @@
 #import "EpisodeDetailViewModel.h"
 #import "ESEpisode.h"
 #import "NSString+JavaLikeStringHandle.h"
+#import "NSObject+SFAddition.h"
+#import "SFRepeatTimer.h"
+#import "ESSoundDownloadManager.h"
 
 @interface EpisodeDetailViewModel ()
 
 @property (nonatomic, strong) ESEpisode *episode;
 
 @property (nonatomic, strong) RACSignal *episodeDetailSignal;
+
+@property (nonatomic, assign) BOOL soundDownloaded;
+
+@property (nonatomic, assign) float downloadPercent;
 
 @end
 
@@ -26,6 +33,19 @@
     viewModel.episode = episode;
     
     return viewModel;
+}
+
+- (id)init
+{
+    self = [super init];
+    
+    @weakify(self);
+    [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
+        @strongify(self);
+        self.downloadPercent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:self.episode];
+    }] identifier:@"downloadPercentRefreshTimer"];
+    
+    return self;
 }
 
 - (RACSignal *)episodeDetailSignal
