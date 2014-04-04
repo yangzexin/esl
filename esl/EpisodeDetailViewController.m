@@ -9,11 +9,12 @@
 #import "EpisodeDetailViewController.h"
 #import "EpisodeDetailViewModel.h"
 #import "ESEpisode.h"
+#import "UIWebView+SFAddition.h"
 
 @interface EpisodeDetailViewController ()
 
 @property (nonatomic, strong) EpisodeDetailViewModel *viewModel;
-@property (nonatomic, weak) UITextView *textView;
+@property (nonatomic, weak) UIWebView *textView;
 
 @end
 
@@ -33,13 +34,19 @@
     self.title = _viewModel.episode.title;
     
     {
-        UITextView *textView = [[UITextView alloc] initWithFrame:self.view.bounds];
+        UIWebView *textView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        textView.font = [UIFont systemFontOfSize:15.0f];
+        [textView removeShadow];
         [self.view addSubview:textView];
         self.textView = textView;
         
-        RAC(self.textView, text) = _viewModel.episodeDetailSignal;
+        @weakify(self);
+        [_viewModel.episodeDetailSignal subscribeNext:^(id x) {
+            @strongify(self);
+            [self.textView loadHTMLString:x baseURL:nil];
+        } error:^(NSError *error) {
+            
+        }];
     }
 }
 

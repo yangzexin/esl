@@ -32,7 +32,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor darkGrayColor];
+    self.window.backgroundColor = [UIColor lightGrayColor];
     [self.window makeKeyAndVisible];
     
 //    ESNewEpisodesController *englishpodController = [ESNewEpisodesController new];
