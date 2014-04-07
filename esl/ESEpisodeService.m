@@ -193,7 +193,7 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
 - (void)_notifyFinishWithEpisodes:(NSArray *)episodes error:(NSError *)error
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.completion(episodes, nil);
+        self.completion(episodes, error);
         self.executing = NO;
     });
 }
