@@ -15,6 +15,9 @@
 #import "EpisodeDetailViewModel.h"
 
 #import "ODRefreshControl.h"
+#import "SFBlockedBarButtonItem.h"
+
+#import "AppDelegate.h"
 
 @interface EpisodesViewController ()
 

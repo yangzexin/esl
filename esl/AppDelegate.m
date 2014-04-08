@@ -21,6 +21,7 @@
 #import "LocalEpisodesViewController.h"
 #import "SettingsViewController.h"
 #import "UIImage+SFAddition.h"
+#import <RESideMenu/RESideMenu.h>
 
 @interface AppDelegate () <SFSideMenuControllerDelegate>
 
@@ -78,9 +79,8 @@
                                                                                     , menuItemTitleSettings
                                                                                     ]];
     
-    SFSideMenuController *sideMenuController = [[SFSideMenuController alloc] initWithMenuViewController:menuController contentViewController:tabBarController];
-    sideMenuController.delegate = self;
-    self.window.rootViewController = sideMenuController;
+    RESideMenu *sideMenu = [[RESideMenu alloc] initWithContentViewController:tabBarController leftMenuViewController:menuController rightMenuViewController:nil];
+    self.window.rootViewController = sideMenu;
     
     @weakify(menuController);
     [menuController setMenuItemSelectHandler:^(NSString *menuItemTitle) {
@@ -88,7 +88,7 @@
         NSUInteger indexOfMenuItemTitle = [menuController.menuItemTitles indexOfObject:menuItemTitle];
         if (indexOfMenuItemTitle != NSNotFound) {
             tabBarController.selectedIndex = indexOfMenuItemTitle;
-            [sideMenuController showContentViewControllerAnimated:YES completion:nil];
+            [sideMenu hideMenuViewController];
         }
     }];
     

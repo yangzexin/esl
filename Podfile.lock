@@ -40,13 +40,16 @@ PODS:
   - ReactiveCocoa/Core (2.2.4):
     - ReactiveCocoa/no-arc
   - ReactiveCocoa/no-arc (2.2.4)
+  - RESideMenu (4.0.3)
 
 DEPENDENCIES:
   - libextobjc (~> 0.4)
   - ReactiveCocoa (~> 2.2.4)
+  - RESideMenu (~> 4.0.3)
 
 SPEC CHECKSUMS:
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   ReactiveCocoa: 953a45dda30674fe704d1d9c77cc874141742f47
+  RESideMenu: 5a9c11e9e649c601b8ffe5253910bde2e3d956ee
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.31.1
