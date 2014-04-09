@@ -45,7 +45,7 @@
 {
     if (_refreshEpisodesSignal == nil) {
         @weakify(self);
-        self.refreshEpisodesSignal = [[[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        self.refreshEpisodesSignal = [[[[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             ESEpisodeService *episodesService = [ESEpisodeService new];
             episodesService.useCache = self.usingCache;
             [episodesService requestWithCompletion:^(id resultObject, NSError *error) {
@@ -68,7 +68,7 @@
         }] doCompleted:^{
             @strongify(self);
             self.refreshEpisodesSignal = nil;
-        }] replayLazily];
+        }] publish] autoconnect];
     }
     return _refreshEpisodesSignal;
 }
