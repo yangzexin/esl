@@ -75,6 +75,8 @@
 {
     [_viewModel.refreshEpisodesSignal subscribeNext:^(id x) {
         [refreshControl endRefreshing];
+    } error:^(NSError *error) {
+        [refreshControl endRefreshing];
     }];
 }
 

@@ -7,14 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseViewModel.h"
 
 @class ESEpisode;
 
-@interface EpisodeDetailViewModel : NSObject
+@interface EpisodeDetailViewModel : BaseViewModel
 
 @property (nonatomic, strong, readonly) ESEpisode *episode;
 
 @property (nonatomic, strong, readonly) RACSignal *episodeDetailSignal;
+
+@property (nonatomic, assign, readonly, getter = isLoadingEpisodeDetail) BOOL loadingEpisodeDetail;
 
 @property (nonatomic, assign, readonly, getter = isSoundDownloaded) BOOL soundDownloaded;
 

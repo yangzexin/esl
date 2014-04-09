@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) RACSignal *episodeDetailSignal;
 
+@property (nonatomic, assign, getter = isLoadingEpisodeDetail) BOOL loadingEpisodeDetail;
+
 @property (nonatomic, assign) BOOL soundDownloaded;
 
 @property (nonatomic, assign) float downloadPercent;
@@ -73,9 +75,13 @@
             }
             return value;
         }] catchTo:[RACSignal empty]] deliverOn:[RACScheduler mainThreadScheduler]] publish] autoconnect];
+        
+        self.loadingEpisodeDetail = YES;
+        
         @weakify(self);
         [self.episodeDetailSignal subscribeCompleted:^{
             @strongify(self);
+            self.loadingEpisodeDetail = NO;
             self.episodeDetailSignal = nil;
         }];
     }

@@ -18,6 +18,11 @@
 
 @implementation ESViewController
 
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc", NSStringFromClass([self class]));
+}
+
 - (SFObjectRepository *)objectRepository
 {
     if (_objectRepository == nil) {

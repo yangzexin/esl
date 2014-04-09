@@ -10,6 +10,7 @@
 #import "EpisodeDetailViewModel.h"
 #import "ESEpisode.h"
 #import "UIWebView+SFAddition.h"
+#import "SFWaitingIndicator.h"
 
 @interface EpisodeDetailViewController ()
 
@@ -49,9 +50,12 @@
         }];
     }
     
-    {
-        
-    }
+    @weakify(self);
+    [RACObserve(_viewModel, loadingEpisodeDetail) subscribeNext:^(id x) {
+        NSNumber *loading = x;
+        @strongify(self);
+        [SFWaitingIndicator showLoading:[loading boolValue] inView:self.view];
+    }];
 }
 
 @end

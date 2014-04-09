@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseViewModel.h"
 
-@interface EpisodesViewModel : NSObject
+@interface EpisodesViewModel : BaseViewModel
 
 @property (nonatomic, strong, readonly) NSArray *episodes;
 

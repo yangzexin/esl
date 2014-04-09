@@ -17,8 +17,6 @@
 
 @property (nonatomic, assign) BOOL usingCache;
 
-@property (nonatomic, assign) BOOL loading;
-
 @end
 
 @implementation EpisodesViewModel
@@ -32,16 +30,11 @@
     @weakify(self);
     [self.refreshEpisodesSignal subscribeNext:^(id x) {
         @strongify(self);
-        NSLog(@"%@", x);
         self.usingCache = NO;
         [self.refreshEpisodesSignal subscribeNext:^(id x) {
             NSLog(@"updated:");
             NSLog(@"%@", x);
         }];
-    } completed:^{
-        @strongify(self);
-        self.refreshEpisodesSignal = nil;
-        self.loading = NO;
     }];
     
     return self;
@@ -49,8 +42,8 @@
 
 - (RACSignal *)refreshEpisodesSignal
 {
-    if (!_loading) {
-        self.loading = YES;
+    if (_refreshEpisodesSignal == nil) {
+        @weakify(self);
         self.refreshEpisodesSignal = [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             ESEpisodeService *episodesService = [ESEpisodeService new];
             episodesService.useCache = self.usingCache;
@@ -63,6 +56,8 @@
                 [subscriber sendCompleted];
             }];
             return [RACDisposable disposableWithBlock:^{
+                @strongify(self);
+                self.refreshEpisodesSignal = nil;
                 [episodesService cancel];
             }];
         }] publish] autoconnect];
