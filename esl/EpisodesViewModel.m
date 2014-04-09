@@ -27,14 +27,14 @@
     self = [super init];
     
     self.usingCache = YES;
-    RAC(self, episodes) = self.refreshEpisodesSignal;
+    
     @weakify(self);
-    [self.refreshEpisodesSignal subscribeNext:^(id x) {
+    [self.refreshEpisodesSignal subscribeCompleted:^{
         @strongify(self);
+        NSLog(@"episodes loaded");
         self.usingCache = NO;
         [self.refreshEpisodesSignal subscribeNext:^(id x) {
-            NSLog(@"updated:");
-            NSLog(@"%@", x);
+            NSLog(@"episodes updated");
         }];
     }];
     
@@ -45,7 +45,7 @@
 {
     if (_refreshEpisodesSignal == nil) {
         @weakify(self);
-        self.refreshEpisodesSignal = [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        self.refreshEpisodesSignal = [[[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             ESEpisodeService *episodesService = [ESEpisodeService new];
             episodesService.useCache = self.usingCache;
             [episodesService requestWithCompletion:^(id resultObject, NSError *error) {
@@ -57,11 +57,18 @@
                 [subscriber sendCompleted];
             }];
             return [RACDisposable disposableWithBlock:^{
-                @strongify(self);
-                self.refreshEpisodesSignal = nil;
                 [episodesService cancel];
             }];
-        }] publish] autoconnect];
+        }] doNext:^(id x) {
+            @strongify(self);
+            self.episodes = x;
+        }] doError:^(NSError *error) {
+            @strongify(self);
+            self.refreshEpisodesSignal = nil;
+        }] doCompleted:^{
+            @strongify(self);
+            self.refreshEpisodesSignal = nil;
+        }] replayLazily];
     }
     return _refreshEpisodesSignal;
 }

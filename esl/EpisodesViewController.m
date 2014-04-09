@@ -74,11 +74,11 @@
 - (void)_refreshControlDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
     @weakify(self);
-    [_viewModel.refreshEpisodesSignal subscribeNext:^(id x) {
+    [_viewModel.refreshEpisodesSignal subscribeError:^(NSError *error) {
         [refreshControl endRefreshing];
         @strongify(self);
         [self.tableView reloadData];
-    } error:^(NSError *error) {
+    } completed:^{
         [refreshControl endRefreshing];
         @strongify(self);
         [self.tableView reloadData];
