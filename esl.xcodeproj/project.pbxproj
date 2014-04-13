@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E08068F18FAB6BA003C2AC0 /* SFObjectServiceSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E08068E18FAB6BA003C2AC0 /* SFObjectServiceSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3E08069418FAB803003C2AC0 /* SFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E08069318FAB803003C2AC0 /* SFViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E105E821856D9FB007326BE /* libSFFoundation.a */; };
 		3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E105E891856D9FD007326BE /* libSFiOSKit.a */; };
 		3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */; };
@@ -110,6 +112,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E08068D18FAB6BA003C2AC0 /* SFObjectServiceSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFObjectServiceSession.h; sourceTree = "<group>"; };
+		3E08068E18FAB6BA003C2AC0 /* SFObjectServiceSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFObjectServiceSession.m; sourceTree = "<group>"; };
+		3E08069218FAB803003C2AC0 /* SFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewController.h; sourceTree = "<group>"; };
+		3E08069318FAB803003C2AC0 /* SFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFViewController.m; sourceTree = "<group>"; };
 		3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFFoundation.xcodeproj; path = ../../SFLibraries/SFFoundation/SFFoundation.xcodeproj; sourceTree = "<group>"; };
 		3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFiOSKit.xcodeproj; path = ../../SFLibraries/SFiOSKit/SFiOSKit.xcodeproj; sourceTree = "<group>"; };
 		3E19D65B1831D1A90048A788 /* ESAutoHeightWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAutoHeightWebView.h; sourceTree = "<group>"; };
@@ -327,6 +333,8 @@
 		3E2AE574181E3C24001AAE9D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3E08068D18FAB6BA003C2AC0 /* SFObjectServiceSession.h */,
+				3E08068E18FAB6BA003C2AC0 /* SFObjectServiceSession.m */,
 				3E2AE55E181D3C90001AAE9D /* ESSoundPlayer.h */,
 				3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */,
 				3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */,
@@ -466,6 +474,8 @@
 				3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */,
 				3E98E13C181A02A900AF8C7F /* ESViewController.h */,
 				3E98E13D181A02A900AF8C7F /* ESViewController.m */,
+				3E08069218FAB803003C2AC0 /* SFViewController.h */,
+				3E08069318FAB803003C2AC0 /* SFViewController.m */,
 				3E98E13F181A04D600AF8C7F /* ESTableViewController.h */,
 				3E98E140181A04D600AF8C7F /* ESTableViewController.m */,
 				3E2AE551181D24F9001AAE9D /* ESLinearController.h */,
@@ -766,6 +776,7 @@
 				3ECA51FD181B474F00740EAF /* ESService.m in Sources */,
 				3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */,
 				3EF77C891855CE8500B95134 /* Reachability.m in Sources */,
+				3E08069418FAB803003C2AC0 /* SFViewController.m in Sources */,
 				3EF77C851855CE8500B95134 /* ASIHTTPRequest.m in Sources */,
 				3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */,
 				3EF77C811855CE8500B95134 /* ASIDataCompressor.m in Sources */,
@@ -798,6 +809,7 @@
 				3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */,
 				3EF77C881855CE8500B95134 /* ASIWebPageRequest.m in Sources */,
 				3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */,
+				3E08068F18FAB6BA003C2AC0 /* SFObjectServiceSession.m in Sources */,
 				3E72472B18ED1AFD0055EB66 /* DownloadsViewController.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
