@@ -34,6 +34,11 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
+  - Objective-LevelDB (2.0.7):
+    - Objective-LevelDB/leveldb
+    - Objective-LevelDB/leveldb
+  - Objective-LevelDB/leveldb (2.0.7):
+    - Objective-LevelDB/leveldb
   - ReactiveCocoa (2.2.4):
     - ReactiveCocoa/Core
     - ReactiveCocoa/no-arc
@@ -44,11 +49,13 @@ PODS:
 
 DEPENDENCIES:
   - libextobjc (~> 0.4)
+  - Objective-LevelDB (~> 2.0.7)
   - ReactiveCocoa (~> 2.2.4)
   - RESideMenu (~> 4.0.3)
 
 SPEC CHECKSUMS:
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
+  Objective-LevelDB: 8163d36d32e51b6d09ba7effad9e0e963ba44262
   ReactiveCocoa: 953a45dda30674fe704d1d9c77cc874141742f47
   RESideMenu: 5a9c11e9e649c601b8ffe5253910bde2e3d956ee
 

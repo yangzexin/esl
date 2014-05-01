@@ -88,11 +88,9 @@ NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestur
     
     [[NSNotificationCenter defaultCenter] addObserverForName:ESEnableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         sideMenu.panGestureEnabled = YES;
-        NSLog(@"enable");
     }];
     [[NSNotificationCenter defaultCenter] addObserverForName:ESDisableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         sideMenu.panGestureEnabled = NO;
-        NSLog(@"disable");
     }];
     
     @weakify(menuController);
