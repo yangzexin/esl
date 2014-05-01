@@ -24,6 +24,7 @@
 		3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */; };
 		3E40641418E465E0006B2B12 /* EpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641318E465E0006B2B12 /* EpisodesViewController.m */; };
 		3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641618E4668A006B2B12 /* EpisodesViewModel.m */; };
+		3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4E51912764500548FAB /* ESNavigationController.m */; };
 		3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */; };
 		3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */; };
 		3E72472618ED074B0055EB66 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472518ED074B0055EB66 /* MenuController.m */; };
@@ -142,6 +143,8 @@
 		3E40641318E465E0006B2B12 /* EpisodesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesViewController.m; sourceTree = "<group>"; };
 		3E40641518E4668A006B2B12 /* EpisodesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodesViewModel.h; sourceTree = "<group>"; };
 		3E40641618E4668A006B2B12 /* EpisodesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesViewModel.m; sourceTree = "<group>"; };
+		3E48D4E41912764500548FAB /* ESNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNavigationController.h; sourceTree = "<group>"; };
+		3E48D4E51912764500548FAB /* ESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESNavigationController.m; sourceTree = "<group>"; };
 		3E72471C18ED003A0055EB66 /* EpisodeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewController.h; sourceTree = "<group>"; };
 		3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewController.m; sourceTree = "<group>"; };
 		3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewModel.h; sourceTree = "<group>"; };
@@ -365,6 +368,8 @@
 				3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */,
 				3E72473318ED209E0055EB66 /* SettingsViewController.h */,
 				3E72473418ED209E0055EB66 /* SettingsViewController.m */,
+				3E48D4E41912764500548FAB /* ESNavigationController.h */,
+				3E48D4E51912764500548FAB /* ESNavigationController.m */,
 			);
 			name = MVVM;
 			sourceTree = "<group>";
@@ -795,6 +800,7 @@
 				3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
 				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
+				3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */,
 				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,
 				3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */,
 				3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */,

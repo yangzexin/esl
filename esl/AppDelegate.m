@@ -23,6 +23,9 @@
 #import "UIImage+SFAddition.h"
 #import <RESideMenu/RESideMenu.h>
 
+NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
+NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
+
 @interface AppDelegate () <SFSideMenuControllerDelegate>
 
 @end
@@ -80,7 +83,17 @@
                                                                                     ]];
     
     RESideMenu *sideMenu = [[RESideMenu alloc] initWithContentViewController:tabBarController leftMenuViewController:menuController rightMenuViewController:nil];
+    sideMenu.panFromEdge = NO;
     self.window.rootViewController = sideMenu;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:ESEnableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        sideMenu.panGestureEnabled = YES;
+        NSLog(@"enable");
+    }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:ESDisableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        sideMenu.panGestureEnabled = NO;
+        NSLog(@"disable");
+    }];
     
     @weakify(menuController);
     [menuController setMenuItemSelectHandler:^(NSString *menuItemTitle) {
