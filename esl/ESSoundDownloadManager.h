@@ -8,13 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class ESEpisode;
+#import "SFDownloadManager.h"
 
-typedef NS_ENUM(NSUInteger, ESSoundDownloadState) {
-    ESSoundDownloadStateNotDownloaded,
-    ESSoundDownloadStateDownloading,
-    ESSoundDownloadStateDownloaded,
-};
+@class ESEpisode;
 
 OBJC_EXPORT NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification;
 
@@ -22,9 +18,11 @@ OBJC_EXPORT NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotifi
 
 + (instancetype)sharedManager;
 
-- (ESSoundDownloadState)stateForEpisode:(ESEpisode *)episode;
+- (SFDownloadState)stateForEpisode:(ESEpisode *)episode;
 - (void)downloadEpisode:(ESEpisode *)episode;
 - (float)downloadedPercentForEpisode:(ESEpisode *)episode;
 - (NSString *)soundFilePathForEpisode:(ESEpisode *)episode;
+- (NSArray *)downloadingEpisodes;
+- (NSError *)errorForEpisode:(ESEpisode *)episode;
 
 @end

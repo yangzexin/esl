@@ -7,11 +7,17 @@
 //
 
 #import "EpisodeDetailViewModel.h"
+
 #import "ESEpisode.h"
+
 #import "NSString+JavaLikeStringHandle.h"
 #import "NSObject+SFAddition.h"
+
 #import "SFRepeatTimer.h"
+
 #import "ESSoundDownloadManager.h"
+
+#import "ESSoundPlayContext.h"
 
 @interface EpisodeDetailViewModel ()
 
@@ -19,11 +25,15 @@
 
 @property (nonatomic, strong) RACSignal *episodeDetailSignal;
 
+@property (nonatomic, strong) RACSignal *downloadSignal;
+
 @property (nonatomic, assign, getter = isLoadingEpisodeDetail) BOOL loadingEpisodeDetail;
 
-@property (nonatomic, assign) BOOL soundDownloaded;
+@property (nonatomic, assign) SFDownloadState downloadState;
 
 @property (nonatomic, assign) float downloadPercent;
+
+@property (nonatomic, assign) BOOL soundPlaying;
 
 @end
 
@@ -31,21 +41,27 @@
 
 + (instancetype)viewModelWithEpisode:(ESEpisode *)episode
 {
-    EpisodeDetailViewModel *viewModel = [EpisodeDetailViewModel new];
-    viewModel.episode = episode;
+    EpisodeDetailViewModel *viewModel = [[EpisodeDetailViewModel alloc] initWithEpisode:episode];
     
     return viewModel;
 }
 
-- (id)init
+- (id)initWithEpisode:(ESEpisode *)episode
 {
     self = [super init];
+    
+    self.episode = episode;
+    
+    self.downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode];
     
     @weakify(self);
     [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
         @strongify(self);
         self.downloadPercent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:self.episode];
+        self.downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode];
     }] identifier:@"downloadPercentRefreshTimer"];
+    
+    self.soundPlaying = [[ESSoundPlayContext sharedContext] isPlaying] && [[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid];
     
     return self;
 }
@@ -86,6 +102,50 @@
         }];
     }
     return _episodeDetailSignal;
+}
+
+- (RACSignal *)downloadSignal
+{
+    @weakify(self);
+    _downloadSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        if ([[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode] != SFDownloadStateDownloading) {
+            [[ESSoundDownloadManager sharedManager] downloadEpisode:self.episode];
+        }
+        @weakify(self);
+        [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
+            @strongify(self);
+            if ([[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode] == SFDownloadStateDownloaded) {
+                [subscriber sendNext:[[ESSoundDownloadManager sharedManager] soundFilePathForEpisode:self.episode]];
+                [subscriber sendCompleted];
+            } else if ([[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode] == SFDownloadStateErrored) {
+                [subscriber sendError:[[ESSoundDownloadManager sharedManager] errorForEpisode:self.episode]];
+                [subscriber sendCompleted];
+            }
+        }] identifier:@"CheckDownloadStateTimer"];
+        return [RACDisposable disposableWithBlock:^{
+            @strongify(self);
+            [self removeRepositionSupportedObjectWithIdentifier:@"CheckDownloadStateTimer"];
+        }];
+    }];
+    return _downloadSignal;
+}
+
+- (void)playSound
+{
+    //TODO: resume
+    self.soundPlaying = YES;
+    @weakify(self);
+    [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:[[ESSoundDownloadManager sharedManager] soundFilePathForEpisode:self.episode] finishBlock:^(BOOL success, NSError *error) {
+        @strongify(self);
+        self.soundPlaying = NO;
+    }];
+}
+
+- (void)pauseSound
+{
+    [[ESSoundPlayContext sharedContext] pause];
+    self.soundPlaying = NO;
 }
 
 @end

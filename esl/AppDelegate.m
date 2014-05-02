@@ -8,25 +8,31 @@
 
 #import "AppDelegate.h"
 #import "ESNewEpisodesController.h"
-#import "ESUIDefaults.h"
-#import "ESSoundPlayContext.h"
-#import "ESSharedEpisodeManager.h"
 #import "ESLocalEpisodesController.h"
-#import "SFBlockedBarButtonItem.h"
 #import "EpisodesViewController.h"
 #import "SFSideMenuController.h"
-#import "MenuController.h"
 #import "DownloadsViewController.h"
 #import "SFCompatibleTabController.h"
 #import "LocalEpisodesViewController.h"
+#import "MenuController.h"
 #import "SettingsViewController.h"
+
+#import "SFBlockedBarButtonItem.h"
+
+#import "ESUIDefaults.h"
+#import "ESSoundPlayContext.h"
+#import "ESSharedEpisodeManager.h"
+
 #import "UIImage+SFAddition.h"
 #import <RESideMenu/RESideMenu.h>
+
+#import "SFFoundation.h"
+#import "SFDownloadManager.h"
 
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 
-@interface AppDelegate () <SFSideMenuControllerDelegate>
+@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate>
 
 @end
 
@@ -152,6 +158,27 @@ NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestur
 - (void)sideMenuControllerContentViewControllerDidShown:(SFSideMenuController *)sideMenuController
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
+#pragma mark - test
+- (void)downloaderDidStartDownloading:(SFURLDownloader *)downloader
+{
+    NSLog(@"downloaderDidStartDownloading");
+}
+
+- (void)downloader:(SFURLDownloader *)downloader progress:(float)progress
+{
+    NSLog(@"%f", progress);
+}
+
+- (void)downloaderDidFinishDownloading:(SFURLDownloader *)downloader filePath:(NSString *)filePath
+{
+    NSLog(@"downloaderDidFinishDownloading");
+}
+
+- (void)downloader:(SFURLDownloader *)downloader didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError");
 }
 
 @end

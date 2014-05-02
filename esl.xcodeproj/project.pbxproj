@@ -27,6 +27,7 @@
 		3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4E51912764500548FAB /* ESNavigationController.m */; };
 		3E48D4EF1912930900548FAB /* SFDBCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4EE1912930900548FAB /* SFDBCacheManager.m */; };
 		3E690417191294600099E71D /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E690416191294600099E71D /* libc++.dylib */; };
+		3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E69041B191298B50099E71D /* SFDownloadManager.m */; };
 		3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */; };
 		3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */; };
 		3E72472618ED074B0055EB66 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472518ED074B0055EB66 /* MenuController.m */; };
@@ -150,6 +151,8 @@
 		3E48D4ED1912930900548FAB /* SFDBCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDBCacheManager.h; sourceTree = "<group>"; };
 		3E48D4EE1912930900548FAB /* SFDBCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDBCacheManager.m; sourceTree = "<group>"; };
 		3E690416191294600099E71D /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		3E69041A191298B50099E71D /* SFDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDownloadManager.h; sourceTree = "<group>"; };
+		3E69041B191298B50099E71D /* SFDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDownloadManager.m; sourceTree = "<group>"; };
 		3E72471C18ED003A0055EB66 /* EpisodeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewController.h; sourceTree = "<group>"; };
 		3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewController.m; sourceTree = "<group>"; };
 		3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewModel.h; sourceTree = "<group>"; };
@@ -344,6 +347,8 @@
 			children = (
 				3E48D4ED1912930900548FAB /* SFDBCacheManager.h */,
 				3E48D4EE1912930900548FAB /* SFDBCacheManager.m */,
+				3E69041A191298B50099E71D /* SFDownloadManager.h */,
+				3E69041B191298B50099E71D /* SFDownloadManager.m */,
 				3E08068D18FAB6BA003C2AC0 /* SFObjectServiceSession.h */,
 				3E08068E18FAB6BA003C2AC0 /* SFObjectServiceSession.m */,
 				3E2AE55E181D3C90001AAE9D /* ESSoundPlayer.h */,
@@ -828,6 +833,7 @@
 				3E08068F18FAB6BA003C2AC0 /* SFObjectServiceSession.m in Sources */,
 				3E72472B18ED1AFD0055EB66 /* DownloadsViewController.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
+				3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
 				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,
 				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,

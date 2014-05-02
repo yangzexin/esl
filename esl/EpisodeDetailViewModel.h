@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "BaseViewModel.h"
 
+#import "ESSoundDownloadManager.h"
+
 @class ESEpisode;
 
 @interface EpisodeDetailViewModel : BaseViewModel
@@ -17,12 +19,19 @@
 
 @property (nonatomic, strong, readonly) RACSignal *episodeDetailSignal;
 
+@property (nonatomic, strong, readonly) RACSignal *downloadSignal;
+
 @property (nonatomic, assign, readonly, getter = isLoadingEpisodeDetail) BOOL loadingEpisodeDetail;
 
-@property (nonatomic, assign, readonly, getter = isSoundDownloaded) BOOL soundDownloaded;
+@property (nonatomic, assign, readonly) SFDownloadState downloadState;
 
 @property (nonatomic, assign, readonly) float downloadPercent;
 
+@property (nonatomic, assign, readonly) BOOL soundPlaying;
+
 + (instancetype)viewModelWithEpisode:(ESEpisode *)episode;
+
+- (void)playSound;
+- (void)pauseSound;
 
 @end
