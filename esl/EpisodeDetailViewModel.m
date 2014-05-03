@@ -61,7 +61,7 @@
         self.downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode];
     }] identifier:@"downloadPercentRefreshTimer"];
     
-    self.soundPlaying = [[ESSoundPlayContext sharedContext] isPlaying] && [[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid];
+    self.soundPlaying = [[ESSoundPlayContext sharedContext] isPlaying] && ![[ESSoundPlayContext sharedContext] isPaused] && [[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid];
     
     return self;
 }
@@ -133,13 +133,16 @@
 
 - (void)playSound
 {
-    //TODO: resume
     self.soundPlaying = YES;
     @weakify(self);
-    [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:[[ESSoundDownloadManager sharedManager] soundFilePathForEpisode:self.episode] finishBlock:^(BOOL success, NSError *error) {
-        @strongify(self);
-        self.soundPlaying = NO;
-    }];
+    if ([[ESSoundPlayContext sharedContext].playingEpisode.uid isEqual:self.episode.uid]) {
+        [[ESSoundPlayContext sharedContext] resume];
+    } else {
+        [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:[[ESSoundDownloadManager sharedManager] soundFilePathForEpisode:self.episode] finishBlock:^(BOOL success, NSError *error) {
+            @strongify(self);
+            self.soundPlaying = NO;
+        }];
+    }
 }
 
 - (void)pauseSound
