@@ -24,6 +24,10 @@
 		3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */; };
 		3E40641418E465E0006B2B12 /* EpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641318E465E0006B2B12 /* EpisodesViewController.m */; };
 		3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641618E4668A006B2B12 /* EpisodesViewModel.m */; };
+		3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4E51912764500548FAB /* ESNavigationController.m */; };
+		3E48D4EF1912930900548FAB /* SFDBCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4EE1912930900548FAB /* SFDBCacheManager.m */; };
+		3E690417191294600099E71D /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E690416191294600099E71D /* libc++.dylib */; };
+		3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E69041B191298B50099E71D /* SFDownloadManager.m */; };
 		3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */; };
 		3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472218ED01AD0055EB66 /* EpisodeDetailViewModel.m */; };
 		3E72472618ED074B0055EB66 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72472518ED074B0055EB66 /* MenuController.m */; };
@@ -142,6 +146,13 @@
 		3E40641318E465E0006B2B12 /* EpisodesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesViewController.m; sourceTree = "<group>"; };
 		3E40641518E4668A006B2B12 /* EpisodesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodesViewModel.h; sourceTree = "<group>"; };
 		3E40641618E4668A006B2B12 /* EpisodesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesViewModel.m; sourceTree = "<group>"; };
+		3E48D4E41912764500548FAB /* ESNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNavigationController.h; sourceTree = "<group>"; };
+		3E48D4E51912764500548FAB /* ESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESNavigationController.m; sourceTree = "<group>"; };
+		3E48D4ED1912930900548FAB /* SFDBCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDBCacheManager.h; sourceTree = "<group>"; };
+		3E48D4EE1912930900548FAB /* SFDBCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDBCacheManager.m; sourceTree = "<group>"; };
+		3E690416191294600099E71D /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		3E69041A191298B50099E71D /* SFDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDownloadManager.h; sourceTree = "<group>"; };
+		3E69041B191298B50099E71D /* SFDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDownloadManager.m; sourceTree = "<group>"; };
 		3E72471C18ED003A0055EB66 /* EpisodeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewController.h; sourceTree = "<group>"; };
 		3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeDetailViewController.m; sourceTree = "<group>"; };
 		3E72472118ED01AD0055EB66 /* EpisodeDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeDetailViewModel.h; sourceTree = "<group>"; };
@@ -251,6 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E690417191294600099E71D /* libc++.dylib in Frameworks */,
 				3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */,
 				3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
@@ -333,6 +345,10 @@
 		3E2AE574181E3C24001AAE9D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3E48D4ED1912930900548FAB /* SFDBCacheManager.h */,
+				3E48D4EE1912930900548FAB /* SFDBCacheManager.m */,
+				3E69041A191298B50099E71D /* SFDownloadManager.h */,
+				3E69041B191298B50099E71D /* SFDownloadManager.m */,
 				3E08068D18FAB6BA003C2AC0 /* SFObjectServiceSession.h */,
 				3E08068E18FAB6BA003C2AC0 /* SFObjectServiceSession.m */,
 				3E2AE55E181D3C90001AAE9D /* ESSoundPlayer.h */,
@@ -365,6 +381,8 @@
 				3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */,
 				3E72473318ED209E0055EB66 /* SettingsViewController.h */,
 				3E72473418ED209E0055EB66 /* SettingsViewController.m */,
+				3E48D4E41912764500548FAB /* ESNavigationController.h */,
+				3E48D4E51912764500548FAB /* ESNavigationController.m */,
 			);
 			name = MVVM;
 			sourceTree = "<group>";
@@ -394,6 +412,7 @@
 		3E98E108181A01B000AF8C7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E690416191294600099E71D /* libc++.dylib */,
 				3E2AE564181D40BF001AAE9D /* AVFoundation.framework */,
 				3E98E162181A065700AF8C7F /* CFNetwork.framework */,
 				3E98E160181A065100AF8C7F /* CoreLocation.framework */,
@@ -795,9 +814,11 @@
 				3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
 				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
+				3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */,
 				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,
 				3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */,
 				3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */,
+				3E48D4EF1912930900548FAB /* SFDBCacheManager.m in Sources */,
 				3EF0F060182A1EA80032DC7F /* ESSharedEpisodeManager.m in Sources */,
 				3EF77C871855CE8500B95134 /* ASINetworkQueue.m in Sources */,
 				3E84594718F4F9A10045FFAF /* BaseViewModel.m in Sources */,
@@ -812,6 +833,7 @@
 				3E08068F18FAB6BA003C2AC0 /* SFObjectServiceSession.m in Sources */,
 				3E72472B18ED1AFD0055EB66 /* DownloadsViewController.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
+				3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
 				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,
 				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,
@@ -862,6 +884,7 @@
 /* Begin XCBuildConfiguration section */
 		3E98E130181A01B000AF8C7F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -894,6 +917,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -901,6 +925,7 @@
 		};
 		3E98E131181A01B000AF8C7F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -926,6 +951,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -950,7 +976,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
 				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -974,7 +1000,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
 				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -982,6 +1008,7 @@
 		};
 		3E98E136181A01B000AF8C7F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/esl.app/esl";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1004,6 +1031,7 @@
 		};
 		3E98E137181A01B000AF8C7F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/esl.app/esl";
 				FRAMEWORK_SEARCH_PATHS = (

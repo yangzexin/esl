@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+OBJC_EXPORT NSString *const ESEnableSideMenuGestureNotification;
+OBJC_EXPORT NSString *const ESDisableSideMenuGestureNotification;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

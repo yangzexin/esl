@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "SFDownloadManager.h"
 
 @interface eslTests : XCTestCase
 
@@ -28,7 +29,19 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    SFFileWriter *fileWriter = [[SFFileWriter alloc] initWithFilePath:@"/Users/yangzexin/Downloads/test.txt" memoryCacheSizeInMegabyte:1];
+    [fileWriter prepareForWriting];
+    NSString *str = @"test write append\n";
+    [fileWriter appendWithData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+    str = @"test write append测试\n";
+    [fileWriter appendWithData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+    str = @"test write append测试\n";
+    [fileWriter appendWithData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+    str = @"test write append测试\n";
+    [fileWriter appendWithData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+    str = @"test write append测试\n";
+    [fileWriter appendWithData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+    [fileWriter closeFile];
 }
 
 @end

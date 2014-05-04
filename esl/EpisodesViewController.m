@@ -19,6 +19,8 @@
 
 #import "AppDelegate.h"
 
+#import "SFiOSKit.h"
+
 @interface EpisodesViewController ()
 
 @property (nonatomic, strong) EpisodesViewModel *viewModel;

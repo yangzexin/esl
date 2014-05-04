@@ -7,12 +7,13 @@
 //
 
 #import "ESUIDefaults.h"
+#import "ESNavigationController.h"
 
 @implementation ESUIDefaults
 
 + (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)viewController
 {
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:viewController];
+    UINavigationController *controller = [[ESNavigationController alloc] initWithRootViewController:viewController];
     
     return controller;
 }
