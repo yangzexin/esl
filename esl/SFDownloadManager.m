@@ -220,7 +220,6 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSLog(@"didReceiveData:%d", data.length);
     [_fileWriter appendWithData:data];
     self.numberOfBytesDownloaded += data.length;
     

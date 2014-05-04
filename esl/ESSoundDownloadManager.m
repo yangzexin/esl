@@ -30,7 +30,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 @property (nonatomic, strong) LevelDB *keyURLStringValueEpisode;
 @property (nonatomic, strong) LevelDB *keyURLStringValueError;
 
-@property (nonatomic, strong) SFDBCacheManager *keyURLStringValueSoundPath;
+@property (nonatomic, strong) LevelDB *keyURLStringValueSoundPath;
 
 @end
 
@@ -67,13 +67,19 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     
     self.keyURLStringValueError = [LevelDB databaseInLibraryWithName:@"keyURLStringValueError"];
     [_keyURLStringValueError setEncoder:^NSData *(LevelDBKey *key, id object){
-        return nil;
+        return [NSKeyedArchiver archivedDataWithRootObject:object];
     }];
     [_keyURLStringValueError setDecoder:^id(LevelDBKey *key, NSData *data){
-        return nil;
+        return [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }];
     
-    self.keyURLStringValueSoundPath = [SFDBCacheManager cacheManagerInLibraryWithName:@"keyURLValueSound"];
+    self.keyURLStringValueSoundPath = [LevelDB databaseInLibraryWithName:@"keyURLValueSound"];
+    [_keyURLStringValueSoundPath setEncoder:^NSData *(LevelDBKey *key, NSString *object){
+        return [object dataUsingEncoding:NSUTF8StringEncoding];
+    }];
+    [_keyURLStringValueSoundPath setDecoder:^NSString *(LevelDBKey *key, NSData *data){
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }];
     
     return self;
 }
@@ -82,7 +88,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 {
     SFDownloadState state = [_downloadManager stateForURLString:episode.soundURLString];
     if (state == SFDownloadStateNotDowloaded) {
-        NSString *soundPath = [[NSString alloc] initWithData:[_keyURLStringValueSoundPath cachedDataWithIdentifier:episode.soundURLString filter:[SFBuildInCacheFilters foreverCacheFilter]] encoding:NSUTF8StringEncoding];
+        NSString *soundPath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];
         if (soundPath.length != 0 && [[NSFileManager defaultManager] fileExistsAtPath:soundPath]) {
             state = SFDownloadStateDownloaded;
         }
@@ -103,10 +109,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 
 - (NSString *)soundFilePathForEpisode:(ESEpisode *)episode
 {
-    NSString *soundPath = [_downloadManager filePathWithURLString:episode.soundURLString];
-    if ((soundPath.length == 0 || ![[NSFileManager defaultManager] fileExistsAtPath:soundPath]) && [self stateForEpisode:episode] == SFDownloadStateDownloaded) {
-        soundPath = [[NSString alloc] initWithData:[_keyURLStringValueSoundPath cachedDataWithIdentifier:episode.soundURLString filter:[SFBuildInCacheFilters foreverCacheFilter]] encoding:NSUTF8StringEncoding];
-    }
+    NSString *soundPath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];
     return soundPath;
 }
 
@@ -146,7 +149,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     
     [[NSFileManager defaultManager] moveItemAtPath:soundFilePath toPath:newSoundFilePath error:nil];
     
-    [_keyURLStringValueSoundPath storeCacheWithIdentifier:URLString data:[newSoundFilePath dataUsingEncoding:NSUTF8StringEncoding]];
+    [_keyURLStringValueSoundPath setObject:newSoundFilePath forKey:URLString];
 }
 
 @end
