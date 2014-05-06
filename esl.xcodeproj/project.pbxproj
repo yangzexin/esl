@@ -35,7 +35,6 @@
 		3E72473218ED205E0055EB66 /* LocalEpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */; };
 		3E72473518ED209E0055EB66 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72473418ED209E0055EB66 /* SettingsViewController.m */; };
 		3E84594718F4F9A10045FFAF /* BaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E84594618F4F9A10045FFAF /* BaseViewModel.m */; };
-		3E87BDCC1919114400E69F47 /* SFTimeLimitation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E87BDCB1919114400E69F47 /* SFTimeLimitation.m */; };
 		3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E109181A01B000AF8C7F /* Foundation.framework */; };
 		3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */; };
 		3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
@@ -168,8 +167,6 @@
 		3E72473418ED209E0055EB66 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3E84594518F4F9A10045FFAF /* BaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewModel.h; sourceTree = "<group>"; };
 		3E84594618F4F9A10045FFAF /* BaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewModel.m; sourceTree = "<group>"; };
-		3E87BDCA1919114400E69F47 /* SFTimeLimitation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTimeLimitation.h; sourceTree = "<group>"; };
-		3E87BDCB1919114400E69F47 /* SFTimeLimitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTimeLimitation.m; sourceTree = "<group>"; };
 		3E98E106181A01B000AF8C7F /* esl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = esl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E98E109181A01B000AF8C7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -359,8 +356,6 @@
 				3E2AE578181E3C43001AAE9D /* ApplicationKeeper.mp3 */,
 				3E2AE575181E3C2B001AAE9D /* ApplicationKeeper.h */,
 				3E2AE576181E3C2B001AAE9D /* ApplicationKeeper.m */,
-				3E87BDCA1919114400E69F47 /* SFTimeLimitation.h */,
-				3E87BDCB1919114400E69F47 /* SFTimeLimitation.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -801,7 +796,6 @@
 				3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */,
 				3EF77C891855CE8500B95134 /* Reachability.m in Sources */,
 				3E08069418FAB803003C2AC0 /* SFViewController.m in Sources */,
-				3E87BDCC1919114400E69F47 /* SFTimeLimitation.m in Sources */,
 				3EF77C851855CE8500B95134 /* ASIHTTPRequest.m in Sources */,
 				3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */,
 				3EF77C811855CE8500B95134 /* ASIDataCompressor.m in Sources */,

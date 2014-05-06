@@ -28,7 +28,6 @@
 
 #import "SFFoundation.h"
 #import "SFDownloadManager.h"
-#import "SFTimeLimitation.h"
 
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
@@ -110,19 +109,7 @@ NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestur
         }
     }];
     
-    [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
-        NSLog(@"try");
-        [self testlimit];
-    }]];
-    
     return YES;
-}
-
-- (void)testlimit
-{
-    [[SFTimeLimitation sharedTimeLimitation] limitWithIdentifier:[NSString stringWithFormat:@"%s", __FUNCTION__] limitTimeInterval:2.0f doBlock:^{
-        NSLog(@"dodo");
-    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
