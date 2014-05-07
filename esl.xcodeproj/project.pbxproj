@@ -970,13 +970,13 @@
 				GCC_PREFIX_HEADER = "esl/esl-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "esl/esl-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
+				PROVISIONING_PROFILE = "83AC6701-353B-4A51-9B4C-DAD0925BC5DB";
 				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -994,13 +994,13 @@
 				GCC_PREFIX_HEADER = "esl/esl-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "esl/esl-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
+				PROVISIONING_PROFILE = "83AC6701-353B-4A51-9B4C-DAD0925BC5DB";
 				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
