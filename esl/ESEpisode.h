@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SFImageLabelText;
+
 typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 
 @interface ESEpisode : NSObject
@@ -21,5 +23,7 @@ typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 @property (nonatomic, copy) NSString *contentURLString;
 
 @property (nonatomic, copy) ESEpisodeIntrodutionFormatter introdutionFormatter;
+
+@property (nonatomic, strong) SFImageLabelText *titleFormatted;
 
 @end

@@ -269,6 +269,8 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, strong) NSError *error;
 
+@property (nonatomic, strong) SFURLDownloader *downloader;
+
 + (instancetype)downloadItemWithURLString:(NSString *)URLString;
 
 @end
@@ -359,6 +361,7 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
             [downloader start];
         }
         item.state = SFDownloadStateDownloading;
+        item.downloader = downloader;
     }
     [self _save];
 }
@@ -385,6 +388,13 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 {
     SFDownloadItem *item = [_keyURLStringValueDownloadItem objectForKey:URLString];
     return item.filePath;
+}
+
+- (void)removeDownloadingWithURLString:(NSString *)URLString
+{
+    SFDownloadItem *item = [_keyURLStringValueDownloadItem objectForKey:URLString];
+    [[item downloader] stop];
+    [_keyURLStringValueDownloadItem removeObjectForKey:URLString];
 }
 
 - (NSArray *)downloadingURLStrings

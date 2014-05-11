@@ -83,5 +83,6 @@ typedef NS_ENUM(NSUInteger, SFDownloadState) {
 - (float)downloadedPercentForURLString:(NSString *)URLString;
 - (NSString *)filePathWithURLString:(NSString *)URLString;
 - (NSArray *)downloadingURLStrings;
+- (void)removeDownloadingWithURLString:(NSString *)URLString;
 
 @end

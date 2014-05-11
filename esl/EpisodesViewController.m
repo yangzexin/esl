@@ -21,7 +21,7 @@
 
 #import "SFiOSKit.h"
 
-@interface EpisodesViewController ()
+@interface EpisodesViewController () <SFImageLabelDelegate>
 
 @property (nonatomic, strong) EpisodesViewModel *viewModel;
 
@@ -102,13 +102,40 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100.0f;
+    ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
+    return [episode titleFormatted].size.height + 10;
+}
+
+- (UIImage *)imageLabel:(SFImageLabel *)imageLabel imageWithName:(NSString *)imageName
+{
+    static NSMutableDictionary *keyImageNameValueImage = nil;
+    if (keyImageNameValueImage == nil) {
+        keyImageNameValueImage = [NSMutableDictionary dictionary];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 14)];
+        label.opaque = NO;
+        label.font = [UIFont systemFontOfSize:12.0f];
+        label.backgroundColor = [UIColor clearColor];
+        label.contentMode = UIViewContentModeBottom;
+        
+        label.text = @"📀";
+        [keyImageNameValueImage setObject:[label toImageLegacy] forKey:@"title"];
+        
+        label.text = @"📅";
+        [keyImageNameValueImage setObject:[label toImageLegacy] forKey:@"date"];
+        
+        [keyImageNameValueImage setObject:[UIImage imageNamed:@"logo.gif"] forKey:@"introdution"];
+    }
+    return [keyImageNameValueImage objectForKey:imageName];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"__id";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    SFImageLabel *imageLabel = nil;
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.textLabel.numberOfLines = 1;
@@ -116,11 +143,20 @@
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
         cell.detailTextLabel.textColor = [UIColor darkGrayColor];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 5, cell.contentView.bounds.size.width - 10, cell.contentView.bounds.size.height - 10)];
+        imageLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        imageLabel.tag = 1001;
+        imageLabel.delegate = self;
+        [cell.contentView addSubview:imageLabel];
+    } else {
+        imageLabel = (id)[cell.contentView viewWithTag:1001];
     }
     ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
-    cell.textLabel.text = episode.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"\n%@\n%@", episode.date, episode.formattedIntrodution];
+//    cell.textLabel.text = episode.title;
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"\n%@\n%@", episode.date, episode.formattedIntrodution];
+    imageLabel.text = [episode titleFormatted];
     
     return cell;
 }

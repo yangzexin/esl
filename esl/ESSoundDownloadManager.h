@@ -21,6 +21,7 @@ OBJC_EXPORT NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotifi
 - (SFDownloadState)stateForEpisode:(ESEpisode *)episode;
 - (void)downloadEpisode:(ESEpisode *)episode;
 - (float)downloadedPercentForEpisode:(ESEpisode *)episode;
+- (void)removeEpisode:(ESEpisode *)episode;
 - (NSString *)soundFilePathForEpisode:(ESEpisode *)episode;
 - (NSArray *)downloadingEpisodes;
 - (NSError *)errorForEpisode:(ESEpisode *)episode;

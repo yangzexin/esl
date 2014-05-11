@@ -14,13 +14,20 @@
 
 #import "UIWebView+SFAddition.h"
 #import "SFWaitingIndicator.h"
+#import "PlayerStatusView.h"
 
 #import "ESSoundDownloadManager.h"
 
-@interface EpisodeDetailViewController ()
+#import "SFiOSKit.h"
+
+@interface EpisodeDetailViewController () <PlayerStatusViewDelegate>
 
 @property (nonatomic, strong) EpisodeDetailViewModel *viewModel;
 @property (nonatomic, weak) UIWebView *textView;
+
+@property (nonatomic, strong) PlayerStatusView *playerStatusView;
+
+@property (nonatomic, copy) NSString *html;
 
 @end
 
@@ -47,12 +54,29 @@
         [self.view addSubview:textView];
         self.textView = textView;
         
+        self.playerStatusView = [[PlayerStatusView alloc] initWithFrame:CGRectMake(0, SFDeviceSystemVersion < 7.0f ? 0 : 64, self.view.frame.size.width, 50)];
+        self.playerStatusView.delegate = self;
+        [self.view addSubview:_playerStatusView];
+        
         @weakify(self);
         [_viewModel.episodeDetailSignal subscribeNext:^(id x) {
             @strongify(self);
-            [self.textView loadHTMLString:x baseURL:nil];
+            self.html = x;
+            [self _updateHtml];
         } error:^(NSError *error) {
             
+        }];
+        
+        self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemAction eventHandler:^{
+            [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                @strongify(self);
+                if (buttonIndex == 0) {
+                    [self.viewModel redownload];
+                    [self.viewModel.downloadSignal subscribeNext:^(id x) {
+                        
+                    }];
+                }
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重新下载", @"刷新", nil];
         }];
     }
     
@@ -106,6 +130,19 @@
             [toolbarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
             self.toolbarItems = toolbarItems;
         }
+        
+        self.playerStatusView.userInteractionEnabled = [x boolValue];
+        if ([x boolValue]) {
+            self.playerStatusView.totalTime = self.viewModel.totalTime;
+        }
+        self.playerStatusView.totalTime = self.viewModel.totalTime;
+        self.playerStatusView.hidden = !(self.viewModel.playingCurrentEpisode);
+        [self _updateHtml];
+    }];
+    
+    [RACObserve(_viewModel, currentTime) subscribeNext:^(id x) {
+        @strongify(self);
+        self.playerStatusView.currentTime = [x doubleValue];
     }];
 }
 
@@ -119,6 +156,12 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setToolbarHidden:YES animated:YES];
+}
+
+- (void)_updateHtml
+{
+    CGFloat paddingTop = _playerStatusView.frame.size.height;
+    [self.textView loadHTMLString:[_html stringByReplacingOccurrencesOfString:@"$paddingTop" withString:_playerStatusView.hidden ? @"0" : [NSString stringWithFormat:@"%.0f", paddingTop]] baseURL:nil];
 }
 
 - (void)_downloadButtonTapped:(UIBarButtonItem *)downloadBarButtonItem
@@ -143,6 +186,11 @@
 - (void)_pauseButtonTapped
 {
     [self.viewModel pauseSound];
+}
+
+- (void)playerStatusView:(PlayerStatusView *)playerStatusView didChangeToNewPosition:(float)value
+{
+    [_viewModel jumpToTime:value];
 }
 
 @end

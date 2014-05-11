@@ -27,22 +27,28 @@
 #import <RESideMenu/RESideMenu.h>
 
 #import "SFFoundation.h"
+#import "SFiOSKit.h"
 #import "SFDownloadManager.h"
 
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 
-@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate>
+@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate, SFImageLabelDelegate>
 
 @end
 
 @implementation AppDelegate
 
+- (UIImage *)imageLabel:(SFImageLabel *)imageLabel imageWithName:(NSString *)imageName
+{
+    return [UIImage imageWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor lightGrayColor];
+    self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
 //    ESNewEpisodesController *englishpodController = [ESNewEpisodesController new];

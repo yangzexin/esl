@@ -107,6 +107,12 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     return [_downloadManager downloadedPercentForURLString:episode.soundURLString];
 }
 
+- (void)removeEpisode:(ESEpisode *)episode
+{
+    [_keyURLStringValueSoundPath removeObjectForKey:episode.soundURLString];
+    [_downloadManager removeDownloadingWithURLString:episode.soundURLString];
+}
+
 - (NSString *)soundFilePathForEpisode:(ESEpisode *)episode
 {
     NSString *soundPath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];

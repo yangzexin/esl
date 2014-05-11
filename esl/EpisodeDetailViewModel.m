@@ -34,6 +34,7 @@
 @property (nonatomic, assign) float downloadPercent;
 
 @property (nonatomic, assign) BOOL soundPlaying;
+@property (nonatomic, assign) BOOL playingCurrentEpisode;
 
 @end
 
@@ -52,18 +53,22 @@
     
     self.episode = episode;
     
-    self.downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode];
-    
     @weakify(self);
     [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
         @strongify(self);
-        self.downloadPercent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:self.episode];
-        self.downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode];
+        [self _updateStates];
     }] identifier:@"downloadPercentRefreshTimer"];
     
-    self.soundPlaying = [[ESSoundPlayContext sharedContext] isPlaying] && ![[ESSoundPlayContext sharedContext] isPaused] && [[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid];
-    
     return self;
+}
+
+- (void)_updateStates
+{
+    self.downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode];
+    self.soundPlaying = [[ESSoundPlayContext sharedContext] isPlaying] && ![[ESSoundPlayContext sharedContext] isPaused] && [[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid];
+    self.playingCurrentEpisode = [[[ESSoundPlayContext sharedContext] playingEpisode].uid isEqualToString:_episode.uid];
+    self.downloadPercent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:self.episode];
+    self.currentTime = [[ESSoundPlayContext sharedContext] currentTime];
 }
 
 - (RACSignal *)episodeDetailSignal
@@ -84,7 +89,7 @@
                     NSInteger endIndex = [HTML find:endMatching fromIndex:beginIndex];
                     if (endIndex != -1) {
                         NSString *content = [HTML substringWithBeginIndex:beginIndex endIndex:endIndex];
-                        NSString *contentWrapper = @"<html><body><div style='font-family:Verdana;'>$content</div></body></html>";
+                        NSString *contentWrapper = @"<html><body><div style='font-family:Verdana;padding-top:$paddingTop;'>$content</div></body></html>";
                         value = [contentWrapper stringByReplacingOccurrencesOfString:@"$content" withString:content];
                     }
                 }
@@ -149,6 +154,21 @@
 {
     [[ESSoundPlayContext sharedContext] pause];
     self.soundPlaying = NO;
+}
+
+- (void)redownload
+{
+    [[ESSoundDownloadManager sharedManager] removeEpisode:_episode];
+}
+
+- (void)jumpToTime:(NSTimeInterval)time
+{
+    [[ESSoundPlayContext sharedContext] setCurrentTime:time];
+}
+
+- (NSTimeInterval)totalTime
+{
+    return [[ESSoundPlayContext sharedContext] duration];
 }
 
 @end

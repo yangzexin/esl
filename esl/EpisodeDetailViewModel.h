@@ -28,10 +28,18 @@
 @property (nonatomic, assign, readonly) float downloadPercent;
 
 @property (nonatomic, assign, readonly) BOOL soundPlaying;
+@property (nonatomic, readonly) BOOL playingCurrentEpisode;
+
+@property (nonatomic, assign) NSTimeInterval currentTime;
+@property (nonatomic, readonly) NSTimeInterval totalTime;
 
 + (instancetype)viewModelWithEpisode:(ESEpisode *)episode;
 
 - (void)playSound;
 - (void)pauseSound;
+
+- (void)redownload;
+
+- (void)jumpToTime:(NSTimeInterval)time;
 
 @end
