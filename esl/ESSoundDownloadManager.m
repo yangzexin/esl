@@ -113,6 +113,11 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     [_downloadManager removeDownloadingWithURLString:episode.soundURLString];
 }
 
+- (void)pauseDownloadingEpisode:(ESEpisode *)episode
+{
+    [_downloadManager pauseDownloadingWithURLString:episode.soundURLString];
+}
+
 - (NSString *)soundFilePathForEpisode:(ESEpisode *)episode
 {
     NSString *soundPath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];

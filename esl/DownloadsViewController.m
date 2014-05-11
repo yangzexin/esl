@@ -14,6 +14,12 @@
 
 #import "ESSoundDownloadManager.h"
 
+#import "SFiOSKit.h"
+
+#import "EpisodeDetailViewController.h"
+
+#import "EpisodeDetailViewModel.h"
+
 @interface DownloadsViewController ()
 
 @property (nonatomic, strong) NSArray *downloadingEpisodes;
@@ -46,6 +52,33 @@
         self.keyEpisodeIdValuePercent = keyEpisodeIdValuePercent;
         [self.tableView reloadData];
     }] identifier:@"CheckDownloadsState"];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
+    NSMutableArray *actionTitles = [NSMutableArray array];
+    [actionTitles addObject:@"查看"];
+    SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
+    if (downloadState == SFDownloadStatePaused || downloadState == SFDownloadStateErrored) {
+        [actionTitles addObject:@"继续下载"];
+    } else if (downloadState == SFDownloadStateDownloading) {
+        [actionTitles addObject:@"暂停下载"];
+    }
+    [actionTitles addObject:@"重新下载"];
+    
+    [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+        if ([buttonTitle isEqualToString:@"查看"]) {
+            [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
+        } else if ([buttonTitle isEqualToString:@"继续下载"]) {
+            [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
+        } else if ([buttonTitle isEqualToString:@"重新下载"]) {
+            [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
+            [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
+        } else if ([buttonTitle isEqualToString:@"暂停下载"]) {
+            [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:episode];
+        }
+    } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitleList:actionTitles];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

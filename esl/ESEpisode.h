@@ -24,6 +24,6 @@ typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 
 @property (nonatomic, copy) ESEpisodeIntrodutionFormatter introdutionFormatter;
 
-@property (nonatomic, strong) SFImageLabelText *titleFormatted;
+- (SFImageLabelText *)titleFormatted;
 
 @end

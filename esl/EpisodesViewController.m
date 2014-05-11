@@ -21,6 +21,8 @@
 
 #import "SFiOSKit.h"
 
+#import "ESSoundPlayContext.h"
+
 @interface EpisodesViewController () <SFImageLabelDelegate>
 
 @property (nonatomic, strong) EpisodesViewModel *viewModel;
@@ -65,6 +67,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    @weakify(self);
+    ESEpisode *playingEpisode = [[ESSoundPlayContext sharedContext] playingEpisode];
+    self.navigationItem.rightBarButtonItem = playingEpisode != nil ? [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Playing" eventHandler:^{
+        @strongify(self);
+        ESEpisode *episode = playingEpisode;
+        [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
+    }] : nil;
 }
 
 #pragma mark - UI events

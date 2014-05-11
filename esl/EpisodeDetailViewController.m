@@ -136,8 +136,11 @@
             self.playerStatusView.totalTime = self.viewModel.totalTime;
         }
         self.playerStatusView.totalTime = self.viewModel.totalTime;
+        BOOL hidden = self.playerStatusView.hidden;
         self.playerStatusView.hidden = !(self.viewModel.playingCurrentEpisode);
-        [self _updateHtml];
+        if (hidden != self.playerStatusView.hidden) {
+            [self _updateHtml];
+        }
     }];
     
     [RACObserve(_viewModel, currentTime) subscribeNext:^(id x) {

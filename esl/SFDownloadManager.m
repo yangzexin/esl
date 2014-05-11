@@ -390,6 +390,13 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
     return item.filePath;
 }
 
+- (void)pauseDownloadingWithURLString:(NSString *)URLString
+{
+    SFDownloadItem *item = [_keyURLStringValueDownloadItem objectForKey:URLString];
+    item.state = SFDownloadStatePaused;
+    [[item downloader] pause];
+}
+
 - (void)removeDownloadingWithURLString:(NSString *)URLString
 {
     SFDownloadItem *item = [_keyURLStringValueDownloadItem objectForKey:URLString];

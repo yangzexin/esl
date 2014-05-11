@@ -10,7 +10,9 @@
 
 #import "SFImageLabel.h"
 
-@implementation ESEpisode
+@implementation ESEpisode {
+    SFImageLabelText *_titleFormatted;
+}
 
 - (NSString *)description
 {
@@ -36,7 +38,7 @@
 - (void)_build
 {
     NSString *text = [NSString stringWithFormat:@"[title]%@\n", _title];
-    self.titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
+    _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(25, 25);
     }];
     _titleFormatted.font = [UIFont boldSystemFontOfSize:17.0f];
@@ -52,7 +54,7 @@
     dateText.imageMatchingLeft = @"[";
     dateText.imageMatchingRight = @"]";
     [dateText build];
-    self.titleFormatted = [_titleFormatted textByAppendingText:dateText];
+    _titleFormatted = [_titleFormatted textByAppendingText:dateText];
     
     SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"[introdution]%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(310, 82);
@@ -61,7 +63,7 @@
     introText.imageMatchingLeft = @"[";
     introText.imageMatchingRight = @"]";
     [introText build];
-    self.titleFormatted = [_titleFormatted textByAppendingText:introText];
+    _titleFormatted = [_titleFormatted textByAppendingText:introText];
 }
 
 - (SFImageLabelText *)titleFormatted
