@@ -156,9 +156,21 @@
     self.soundPlaying = NO;
 }
 
+- (void)startDownload
+{
+    [self.downloadSignal subscribeNext:^(id x) {
+        
+    }];
+}
+
 - (void)redownload
 {
     [[ESSoundDownloadManager sharedManager] removeEpisode:_episode];
+}
+
+- (void)pauseDownload
+{
+    [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:_episode];
 }
 
 - (void)jumpToTime:(NSTimeInterval)time

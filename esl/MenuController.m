@@ -8,6 +8,8 @@
 
 #import "MenuController.h"
 
+#import "SFiOSKit.h"
+
 @interface MenuController ()
 
 @property (nonatomic, strong) NSArray *menuItemTitles;
@@ -27,7 +29,7 @@
 - (void)loadView
 {
     [super loadView];
-    self.tableView.backgroundColor = [UIColor darkGrayColor];
+    self.tableView.backgroundColor = [UIColor lightGrayColor];
     self.tableView.backgroundView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     @weakify(self);

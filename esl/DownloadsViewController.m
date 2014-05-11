@@ -103,7 +103,9 @@
     }
     
     ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
+    SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
     cell.textLabel.text = [episode title];
+    cell.textLabel.textColor = (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) ? [UIColor lightGrayColor] : [UIColor blackColor];;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f%%", [[_keyEpisodeIdValuePercent objectForKey:episode.uid] floatValue] * 100];
     
     return cell;

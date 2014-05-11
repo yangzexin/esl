@@ -78,18 +78,18 @@ NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestur
     SFCompatibleTabController *tabBarController = [SFCompatibleTabController new];
     tabBarController.viewControllers = @[
                                          [ESUIDefaults navigationControllerWithRootViewController:[EpisodesViewController new]]
-                                         , [ESUIDefaults navigationControllerWithRootViewController:[LocalEpisodesViewController new]]
+//                                         , [ESUIDefaults navigationControllerWithRootViewController:[LocalEpisodesViewController new]]
                                          , [ESUIDefaults navigationControllerWithRootViewController:[DownloadsViewController new]]
                                          , [ESUIDefaults navigationControllerWithRootViewController:[SettingsViewController new]]
                                          ];
     
     NSString *menuItemTitleNews = NSLocalizedString(@"News", nil);
-    NSString *menuItemTitleLocal = NSLocalizedString(@"Local", nil);
+//    NSString *menuItemTitleLocal = NSLocalizedString(@"Local", nil);
     NSString *menuItemTitleDownloads = NSLocalizedString(@"Downloads", nil);
     NSString *menuItemTitleSettings = NSLocalizedString(@"Settings", nil);
     MenuController *menuController = [MenuController controllerWithMenuItemTitles:@[
                                                                                     menuItemTitleNews
-                                                                                    , menuItemTitleLocal
+//                                                                                    , menuItemTitleLocal
                                                                                     , menuItemTitleDownloads
                                                                                     , menuItemTitleSettings
                                                                                     ]];

@@ -38,7 +38,9 @@
 - (void)playSound;
 - (void)pauseSound;
 
+- (void)startDownload;
 - (void)redownload;
+- (void)pauseDownload;
 
 - (void)jumpToTime:(NSTimeInterval)time;
 

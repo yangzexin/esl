@@ -59,24 +59,35 @@
         [self.view addSubview:_playerStatusView];
         
         @weakify(self);
-        [_viewModel.episodeDetailSignal subscribeNext:^(id x) {
-            @strongify(self);
-            self.html = x;
-            [self _updateHtml];
-        } error:^(NSError *error) {
-            
-        }];
+//        [_viewModel.episodeDetailSignal subscribeNext:^(id x) {
+//            @strongify(self);
+//            self.html = x;
+//            [self _updateHtml];
+//        } error:^(NSError *error) {
+//            
+//        }];
         
         self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemAction eventHandler:^{
+            NSMutableArray *actionTitles = [NSMutableArray array];
+            if ([self.viewModel downloadState] == SFDownloadStateDownloaded) {
+                [actionTitles addObject:@"重新下载"];
+            }
+            [actionTitles addObject:@"显示文本"];
             [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 @strongify(self);
-                if (buttonIndex == 0) {
+                if ([buttonTitle isEqualToString:@"重新下载"]) {
                     [self.viewModel redownload];
-                    [self.viewModel.downloadSignal subscribeNext:^(id x) {
+                    [self.viewModel startDownload];
+                } else if ([buttonTitle isEqualToString:@"显示文本"]) {
+                    [self.viewModel.episodeDetailSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        self.html = x;
+                        [self _updateHtml];
+                    } error:^(NSError *error) {
                         
                     }];
                 }
-            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"重新下载", @"刷新", nil];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitleList:actionTitles];
         }];
     }
     
@@ -87,7 +98,7 @@
         [SFWaitingIndicator showLoading:[loading boolValue] inView:self.view];
     }];
     
-    UIBarButtonItem *downloadingIndicatorButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    UIBarButtonItem *downloadingIndicatorButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(_downloadingIndicatorButtonTapped)];
     UIBarButtonItem *playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(_playButtonTapped)];
     UIBarButtonItem *retryButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(_retryButtonTapped)];
     UIBarButtonItem *pauseButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(_pauseButtonTapped)];
@@ -169,9 +180,19 @@
 
 - (void)_downloadButtonTapped:(UIBarButtonItem *)downloadBarButtonItem
 {
-    [_viewModel.downloadSignal subscribeNext:^(id x) {
-        
-    }];
+    [_viewModel startDownload];
+}
+
+- (void)_downloadingIndicatorButtonTapped
+{
+    [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+        if ([buttonTitle isEqualToString:@"暂停"]) {
+            [self.viewModel pauseDownload];
+        } else if ([buttonTitle isEqualToString:@"重新下载"]) {
+            [self.viewModel redownload];
+            [self.viewModel startDownload];
+        }
+    } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"暂停", @"重新下载", nil];
 }
 
 - (void)_playButtonTapped
