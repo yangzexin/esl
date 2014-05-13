@@ -19,6 +19,7 @@
 #import "ESSoundDownloadManager.h"
 
 #import "SFiOSKit.h"
+#import "SFFoundation.h"
 
 @interface EpisodeDetailViewController () <PlayerStatusViewDelegate>
 
