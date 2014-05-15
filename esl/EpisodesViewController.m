@@ -71,7 +71,7 @@
     @weakify(self);
     ESEpisode *playingEpisode = [[ESSoundPlayContext sharedContext] playingEpisode];
     self.navigationItem.rightBarButtonItem = playingEpisode != nil ? ({
-            SFBlockedBarButtonItem *buttonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"正在播放" eventHandler:^{
+            SFBlockedBarButtonItem *buttonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Listening" eventHandler:^{
             @strongify(self);
             ESEpisode *episode = playingEpisode;
             [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
