@@ -39,7 +39,7 @@
 {
     NSString *text = [NSString stringWithFormat:@"[title]%@\n", _title];
     _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
-        return CGSizeMake(25, 25);
+        return CGSizeMake(25, 18);
     }];
     _titleFormatted.font = [UIFont boldSystemFontOfSize:17.0f];
     _titleFormatted.imageMatchingLeft = @"[";

@@ -117,7 +117,7 @@
     if (keyImageNameValueImage == nil) {
         keyImageNameValueImage = [NSMutableDictionary dictionary];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 14)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 15)];
         label.opaque = NO;
         label.font = [UIFont systemFontOfSize:12.0f];
         label.backgroundColor = [UIColor clearColor];
