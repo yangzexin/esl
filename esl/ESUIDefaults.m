@@ -9,11 +9,17 @@
 #import "ESUIDefaults.h"
 #import "ESNavigationController.h"
 
+#import "SFiOSKit.h"
+
 @implementation ESUIDefaults
 
 + (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)viewController
 {
     UINavigationController *controller = [[ESNavigationController alloc] initWithRootViewController:viewController];
+    
+    if (SFDeviceSystemVersion < 7.0f) {
+        controller.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    }
     
     return controller;
 }
