@@ -70,11 +70,15 @@
     [super viewWillAppear:animated];
     @weakify(self);
     ESEpisode *playingEpisode = [[ESSoundPlayContext sharedContext] playingEpisode];
-    self.navigationItem.rightBarButtonItem = playingEpisode != nil ? [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Playing" eventHandler:^{
-        @strongify(self);
-        ESEpisode *episode = playingEpisode;
-        [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
-    }] : nil;
+    self.navigationItem.rightBarButtonItem = playingEpisode != nil ? ({
+            SFBlockedBarButtonItem *buttonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"正在播放" eventHandler:^{
+            @strongify(self);
+            ESEpisode *episode = playingEpisode;
+            [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
+        }];
+        buttonItem.style = UIBarButtonItemStyleDone;
+        buttonItem;
+    }) : nil;
 }
 
 #pragma mark - UI events
