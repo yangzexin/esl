@@ -95,6 +95,9 @@ NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestur
                                                                                     ]];
     
     RESideMenu *sideMenu = [[RESideMenu alloc] initWithContentViewController:tabBarController leftMenuViewController:menuController rightMenuViewController:nil];
+    sideMenu.contentViewShadowRadius = 5;
+    sideMenu.contentViewShadowColor = [UIColor blackColor];
+    sideMenu.contentViewShadowEnabled = YES;
     sideMenu.panFromEdge = NO;
     self.window.rootViewController = sideMenu;
     
