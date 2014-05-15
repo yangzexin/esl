@@ -8,6 +8,8 @@
 
 #import "ESViewController.h"
 #import <objc/runtime.h>
+#import "SFiOSKit.h"
+#import "AppDelegate.h"
 
 @interface ESViewController ()
 
@@ -55,6 +57,13 @@
 {
     [super loadView];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.toolbarHidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setToolbarHidden:self.toolbarHidden animated:animated];
 }
 
 - (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion
@@ -81,6 +90,21 @@
 - (CGFloat)startYPositionOfView
 {
     return [UIDevice currentDevice].systemVersion.floatValue < 7.0f ? 0.0f : self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+}
+
+- (void)setLeftBarButtonItemAsSideMenuSwitcher
+{
+    UIView *showSideMenuImage = [[[NSBundle mainBundle] loadNibNamed:@"ShowSideMenuImage" owner:nil options:nil] lastObject];
+    showSideMenuImage.opaque = NO;
+    UIImage *image = [showSideMenuImage toImageLegacy];
+    self.navigationItem.leftBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithCustomView:({
+        SFBlockedButton *button = [SFBlockedButton blockedButtonWithTapHandler:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:ESShowSideMenuNotification object:nil];
+        }];
+        [button setImage:image forState:UIControlStateNormal];
+        button.frame = CGRectMake(0, 0, 60, 40);
+        button;
+    })];
 }
 
 @end

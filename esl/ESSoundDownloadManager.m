@@ -109,6 +109,8 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 
 - (void)removeEpisode:(ESEpisode *)episode
 {
+    NSString *soundFilePath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];
+    [[NSFileManager defaultManager] removeItemAtPath:soundFilePath error:nil];
     [_keyURLStringValueSoundPath removeObjectForKey:episode.soundURLString];
     [_downloadManager removeDownloadingWithURLString:episode.soundURLString];
 }

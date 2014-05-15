@@ -68,6 +68,7 @@
 		3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */; };
 		3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */; };
 		3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */; };
+		3EC7F555192506910079B40F /* ShowSideMenuImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC7F554192506910079B40F /* ShowSideMenuImage.xib */; };
 		3ECA51FD181B474F00740EAF /* ESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FC181B474F00740EAF /* ESService.m */; };
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
@@ -213,6 +214,7 @@
 		3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRequestProxyWrapper.m; sourceTree = "<group>"; };
 		3EC70D0E18EE8A6A00DA777A /* ESSoundDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSoundDownloadManager.h; sourceTree = "<group>"; };
 		3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESSoundDownloadManager.m; sourceTree = "<group>"; };
+		3EC7F554192506910079B40F /* ShowSideMenuImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowSideMenuImage.xib; sourceTree = "<group>"; };
 		3ECA51FB181B474F00740EAF /* ESService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESService.h; sourceTree = "<group>"; };
 		3ECA51FC181B474F00740EAF /* ESService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESService.m; sourceTree = "<group>"; };
 		3ECA5204181C168400740EAF /* ESEpisodeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEpisodeService.h; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				3E72473418ED209E0055EB66 /* SettingsViewController.m */,
 				3E48D4E41912764500548FAB /* ESNavigationController.h */,
 				3E48D4E51912764500548FAB /* ESNavigationController.m */,
+				3EC7F554192506910079B40F /* ShowSideMenuImage.xib */,
 			);
 			name = MVVM;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				3EF0F079182A38F60032DC7F /* icon_news_list@2x.png in Resources */,
 				3E5B786E191E461B000634A7 /* logo.gif in Resources */,
 				3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */,
+				3EC7F555192506910079B40F /* ShowSideMenuImage.xib in Resources */,
 				3EF0F077182A38F60032DC7F /* icon_local_list@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,7 +984,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83AC6701-353B-4A51-9B4C-DAD0925BC5DB";
+				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
 				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1004,7 +1008,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83AC6701-353B-4A51-9B4C-DAD0925BC5DB";
+				PROVISIONING_PROFILE = "B769B701-62B8-4611-985A-E94F7E2B76A8";
 				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
 				WRAPPER_EXTENSION = app;
 			};

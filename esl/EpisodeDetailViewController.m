@@ -47,6 +47,11 @@
     [super loadView];
     
     self.title = _viewModel.episode.title;
+    self.toolbarHidden = NO;
+    
+    if (SFDeviceSystemVersion < 7.0f) {
+        self.navigationController.toolbar.barStyle = UIBarStyleBlackOpaque;
+    }
     
     {
         UIWebView *textView = [[UIWebView alloc] initWithFrame:self.view.bounds];
@@ -164,13 +169,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setToolbarHidden:NO animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)_updateHtml

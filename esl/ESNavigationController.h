@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SFiOSKit.h"
 
-@interface ESNavigationController : UINavigationController
+@interface ESNavigationController : SFGestureBackNavigationController
 
 @end

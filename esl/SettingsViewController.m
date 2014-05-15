@@ -19,4 +19,10 @@
     return self;
 }
 
+- (void)loadView
+{
+    [super loadView];
+    [self setLeftBarButtonItemAsSideMenuSwitcher];
+}
+
 @end

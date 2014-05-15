@@ -10,6 +10,7 @@
 
 OBJC_EXPORT NSString *const ESEnableSideMenuGestureNotification;
 OBJC_EXPORT NSString *const ESDisableSideMenuGestureNotification;
+OBJC_EXPORT NSString *const ESShowSideMenuNotification;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

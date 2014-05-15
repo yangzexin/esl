@@ -46,12 +46,13 @@
     [super loadView];
     if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
         ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-        [refreshControl addTarget:self action:@selector(_dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+        [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     } else {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
         [self.tableView addSubview:refreshControl];
     }
+    [self setLeftBarButtonItemAsSideMenuSwitcher];
 }
 
 - (void)viewDidLoad
@@ -77,12 +78,7 @@
 }
 
 #pragma mark - UI events
-- (void)_dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
-{
-    
-}
-
-- (void)_refreshControlDidBeginRefreshing:(UIRefreshControl *)refreshControl
+- (void)_refreshControlDidBeginRefreshing:(id)refreshControl
 {
     @weakify(self);
     [_viewModel.refreshEpisodesSignal subscribeError:^(NSError *error) {
@@ -90,8 +86,8 @@
         @strongify(self);
         [self.tableView reloadData];
     } completed:^{
-        [refreshControl endRefreshing];
         @strongify(self);
+        [refreshControl endRefreshing];
         [self.tableView reloadData];
     }];
 }
@@ -154,7 +150,7 @@
         cell.detailTextLabel.textColor = [UIColor darkGrayColor];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 5, cell.contentView.bounds.size.width - 10, cell.contentView.bounds.size.height - 10)];
+        imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 5, cell.contentView.bounds.size.width - 10, cell.contentView.bounds.size.height - 15)];
         imageLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         imageLabel.tag = 1001;
         imageLabel.delegate = self;

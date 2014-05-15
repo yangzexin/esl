@@ -41,6 +41,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setLeftBarButtonItemAsSideMenuSwitcher];
+    
     @weakify(self);
     [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:1.0f tick:^{
         @strongify(self);
@@ -66,6 +68,7 @@
         [actionTitles addObject:@"暂停下载"];
     }
     [actionTitles addObject:@"重新下载"];
+    [actionTitles addObject:@"删除"];
     
     [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
         if ([buttonTitle isEqualToString:@"查看"]) {
@@ -77,6 +80,8 @@
             [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
         } else if ([buttonTitle isEqualToString:@"暂停下载"]) {
             [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:episode];
+        } else if ([buttonTitle isEqualToString:@"删除"]) {
+            [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
         }
     } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitleList:actionTitles];
 }

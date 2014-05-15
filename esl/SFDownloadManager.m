@@ -402,6 +402,7 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
     SFDownloadItem *item = [_keyURLStringValueDownloadItem objectForKey:URLString];
     [[item downloader] stop];
     [_keyURLStringValueDownloadItem removeObjectForKey:URLString];
+    [[NSFileManager defaultManager] removeItemAtPath:item.filePath error:nil];
 }
 
 - (NSArray *)downloadingURLStrings

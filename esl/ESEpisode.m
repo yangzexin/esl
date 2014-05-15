@@ -56,7 +56,7 @@
     [dateText build];
     _titleFormatted = [_titleFormatted textByAppendingText:dateText];
     
-    SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"[introdution]%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
+    SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(310, 82);
     }];
     introText.textColor = [UIColor darkGrayColor];

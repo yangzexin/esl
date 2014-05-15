@@ -32,6 +32,7 @@
 
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
+NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 
 @interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate, SFImageLabelDelegate>
 
@@ -106,6 +107,9 @@ NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestur
     }];
     [[NSNotificationCenter defaultCenter] addObserverForName:ESDisableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         sideMenu.panGestureEnabled = NO;
+    }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:ESShowSideMenuNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [sideMenu presentLeftMenuViewController];
     }];
     
     @weakify(menuController);

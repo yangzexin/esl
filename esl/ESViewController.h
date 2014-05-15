@@ -12,10 +12,14 @@
 
 @interface ESViewController : SFViewController
 
+@property (nonatomic, assign) BOOL toolbarHidden;
+
 - (void)stopRequestingServiceWithIdnentifier:(NSString *)identifier;
 - (void)requestService:(id<ESService>)service identifier:(NSString *)identifier completion:(ESServiceCompletion)completion;
 - (void)requestService:(id<ESService>)service completion:(ESServiceCompletion)completion;
 
 - (CGFloat)startYPositionOfView;
+
+- (void)setLeftBarButtonItemAsSideMenuSwitcher;
 
 @end
