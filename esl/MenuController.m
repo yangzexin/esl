@@ -29,7 +29,7 @@
 - (void)loadView
 {
     [super loadView];
-    self.tableView.backgroundColor = [UIColor darkGrayColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     @weakify(self);

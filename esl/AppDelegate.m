@@ -24,7 +24,6 @@
 #import "ESSharedEpisodeManager.h"
 
 #import "UIImage+SFAddition.h"
-#import <RESideMenu/RESideMenu.h>
 
 #import "SFFoundation.h"
 #import "SFiOSKit.h"
@@ -49,7 +48,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor blackColor];
+    self.window.backgroundColor = [UIColor darkGrayColor];
     [self.window makeKeyAndVisible];
     
 //    ESNewEpisodesController *englishpodController = [ESNewEpisodesController new];
@@ -95,21 +94,17 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
                                                                                     , menuItemTitleSettings
                                                                                     ]];
     
-    RESideMenu *sideMenu = [[RESideMenu alloc] initWithContentViewController:tabBarController leftMenuViewController:menuController rightMenuViewController:nil];
-    sideMenu.contentViewShadowRadius = 5;
-    sideMenu.contentViewShadowColor = [UIColor blackColor];
-    sideMenu.contentViewShadowEnabled = YES;
-    sideMenu.panFromEdge = NO;
-    self.window.rootViewController = sideMenu;
+    SFSideMenuController *sideMenuController = [[SFSideMenuController alloc] initWithMenuViewController:menuController contentViewController:tabBarController];
+    self.window.rootViewController = sideMenuController;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:ESEnableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        sideMenu.panGestureEnabled = YES;
+        sideMenuController.disableGestureShowMenu = NO;
     }];
     [[NSNotificationCenter defaultCenter] addObserverForName:ESDisableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        sideMenu.panGestureEnabled = NO;
+        sideMenuController.disableGestureShowMenu = YES;
     }];
     [[NSNotificationCenter defaultCenter] addObserverForName:ESShowSideMenuNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        [sideMenu presentLeftMenuViewController];
+        [sideMenuController showMenuViewControllerAnimated:YES completion:nil];
     }];
     
     @weakify(menuController);
@@ -118,7 +113,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         NSUInteger indexOfMenuItemTitle = [menuController.menuItemTitles indexOfObject:menuItemTitle];
         if (indexOfMenuItemTitle != NSNotFound) {
             tabBarController.selectedIndex = indexOfMenuItemTitle;
-            [sideMenu hideMenuViewController];
+            [sideMenuController showContentViewControllerAnimated:YES completion:nil];
         }
     }];
     

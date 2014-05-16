@@ -121,9 +121,9 @@
     if (keyImageNameValueImage == nil) {
         keyImageNameValueImage = [NSMutableDictionary dictionary];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 15)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
         label.opaque = NO;
-        label.font = [UIFont systemFontOfSize:12.0f];
+        label.font = [UIFont systemFontOfSize:27.0f];
         label.backgroundColor = [UIColor clearColor];
         label.contentMode = UIViewContentModeBottom;
         
@@ -158,6 +158,7 @@
         imageLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         imageLabel.tag = 1001;
         imageLabel.delegate = self;
+        imageLabel.drawsImageWithImageSize = YES;
         [cell.contentView addSubview:imageLabel];
     } else {
         imageLabel = (id)[cell.contentView viewWithTag:1001];

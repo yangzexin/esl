@@ -39,7 +39,7 @@
 {
     NSString *text = [NSString stringWithFormat:@"[title]%@\n", _title];
     _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
-        return CGSizeMake(25, 18);
+        return CGSizeMake(28, 28);
     }];
     _titleFormatted.font = [UIFont boldSystemFontOfSize:17.0f];
     _titleFormatted.imageMatchingLeft = @"[";
@@ -47,7 +47,7 @@
     [_titleFormatted build];
     
     SFImageLabelText *dateText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"[date]%@\n", _date] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
-        return CGSizeMake(25, 25);
+        return CGSizeMake(25, 28);
     }];
     dateText.textColor = [UIColor lightGrayColor];
     dateText.font = [UIFont systemFontOfSize:12.0f];
@@ -56,7 +56,7 @@
     [dateText build];
     _titleFormatted = [_titleFormatted textByAppendingText:dateText];
     
-    SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
+    SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"[introdution]%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(310, 82);
     }];
     introText.textColor = [UIColor darkGrayColor];
