@@ -95,6 +95,13 @@
 - (void)setLeftBarButtonItemAsSideMenuSwitcher
 {
     UIView *showSideMenuImage = [[[NSBundle mainBundle] loadNibNamed:@"ShowSideMenuImage" owner:nil options:nil] lastObject];
+    if (SFDeviceSystemVersion >= 7.0f) {
+        for (UIView *view in [showSideMenuImage subviews]) {
+            for (UIView *subview in [view subviews]) {
+                subview.backgroundColor = [UIColor darkGrayColor];
+            }
+        }
+    }
     showSideMenuImage.opaque = NO;
     UIImage *image = [showSideMenuImage toImageLegacy];
     self.navigationItem.leftBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithCustomView:({
