@@ -37,7 +37,7 @@
 
 - (void)_build
 {
-    NSString *text = [NSString stringWithFormat:@"[title]%@\n\n", _title];
+    NSString *text = [NSString stringWithFormat:@"%@\n", _title];
     _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(27, 20);
     }];
@@ -46,7 +46,7 @@
     _titleFormatted.imageMatchingRight = @"]";
     [_titleFormatted build];
     
-    SFImageLabelText *dateText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"[date]%@\n", _date] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
+    SFImageLabelText *dateText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@\n", _date] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(27, 20);
     }];
     dateText.textColor = [UIColor lightGrayColor];

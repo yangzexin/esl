@@ -133,6 +133,9 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     for (NSString *URLString in downloadURLStrings) {
         [downloadingEpisodes addObject:[_keyURLStringValueEpisode objectForKey:URLString]];
     }
+    [downloadingEpisodes sortUsingComparator:^NSComparisonResult(ESEpisode *obj1, ESEpisode *obj2) {
+        return [obj1.title compare:obj2.title];
+    }];
     return downloadingEpisodes;
 }
 

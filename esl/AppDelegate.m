@@ -29,6 +29,9 @@
 #import "SFiOSKit.h"
 #import "SFDownloadManager.h"
 
+#import "SFDict2Object.h"
+#import "ESEpisode.h"
+
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
@@ -116,6 +119,35 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
             [sideMenuController showContentViewControllerAnimated:YES completion:nil];
         }
     }];
+    
+//    NSDictionary *dict = @{@"titl" : @"titititle"
+//                           , @"intro" : @"introdution"
+//                           , @"episode" : @[@{
+//                                                @"title" : @"111111"
+//                                                , @"date" : @"da"
+//                                                , @"intro" : @"111111"
+//                                                },@{
+//                                                @"title" : @"111111"
+//                                                , @"intro" : @"111111"
+//                                                }]
+//                           , @"date" : @"2012-07-06"
+//                           };
+//    
+//    ESEpisode *episode = [ESEpisode objectWithDictionary:dict
+//                                                 mapping:@"{title:titl}{introdution:intro}{epis:episode}{epis:@ESEpisode}{fdate:date}"
+//                                                    path:nil
+//                                      propertyProcessors:@[[SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"fdate" processing:^id(id unhandledValue)
+//    {
+//        return [NSDate new];
+//    }], [SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"introdution" processing:^id(id unhandledValue)
+//    {
+//        return @"intro comon";
+//    }], [SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"title" processing:^id(id unhandledValue)
+//    {
+//        return @"formatted title";
+//    }]]];
+//    
+//    NSLog(@"%@", [episode dictionary]);
     
     return YES;
 }

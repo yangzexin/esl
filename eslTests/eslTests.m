@@ -27,6 +27,11 @@
     [super tearDown];
 }
 
+- (void)testMapping
+{
+    
+}
+
 - (void)testExample
 {
     SFFileWriter *fileWriter = [[SFFileWriter alloc] initWithFilePath:@"/Users/yangzexin/Downloads/test.txt" memoryCacheSizeInMegabyte:1];

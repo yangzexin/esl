@@ -112,7 +112,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
-    return [episode titleFormatted].size.height + 15;
+    return [episode titleFormatted].size.height + 20;
 }
 
 - (UIImage *)imageLabel:(SFImageLabel *)imageLabel imageWithName:(NSString *)imageName
@@ -154,7 +154,7 @@
         cell.detailTextLabel.textColor = [UIColor darkGrayColor];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 5, cell.contentView.bounds.size.width - 10, cell.contentView.bounds.size.height)];
+        imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 7, cell.contentView.bounds.size.width - 10, cell.contentView.bounds.size.height)];
         imageLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         imageLabel.tag = 1001;
         imageLabel.delegate = self;
