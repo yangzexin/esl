@@ -16,6 +16,7 @@
 #import "LocalEpisodesViewController.h"
 #import "MenuController.h"
 #import "SettingsViewController.h"
+#import "SFSwitchTabController.h"
 
 #import "SFBlockedBarButtonItem.h"
 
@@ -32,11 +33,58 @@
 #import "SFDict2Object.h"
 #import "ESEpisode.h"
 
+@interface testVC : UIViewController
+
+@property (nonatomic, strong) UIColor *backgroundColor;
+
+@end
+
+@implementation testVC
+
+- (void)loadView
+{
+    [super loadView];
+//    NSLog(@"loadView:%@", self.title);
+    self.view.backgroundColor = self.backgroundColor;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    NSLog(@"viewWillAppear:%@", self.title);
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+//    NSLog(@"viewWillDisappear:%@", self.title);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+//    NSLog(@"viewDidAppear:%@", self.title);
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+//    NSLog(@"viewDidDisappear:%@", self.title);
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+//    NSLog(@"didReceiveMemoryWarning:%@", self.title);
+}
+
+@end
+
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 
-@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate, SFImageLabelDelegate>
+@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate, SFImageLabelDelegate, SFSwitchTabControllerDelegate>
 
 @end
 
@@ -120,41 +168,77 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         }
     }];
     
-    NSDictionary *dict = @{@"titl" : @"titititle"
-                           , @"intro" : @"introdution"
-                           , @"episode" : @[@{
-                                                @"title" : @"111111"
-                                                , @"date" : @"da"
-                                                , @"intro" : @"111111"
-                                                },@{
-                                                @"title" : @"111111"
-                                                , @"intro" : @"111111"
-                                                }]
-                           , @"date" : @"2012-07-06"
-                           };
+    testVC *first = [testVC new];
+    first.title = @"1";
+    first.backgroundColor = [UIColor redColor];
     
-    ESEpisode *episode = [ESEpisode objectWithDictionary:dict
-                                                 mapping:@"{title:titl}{introdution:intro}{epis:episode}{epis:@ESEpisode}{fdate:date}"
-                                                    path:nil
-                                      propertyProcessors:@[[SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"fdate" processing:^id(id unhandledValue)
-    {
-        return [NSDate new];
-    }], [SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"introdution" processing:^id(id unhandledValue)
-    {
-        return @"intro comon";
-    }], [SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"title" processing:^id(id unhandledValue)
-    {
-        return @"formatted title";
-    }]]];
+    testVC *second = [testVC new];
+    second.title = @"2";
+    second.backgroundColor = [UIColor blueColor];
     
-    NSLog(@"%@", [episode dictionary]);
+    testVC *third = [testVC new];
+    third.title = @"3";
+    third.backgroundColor = [UIColor orangeColor];
     
-    SFPropertyProcessorCollection *collection = [SFPropertyProcessorCollection collectionWithClassProperties:@[@"ESEpisode.title", @"ESEpisode.date"] propertyProcessing:^id(id unhandledValue) {
-        return unhandledValue;
-    }];
-    NSLog(@"%@", collection.propertyProcessors);
+    testVC *forth = [testVC new];
+    forth.title = @"4";
+    forth.backgroundColor = [UIColor blackColor];
+    
+    self.window.rootViewController = ({
+        SFSwitchTabController *controller = [[SFSwitchTabController alloc] init];
+        controller.delegate = self;
+        controller.viewControllers = @[first, second, third, forth];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [controller setSelectedIndex:3 animated:NO];
+        });
+        controller;
+    });
+    
+//    NSDictionary *dict = @{@"titl" : @"titititle"
+//                           , @"intro" : @"introdution"
+//                           , @"episode" : @[@{
+//                                                @"title" : @"111111"
+//                                                , @"date" : @"da"
+//                                                , @"intro" : @"111111"
+//                                                },@{
+//                                                @"title" : @"111111"
+//                                                , @"intro" : @"111111"
+//                                                }]
+//                           , @"date" : @"2012-07-06"
+//                           };
+//    
+//    ESEpisode *episode = [ESEpisode objectWithDictionary:dict
+//                                                 mapping:@"{title:titl}{introdution:intro}{epis:episode}{epis:@ESEpisode}{fdate:date}"
+//                                                    path:nil
+//                                      propertyProcessors:@[[SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"fdate" processing:^id(id unhandledValue)
+//    {
+//        return [NSDate new];
+//    }], [SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"introdution" processing:^id(id unhandledValue)
+//    {
+//        return @"intro comon";
+//    }], [SFPropertyProcessor propertyProcessorWithClass:[ESEpisode class] propertyName:@"title" processing:^id(id unhandledValue)
+//    {
+//        return @"formatted title";
+//    }]]];
+//    
+//    NSLog(@"%@", [episode dictionary]);
+//    
+//    SFPropertyProcessorCollection *collection = [SFPropertyProcessorCollection collectionWithClassProperties:@[@"ESEpisode.title", @"ESEpisode.date"] propertyProcessing:^id(id unhandledValue) {
+//        return unhandledValue;
+//    }];
+//    NSLog(@"%@", collection.propertyProcessors);
     
     return YES;
+}
+
+- (void)switchTabController:(SFSwitchTabController *)switchTabController willSwitchToIndex:(NSInteger)index
+{
+    NSLog(@"willSwitchToIndex:%d", index);
+}
+
+- (void)switchTabController:(SFSwitchTabController *)switchTabController didSwitchToIndex:(NSInteger)index
+{
+    NSLog(@"didSwitchToIndex:%d", index);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
