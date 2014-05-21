@@ -77,7 +77,7 @@
         self.episodeDetailSignal = [[[[[[NSURLConnection rac_sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_episode.contentURLString]]] map:^id(id value) {
             if (![value isKindOfClass:[NSError class]]) {
                 NSData *responseData = [value last];
-                NSString *HTML = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+                NSString *HTML = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
                 
                 value = HTML;
                 

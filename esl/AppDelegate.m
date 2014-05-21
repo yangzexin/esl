@@ -168,31 +168,31 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         }
     }];
     
-    testVC *first = [testVC new];
-    first.title = @"1";
-    first.backgroundColor = [UIColor redColor];
-    
-    testVC *second = [testVC new];
-    second.title = @"2";
-    second.backgroundColor = [UIColor blueColor];
-    
-    testVC *third = [testVC new];
-    third.title = @"3";
-    third.backgroundColor = [UIColor orangeColor];
-    
-    testVC *forth = [testVC new];
-    forth.title = @"4";
-    forth.backgroundColor = [UIColor blackColor];
-    
-    self.window.rootViewController = ({
-        SFSwitchTabController *controller = [[SFSwitchTabController alloc] init];
-        controller.delegate = self;
-        controller.viewControllers = @[first, second, third, forth];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [controller setSelectedIndex:3 animated:NO];
-        });
-        controller;
-    });
+//    testVC *first = [testVC new];
+//    first.title = @"1";
+//    first.backgroundColor = [UIColor redColor];
+//    
+//    testVC *second = [testVC new];
+//    second.title = @"2";
+//    second.backgroundColor = [UIColor blueColor];
+//    
+//    testVC *third = [testVC new];
+//    third.title = @"3";
+//    third.backgroundColor = [UIColor orangeColor];
+//    
+//    testVC *forth = [testVC new];
+//    forth.title = @"4";
+//    forth.backgroundColor = [UIColor blackColor];
+//    
+//    self.window.rootViewController = ({
+//        SFSwitchTabController *controller = [[SFSwitchTabController alloc] init];
+//        controller.delegate = self;
+//        controller.viewControllers = @[first, second, third, forth];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [controller setSelectedIndex:3 animated:NO];
+//        });
+//        controller;
+//    });
     
 //    NSDictionary *dict = @{@"titl" : @"titititle"
 //                           , @"intro" : @"introdution"
@@ -227,6 +227,9 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //        return unhandledValue;
 //    }];
 //    NSLog(@"%@", collection.propertyProcessors);
+    NSArray *objcProperties = [SFObjcProperty objcPropertiesOfClass:[EpisodesViewController class] searchingSuperClass:NO];
+    
+    NSLog(@"%@", objcProperties);
     
     return YES;
 }

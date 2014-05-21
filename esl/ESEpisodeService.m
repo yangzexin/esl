@@ -91,7 +91,7 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
     ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:kEpisodesListURLString useHTTPPost:NO];
     __weak typeof(self) weakSelf = self;
     [request setResponseDataWrapper:^id(NSData *data) {
-        NSString *string = [[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding];
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSWindowsCP1252StringEncoding];
         [weakSelf _storeCacheData:string];
         return string;
     }];
