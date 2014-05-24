@@ -68,6 +68,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    NSLog(@"viewWillAppear");
     @weakify(self);
     ESEpisode *playingEpisode = [[ESSoundPlayContext sharedContext] playingEpisode];
     self.navigationItem.rightBarButtonItem = playingEpisode != nil ? ({
@@ -79,6 +80,24 @@
         buttonItem.style = UIBarButtonItemStyleDone;
         buttonItem;
     }) : nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"viewDidAppear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"viewWillDisappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    NSLog(@"viewDidDisappear");
 }
 
 #pragma mark - UI events
@@ -100,8 +119,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
+    [UIImagePickerController pickImageUsingActionSheetWithViewController:self completion:^(UIImage *selectedImage, BOOL cancelled) {
+        
+    }];
+//    ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
+//    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

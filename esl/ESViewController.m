@@ -114,4 +114,12 @@
     })];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    if ([self isViewLoaded] && self.view.window == nil) {
+        self.view = nil;
+    }
+}
+
 @end
