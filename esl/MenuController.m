@@ -42,25 +42,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"MENU viewWillAppear");
+//    NSLog(@"menu viewWillAppear");
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"MENU viewDidAppear");
+//    NSLog(@"menu viewDidAppear");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog(@"MENU viewWillDisappear");
+//    NSLog(@"menu viewWillDisappear");
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    NSLog(@"MENU viewDidDisappear");
+//    NSLog(@"menu viewDidDisappear");
 }
 
 - (void)viewWillLayoutSubviews

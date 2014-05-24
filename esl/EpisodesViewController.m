@@ -20,6 +20,7 @@
 #import "AppDelegate.h"
 
 #import "SFiOSKit.h"
+#import "SFFoundation.h"
 
 #import "ESSoundPlayContext.h"
 
@@ -58,6 +59,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    NSLog(@"%@", [self.tableView dictionary]);
     @weakify(self);
     [RACObserve(_viewModel, episodes) subscribeNext:^(id x) {
         @strongify(self);
@@ -68,7 +70,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear");
+//    NSLog(@"viewWillAppear");
     @weakify(self);
     ESEpisode *playingEpisode = [[ESSoundPlayContext sharedContext] playingEpisode];
     self.navigationItem.rightBarButtonItem = playingEpisode != nil ? ({
@@ -85,19 +87,19 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"viewDidAppear");
+//    NSLog(@"viewDidAppear");
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog(@"viewWillDisappear");
+//    NSLog(@"viewWillDisappear");
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    NSLog(@"viewDidDisappear");
+//    NSLog(@"viewDidDisappear");
 }
 
 #pragma mark - UI events
@@ -119,11 +121,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [UIImagePickerController pickImageUsingActionSheetWithViewController:self completion:^(UIImage *selectedImage, BOOL cancelled) {
-        
-    }];
-//    ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
+    ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

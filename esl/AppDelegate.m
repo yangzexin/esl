@@ -227,9 +227,9 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //        return unhandledValue;
 //    }];
 //    NSLog(@"%@", collection.propertyProcessors);
-    NSArray *objcProperties = [SFObjcProperty objcPropertiesOfClass:[EpisodesViewController class] searchingSuperClass:NO];
+//    NSArray *objcProperties = [SFObjcProperty objcPropertiesOfClass:[EpisodesViewController class] searchingSuperClass:NO];
     
-    NSLog(@"%@", objcProperties);
+//    NSLog(@"%@", objcProperties);
     
     return YES;
 }
