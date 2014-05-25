@@ -168,6 +168,15 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         }
     }];
     
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [UIView animateWithDuration:0.25f animations:^{
+//            CATransform3D transform = CATransform3DIdentity;
+//            transform = CATransform3DMakeScale(1.10, 1.f, 1.f);
+//            transform = CATransform3DTranslate(transform, 320*(1.10-1.f)/2, 0.f, 0.f);
+//            self.window.rootViewController.view.layer.transform = transform;
+//        }];
+//    });
+    
 //    testVC *first = [testVC new];
 //    first.title = @"1";
 //    first.backgroundColor = [UIColor redColor];
