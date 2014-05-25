@@ -59,7 +59,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    NSLog(@"%@", [self.tableView dictionary]);
     @weakify(self);
     [RACObserve(_viewModel, episodes) subscribeNext:^(id x) {
         @strongify(self);
