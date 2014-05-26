@@ -41,11 +41,12 @@ PODS:
   - Objective-LevelDB/leveldb (2.0.7):
     - Objective-LevelDB/leveldb
   - ReactiveCocoa (2.3):
-    - ReactiveCocoa/Core
-    - ReactiveCocoa/no-arc
+    - ReactiveCocoa/UI
   - ReactiveCocoa/Core (2.3):
     - ReactiveCocoa/no-arc
   - ReactiveCocoa/no-arc (2.3)
+  - ReactiveCocoa/UI (2.3):
+    - ReactiveCocoa/Core
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.3)
@@ -57,6 +58,6 @@ SPEC CHECKSUMS:
   AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   Objective-LevelDB: 8163d36d32e51b6d09ba7effad9e0e963ba44262
-  ReactiveCocoa: 1f6265f9d521923d3efcc37b00722cefc16df269
+  ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
 
 COCOAPODS: 0.32.1

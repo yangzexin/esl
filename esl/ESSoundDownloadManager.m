@@ -62,7 +62,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     }];
     [_keyURLStringValueEpisode setDecoder:^id(LevelDBKey *key, NSData *data){
         NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        return [ESEpisode objectWithDictionary:dictionary];
+        return [ESEpisode objectFromDictionary:dictionary];
     }];
     
     self.keyURLStringValueError = [LevelDB databaseInLibraryWithName:@"keyURLStringValueError"];
