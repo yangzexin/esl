@@ -35,7 +35,7 @@
 
 @interface testVC : UIViewController
 
-@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *bgColor;
 
 @end
 
@@ -45,7 +45,7 @@
 {
     [super loadView];
 //    NSLog(@"loadView:%@", self.title);
-    self.view.backgroundColor = self.backgroundColor;
+    self.view.backgroundColor = self.bgColor;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -239,6 +239,13 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //    NSArray *objcProperties = [SFObjcProperty objcPropertiesOfClass:[EpisodesViewController class] searchingSuperClass:NO];
     
 //    NSLog(@"%@", objcProperties);
+    
+    NSString *mapping = SFMappingStringBegin(testVC)
+    SFPropertyClassMapping(bgColor, ESEpisode)
+    SFPropertyClassMapping(bgColor, NSArray)
+    SFPropertyKeyMapping(bgColor, @"test")
+    SFMappingStringEnd;
+    NSLog(@"%@", mapping);
     
     return YES;
 }
