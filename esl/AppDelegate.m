@@ -168,6 +168,15 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         }
     }];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.70f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [sideMenuController tantantanWithCompletion:^{
+        }];
+    });
+    
+    NSString *s = @"😄";
+    for (NSInteger i = 0; i < s.length; ++i) {
+    }
+    
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [UIView animateWithDuration:0.25f animations:^{
 //            CATransform3D transform = CATransform3DIdentity;
@@ -242,7 +251,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     
     NSString *mapping = SFMappingStringBegin(testVC)
     SFPropertyClassMapping(bgColor, ESEpisode)
-    SFPropertyClassMapping(bgColor, NSArray)
+    SFPropertyClassMapping(bgColor, UIColor)
     SFPropertyKeyMapping(bgColor, @"test")
     SFMappingStringEnd;
     NSLog(@"%@", mapping);
