@@ -250,9 +250,9 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //    NSLog(@"%@", objcProperties);
     
     NSString *mapping = SFMappingStringBegin(testVC)
-    SFPropertyClassMapping(bgColor, ESEpisode)
-    SFPropertyClassMapping(bgColor, UIColor)
-    SFPropertyKeyMapping(bgColor, @"test")
+    SFPropertyMappingClass(bgColor, ESEpisode)
+    SFPropertyMappingClass(bgColor, UIColor)
+    SFPropertyMappingKey(bgColor, @"test")
     SFMappingStringEnd;
     NSLog(@"%@", mapping);
     
