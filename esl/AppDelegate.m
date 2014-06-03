@@ -169,8 +169,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.70f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [sideMenuController tantantanWithCompletion:^{
-        }];
+        [sideMenuController tantantanWithMenuVisibleWidth:140.0f completion:nil];
     });
     
     NSString *s = @"😄";
