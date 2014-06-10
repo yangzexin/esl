@@ -146,6 +146,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
                                                                                     ]];
     
     SFSideMenuController *sideMenuController = [[SFSideMenuController alloc] initWithMenuViewController:menuController contentViewController:tabBarController];
+    sideMenuController.leftPanDistance = [[UIScreen mainScreen] bounds].size.width;
     self.window.rootViewController = sideMenuController;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:ESEnableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
@@ -171,10 +172,6 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.70f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [sideMenuController tantantanWithMenuVisibleWidth:140.0f completion:nil];
     });
-    
-    NSString *s = @"😄";
-    for (NSInteger i = 0; i < s.length; ++i) {
-    }
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [UIView animateWithDuration:0.25f animations:^{
@@ -248,12 +245,12 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     
 //    NSLog(@"%@", objcProperties);
     
-    NSString *mapping = SFMappingStringBegin(testVC)
-    SFPropertyMappingClass(bgColor, ESEpisode)
-    SFPropertyMappingClass(bgColor, UIColor)
-    SFPropertyMappingKey(bgColor, @"test")
-    SFMappingStringEnd;
-    NSLog(@"%@", mapping);
+//    NSString *mapping = SFMappingStringBegin(testVC)
+//    SFPropertyMappingClass(bgColor, ESEpisode)
+//    SFPropertyMappingClass(bgColor, UIColor)
+//    SFPropertyMappingKey(bgColor, @"test")
+//    SFMappingStringEnd;
+//    NSLog(@"%@", mapping);
     
     return YES;
 }

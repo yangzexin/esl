@@ -20,6 +20,7 @@
     self = [super initWithRootViewController:rootViewController];
     
     self.delegate = self;
+    self.leftPanDistance = [[UIScreen mainScreen] bounds].size.width;
     
     return self;
 }
