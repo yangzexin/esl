@@ -245,12 +245,12 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     
 //    NSLog(@"%@", objcProperties);
     
-//    NSString *mapping = SFMappingStringBegin(testVC)
-//    SFPropertyMappingClass(bgColor, ESEpisode)
-//    SFPropertyMappingClass(bgColor, UIColor)
-//    SFPropertyMappingKey(bgColor, @"test")
-//    SFMappingStringEnd;
-//    NSLog(@"%@", mapping);
+    id mapping = SFPropertyMappingBegin(testVC)
+    SFPropertyMappingClass(bgColor, ESEpisode)
+    SFPropertyMappingClass(bgColor, UIColor)
+    SFPropertyMappingKey(bgColor, @"test")
+    SFPropertyMappingEnd;
+    NSLog(@"%@", mapping);
     
     return YES;
 }

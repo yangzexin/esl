@@ -55,9 +55,9 @@ DEPENDENCIES:
   - ReactiveCocoa (~> 2.3)
 
 SPEC CHECKSUMS:
-  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
-  libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
-  Objective-LevelDB: 8163d36d32e51b6d09ba7effad9e0e963ba44262
-  ReactiveCocoa: dde7b11a14954edf789e7343b2c32e595caabd01
+  AFNetworking: 5f5b2a731d6fc2082b8abc63d40fcaed5482c42f
+  libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
+  Objective-LevelDB: 2efb63dc8c9fb638656d3f54a46fa3b6c6818ea1
+  ReactiveCocoa: 2066583826c17dde8e90c41e489f682048cc57c9
 
 COCOAPODS: 0.32.1
