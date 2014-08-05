@@ -10,7 +10,7 @@
 #import "ESServiceSession.h"
 #import "ESHTTPRequest.h"
 #import "SFSharedCache.h"
-#import "NSString+JavaLikeStringHandle.h"
+#import "NSString+SFJavaLikeStringHandle.h"
 #import "ESEpisode.h"
 #import "NSString+SFAddition.h"
 #import "SFBuildInCacheFilters.h"
