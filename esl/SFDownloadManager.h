@@ -73,9 +73,24 @@ typedef NS_ENUM(NSUInteger, SFDownloadState) {
 
 @end
 
+@protocol SFDownloadItemSerialization <NSObject>
+
+- (NSDictionary *)keyURLStringValueDownloadItem;
+- (void)setKeyURLStringValueDownloadItem:(NSDictionary *)keyURLStringValueDownloadItem;
+
+@end
+
+@interface SFDownloadItemUserDefaultsSerialization : NSObject <SFDownloadItemSerialization>
+
+@end
+
 @interface SFDownloadManager : NSObject
 
 @property (nonatomic, assign) id<SFDownloadManagerDelegate> delegate;
+
+@property (nonatomic, strong) id<SFDownloadItemSerialization> downloadItemSerialization;
+
+- (instancetype)initWithDownloadItemSerialization:(id<SFDownloadItemSerialization>)downloadItemSerialization;
 
 - (void)downloadWithURLString:(NSString *)URLString;
 

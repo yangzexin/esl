@@ -10,14 +10,20 @@
 
 @implementation AppDelegate (SharedUtils)
 
-+ (LevelDB *)levelDBWithName:(NSString *)name
++ (NSString *)configurationPath
 {
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     documentPath = [documentPath stringByAppendingPathComponent:@"Configuration.docset"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:documentPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:documentPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    LevelDB *db = [[LevelDB alloc] initWithPath:[documentPath stringByAppendingPathComponent:name] andName:name];
+    
+    return documentPath;
+}
+
++ (LevelDB *)levelDBWithName:(NSString *)name
+{
+    LevelDB *db = [[LevelDB alloc] initWithPath:[[self configurationPath] stringByAppendingPathComponent:name] andName:name];
     
     return db;
 }

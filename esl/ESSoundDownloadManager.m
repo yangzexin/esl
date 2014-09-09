@@ -25,6 +25,38 @@
 
 NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"ESSoundDownloadManagerDidFinishDownloadEpisodeNotification";
 
+@interface ESDownloadItemSerialization : NSObject <SFDownloadItemSerialization>
+
+@end
+
+@implementation ESDownloadItemSerialization
+
+- (id)init
+{
+    self = [super init];
+    
+    return self;
+}
+
+- (void)setKeyURLStringValueDownloadItem:(NSDictionary *)keyURLStringValueDownloadItem
+{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:keyURLStringValueDownloadItem];
+    [data writeToFile:[[AppDelegate configurationPath] stringByAppendingPathComponent:@"keyURLStringValueDownloadItem"] atomically:NO];
+}
+
+- (NSDictionary *)keyURLStringValueDownloadItem
+{
+    NSDictionary *dictionary = nil;
+    
+    NSData *data = [NSData dataWithContentsOfFile:[[AppDelegate configurationPath] stringByAppendingPathComponent:@"keyURLStringValueDownloadItem"]];
+    if (data.length != 0) {
+        dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
+    return dictionary;
+}
+
+@end
+
 @interface ESSoundDownloadManager () <SFDownloadManagerDelegate>
 
 @property (nonatomic, strong) SFDownloadManager *downloadManager;
@@ -32,7 +64,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 @property (nonatomic, strong) LevelDB *keyURLStringValueEpisode;
 @property (nonatomic, strong) LevelDB *keyURLStringValueError;
 
-@property (nonatomic, strong) LevelDB *keyURLStringValueSoundPath;
+@property (nonatomic, strong) LevelDB *keyURLStringValueSoundFileName;
 
 @end
 
@@ -53,7 +85,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 {
     self = [super init];
     
-    self.downloadManager = [SFDownloadManager new];
+    self.downloadManager = [[SFDownloadManager alloc] initWithDownloadItemSerialization:[ESDownloadItemSerialization new]];
     _downloadManager.delegate = self;
     
     self.keyURLStringValueEpisode = [AppDelegate levelDBWithName:@"keyURLStringValueEpisode"];
@@ -75,11 +107,11 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
         return [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }];
     
-    self.keyURLStringValueSoundPath = [AppDelegate levelDBWithName:@"keyURLStringValueSoundPath"];
-    [_keyURLStringValueSoundPath setEncoder:^NSData *(LevelDBKey *key, NSString *object){
+    self.keyURLStringValueSoundFileName = [AppDelegate levelDBWithName:@"keyURLStringValueSoundFileName"];
+    [_keyURLStringValueSoundFileName setEncoder:^NSData *(LevelDBKey *key, NSString *object){
         return [object dataUsingEncoding:NSUTF8StringEncoding];
     }];
-    [_keyURLStringValueSoundPath setDecoder:^NSString *(LevelDBKey *key, NSData *data){
+    [_keyURLStringValueSoundFileName setDecoder:^NSString *(LevelDBKey *key, NSData *data){
         return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }];
     
@@ -90,7 +122,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 {
     SFDownloadState state = [_downloadManager stateForURLString:episode.soundURLString];
     if (state == SFDownloadStateNotDowloaded) {
-        NSString *soundPath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];
+        NSString *soundPath = [_keyURLStringValueSoundFileName objectForKey:episode.soundURLString];
         if (soundPath.length != 0 && [[NSFileManager defaultManager] fileExistsAtPath:soundPath]) {
             state = SFDownloadStateDownloaded;
         }
@@ -111,9 +143,9 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 
 - (void)removeEpisode:(ESEpisode *)episode
 {
-    NSString *soundFilePath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];
+    NSString *soundFilePath = [_keyURLStringValueSoundFileName objectForKey:episode.soundURLString];
     [[NSFileManager defaultManager] removeItemAtPath:soundFilePath error:nil];
-    [_keyURLStringValueSoundPath removeObjectForKey:episode.soundURLString];
+    [_keyURLStringValueSoundFileName removeObjectForKey:episode.soundURLString];
     [_downloadManager removeDownloadingWithURLString:episode.soundURLString];
 }
 
@@ -124,8 +156,8 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 
 - (NSString *)soundFilePathForEpisode:(ESEpisode *)episode
 {
-    NSString *soundPath = [_keyURLStringValueSoundPath objectForKey:episode.soundURLString];
-    return soundPath;
+    NSString *soundFileName = [_keyURLStringValueSoundFileName objectForKey:episode.soundURLString];
+    return [[self _soundFolder] stringByAppendingPathComponent:soundFileName];
 }
 
 - (NSArray *)downloadingEpisodes
@@ -146,6 +178,16 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     return [_keyURLStringValueEpisode objectForKey:episode.soundURLString];
 }
 
+- (NSString *)_soundFolder
+{
+    NSString *soundFolder = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"ESLSounds.docset"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:soundFolder]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:soundFolder withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    return soundFolder;
+}
+
 #pragma mark - SFDownloadManagerDelegate
 - (void)downloadManager:(SFDownloadManager *)downloadManager didFailDownloadingWithURLString:(NSString *)URLString error:(NSError *)error
 {
@@ -159,15 +201,13 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 - (void)downloadManager:(SFDownloadManager *)downloadManager didFinishDownloadingWithURLString:(NSString *)URLString
 {
     NSString *soundFilePath = [downloadManager filePathWithURLString:URLString];
-    NSString *soundFolder = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"ESLSounds.docset"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:soundFolder]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:soundFolder withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    NSString *newSoundFilePath = [soundFolder stringByAppendingPathComponent:[URLString stringByEncryptingUsingMD5]];
+    NSString *soundFolder = [self _soundFolder];
+    NSString *soundFileName = [URLString stringByEncryptingUsingMD5];
+    NSString *newSoundFilePath = [soundFolder stringByAppendingPathComponent:soundFileName];
     
     [[NSFileManager defaultManager] moveItemAtPath:soundFilePath toPath:newSoundFilePath error:nil];
     
-    [_keyURLStringValueSoundPath setObject:newSoundFilePath forKey:URLString];
+    [_keyURLStringValueSoundFileName setObject:soundFileName forKey:URLString];
 }
 
 @end

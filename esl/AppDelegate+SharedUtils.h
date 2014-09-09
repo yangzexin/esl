@@ -12,6 +12,8 @@
 
 @interface AppDelegate (SharedUtils)
 
++ (NSString *)configurationPath;
+
 + (LevelDB *)levelDBWithName:(NSString *)name;
 
 @end

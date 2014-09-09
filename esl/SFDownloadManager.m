@@ -313,6 +313,32 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 
 @end
 
+@implementation SFDownloadItemUserDefaultsSerialization
+
+- (NSDictionary *)keyURLStringValueDownloadItem
+{
+    NSDictionary *dictionary = nil;
+    
+    NSString *hexString = [[NSUserDefaults standardUserDefaults] objectForKey:@"keyURLStringValueDownloadItem"];
+    if (hexString.length != 0) {
+        NSData *data = [hexString dataByRestoringHexRepresentation];
+        data = [data dataByPerformingDESOperation:kCCDecrypt key:NSStringFromClass([self class])];
+        dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
+    
+    return dictionary;
+}
+
+- (void)setKeyURLStringValueDownloadItem:(NSDictionary *)keyURLStringValueDownloadItem
+{
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:keyURLStringValueDownloadItem];
+    data = [data dataByPerformingDESOperation:kCCEncrypt key:NSStringFromClass([self class])];
+    [[NSUserDefaults standardUserDefaults] setObject:[data hexRepresentation] forKey:@"keyURLStringValueDownloadItem"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+@end
+
 @interface SFDownloadManager () <SFURLDownloaderDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *keyURLStringValueDownloadItem;
@@ -321,28 +347,23 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 
 @implementation SFDownloadManager
 
-- (id)init
+- (instancetype)initWithDownloadItemSerialization:(id<SFDownloadItemSerialization>)downloadItemSerialization
 {
     self = [super init];
     
-    self.keyURLStringValueDownloadItem = [NSMutableDictionary dictionary];
-    NSString *hexString = [[NSUserDefaults standardUserDefaults] objectForKey:@"keyURLStringValueDownloadItem"];
-    if (hexString.length != 0) {
-        NSData *data = [hexString dataByRestoringHexRepresentation];
-        data = [data dataByPerformingDESOperation:kCCDecrypt key:NSStringFromClass([self class])];
-        NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        [_keyURLStringValueDownloadItem addEntriesFromDictionary:dictionary];
+    if (downloadItemSerialization == nil) {
+        downloadItemSerialization = [SFDownloadItemUserDefaultsSerialization new];
     }
+    self.downloadItemSerialization = downloadItemSerialization;
+    
+    self.keyURLStringValueDownloadItem = [NSMutableDictionary dictionaryWithDictionary:[self.downloadItemSerialization keyURLStringValueDownloadItem]];
     
     return self;
 }
 
 - (void)_save
 {
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_keyURLStringValueDownloadItem];
-    data = [data dataByPerformingDESOperation:kCCEncrypt key:NSStringFromClass([self class])];
-    [[NSUserDefaults standardUserDefaults] setObject:[data hexRepresentation] forKey:@"keyURLStringValueDownloadItem"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.downloadItemSerialization setKeyURLStringValueDownloadItem:self.keyURLStringValueDownloadItem];
 }
 
 - (void)downloadWithURLString:(NSString *)URLString
