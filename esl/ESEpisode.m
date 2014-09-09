@@ -54,7 +54,7 @@
     dateText.imageMatchingLeft = @"[";
     dateText.imageMatchingRight = @"]";
     [dateText build];
-    _titleFormatted = [_titleFormatted textByAppendingText:dateText];
+    _titleFormatted = [_titleFormatted textByConcatingText:dateText];
     
     SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(310, 82);
@@ -63,7 +63,7 @@
     introText.imageMatchingLeft = @"[";
     introText.imageMatchingRight = @"]";
     [introText build];
-    _titleFormatted = [_titleFormatted textByAppendingText:introText];
+    _titleFormatted = [_titleFormatted textByConcatingText:introText];
 }
 
 - (SFImageLabelText *)titleFormatted

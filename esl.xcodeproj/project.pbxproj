@@ -14,6 +14,7 @@
 		3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */; };
 		3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D6691831FC990048A788 /* ESHighlightManager.m */; };
 		3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D66C1831FCA70048A788 /* ESHighlight.m */; };
+		3E21847319BE9B650001ADB6 /* AppDelegate+SharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E21847219BE9B650001ADB6 /* AppDelegate+SharedUtils.m */; };
 		3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */; };
 		3E2AE553181D24F9001AAE9D /* ESLinearController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE552181D24F9001AAE9D /* ESLinearController.m */; };
 		3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */; };
@@ -130,6 +131,8 @@
 		3E19D6691831FC990048A788 /* ESHighlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHighlightManager.m; sourceTree = "<group>"; };
 		3E19D66B1831FCA70048A788 /* ESHighlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESHighlight.h; sourceTree = "<group>"; };
 		3E19D66C1831FCA70048A788 /* ESHighlight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHighlight.m; sourceTree = "<group>"; };
+		3E21847119BE9B650001ADB6 /* AppDelegate+SharedUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+SharedUtils.h"; sourceTree = "<group>"; };
+		3E21847219BE9B650001ADB6 /* AppDelegate+SharedUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+SharedUtils.m"; sourceTree = "<group>"; };
 		3E2AE54C181D216C001AAE9D /* ESViewEpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewEpisodeController.h; sourceTree = "<group>"; };
 		3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewEpisodeController.m; sourceTree = "<group>"; };
 		3E2AE551181D24F9001AAE9D /* ESLinearController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLinearController.h; sourceTree = "<group>"; };
@@ -452,6 +455,8 @@
 				3E2AE562181D3D42001AAE9D /* ESSoundPlayContext.m */,
 				3E98E118181A01B000AF8C7F /* AppDelegate.h */,
 				3E98E119181A01B000AF8C7F /* AppDelegate.m */,
+				3E21847119BE9B650001ADB6 /* AppDelegate+SharedUtils.h */,
+				3E21847219BE9B650001ADB6 /* AppDelegate+SharedUtils.m */,
 				3E98E11B181A01B000AF8C7F /* Images.xcassets */,
 				3E98E110181A01B000AF8C7F /* Supporting Files */,
 			);
@@ -816,6 +821,7 @@
 				3E40641418E465E0006B2B12 /* EpisodesViewController.m in Sources */,
 				3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */,
 				3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */,
+				3E21847319BE9B650001ADB6 /* AppDelegate+SharedUtils.m in Sources */,
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
 				3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */,
 				3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */,
