@@ -134,17 +134,39 @@
         downloadingIndicatorButton.title = [NSString stringWithFormat:@"%.0f%%", [num floatValue] * 100];
     }];
     
+    UIBarButtonItem *rewindButton = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRewind eventHandler:^{
+        @strongify(self);
+        [self.viewModel rewind];
+    }];
+    
+    UIBarButtonItem *fastForwardButton = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFastForward eventHandler:^{
+        @strongify(self);
+        [self.viewModel fastForward];
+    }];
+    
     [RACObserve(_viewModel, soundPlaying) subscribeNext:^(NSNumber *x) {
         @strongify(self);
         if (self.viewModel.downloadState == SFDownloadStateDownloaded) {
             NSMutableArray *toolbarItems = [NSMutableArray array];
             [toolbarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+            
+            BOOL showsControlButtons = [self.viewModel playingCurrentEpisode];
+            if (showsControlButtons) {
+                [toolbarItems addObject:rewindButton];
+                [toolbarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+            }
+            
             if ([x boolValue]) {
                 [toolbarItems addObject:pauseButton];
             } else {
                 [toolbarItems addObject:playButton];
             }
             [toolbarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+            
+            if (showsControlButtons) {
+                [toolbarItems addObject:fastForwardButton];
+                [toolbarItems addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+            }
             self.toolbarItems = toolbarItems;
         }
         

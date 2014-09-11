@@ -44,4 +44,7 @@
 
 - (void)jumpToTime:(NSTimeInterval)time;
 
+- (void)rewind;
+- (void)fastForward;
+
 @end

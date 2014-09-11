@@ -184,4 +184,14 @@
     return [[ESSoundPlayContext sharedContext] duration];
 }
 
+- (void)rewind
+{
+    [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] - 2];
+}
+
+- (void)fastForward
+{
+    [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] + 2];
+}
+
 @end
