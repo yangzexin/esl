@@ -78,49 +78,60 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //    
 //    self.window.rootViewController = tabController;
     
+//    SFCompatibleTabController *tabBarController = [SFCompatibleTabController new];
+//    tabBarController.viewControllers = @[
+//                                         [ESUIDefaults navigationControllerWithRootViewController:[EpisodesViewController new]]
+//                                         , [ESUIDefaults navigationControllerWithRootViewController:[DownloadsViewController new]]
+//                                         , [ESUIDefaults navigationControllerWithRootViewController:[SettingsViewController new]]
+//                                         ];
+//    
+//    NSString *menuItemTitleNews = NSLocalizedString(@"News", nil);
+//    NSString *menuItemTitleDownloads = NSLocalizedString(@"Downloads", nil);
+//    NSString *menuItemTitleSettings = NSLocalizedString(@"Settings", nil);
+//    MenuController *menuController = [MenuController controllerWithMenuItemTitles:@[
+//                                                                                    menuItemTitleNews
+//                                                                                    , menuItemTitleDownloads
+//                                                                                    , menuItemTitleSettings
+//                                                                                    ]];
+//    
+//    SFSideMenuController *sideMenuController = [[SFSideMenuController alloc] initWithMenuViewController:menuController contentViewController:tabBarController];
+//    sideMenuController.leftPanDistance = [[UIScreen mainScreen] bounds].size.width;
+//    self.window.rootViewController = sideMenuController;
+//    
+//    [[NSNotificationCenter defaultCenter] addObserverForName:ESEnableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+//        sideMenuController.disableGestureShowMenu = NO;
+//    }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:ESDisableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+//        sideMenuController.disableGestureShowMenu = YES;
+//    }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:ESShowSideMenuNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+//        [sideMenuController showMenuViewControllerAnimated:YES completion:nil];
+//    }];
+//    
+//    @weakify(menuController);
+//    [menuController setMenuItemSelectHandler:^(NSString *menuItemTitle) {
+//        @strongify(menuController);
+//        NSUInteger indexOfMenuItemTitle = [menuController.menuItemTitles indexOfObject:menuItemTitle];
+//        if (indexOfMenuItemTitle != NSNotFound) {
+//            tabBarController.selectedIndex = indexOfMenuItemTitle;
+//            [sideMenuController showContentViewControllerAnimated:YES completion:nil];
+//        }
+//    }];
     
-    SFCompatibleTabController *tabBarController = [SFCompatibleTabController new];
-    tabBarController.viewControllers = @[
-                                         [ESUIDefaults navigationControllerWithRootViewController:[EpisodesViewController new]]
-//                                         , [ESUIDefaults navigationControllerWithRootViewController:[LocalEpisodesViewController new]]
-                                         , [ESUIDefaults navigationControllerWithRootViewController:[DownloadsViewController new]]
-                                         , [ESUIDefaults navigationControllerWithRootViewController:[SettingsViewController new]]
-                                         ];
-    
-    NSString *menuItemTitleNews = NSLocalizedString(@"News", nil);
-//    NSString *menuItemTitleLocal = NSLocalizedString(@"Local", nil);
-    NSString *menuItemTitleDownloads = NSLocalizedString(@"Downloads", nil);
-    NSString *menuItemTitleSettings = NSLocalizedString(@"Settings", nil);
-    MenuController *menuController = [MenuController controllerWithMenuItemTitles:@[
-                                                                                    menuItemTitleNews
-//                                                                                    , menuItemTitleLocal
-                                                                                    , menuItemTitleDownloads
-                                                                                    , menuItemTitleSettings
-                                                                                    ]];
-    
-    SFSideMenuController *sideMenuController = [[SFSideMenuController alloc] initWithMenuViewController:menuController contentViewController:tabBarController];
-    sideMenuController.leftPanDistance = [[UIScreen mainScreen] bounds].size.width;
-    self.window.rootViewController = sideMenuController;
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:ESEnableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        sideMenuController.disableGestureShowMenu = NO;
-    }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:ESDisableSideMenuGestureNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        sideMenuController.disableGestureShowMenu = YES;
-    }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:ESShowSideMenuNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        [sideMenuController showMenuViewControllerAnimated:YES completion:nil];
-    }];
-    
-    @weakify(menuController);
-    [menuController setMenuItemSelectHandler:^(NSString *menuItemTitle) {
-        @strongify(menuController);
-        NSUInteger indexOfMenuItemTitle = [menuController.menuItemTitles indexOfObject:menuItemTitle];
-        if (indexOfMenuItemTitle != NSNotFound) {
-            tabBarController.selectedIndex = indexOfMenuItemTitle;
-            [sideMenuController showContentViewControllerAnimated:YES completion:nil];
-        }
-    }];
+    self.window.rootViewController = ({
+        UITabBarController *tabBarController = [[UITabBarController alloc] init];
+        EpisodesViewController *episodesViewController = [EpisodesViewController new];
+        episodesViewController.tabBarItem.image = [UIImage imageNamed:@"icon_news_list"];
+        
+        DownloadsViewController *downloadsViewController = [DownloadsViewController new];
+        downloadsViewController.tabBarItem.image = [UIImage imageNamed:@"icon_local_list"];
+        
+        tabBarController.viewControllers = @[[ESUIDefaults navigationControllerWithRootViewController:episodesViewController]
+                                             , [ESUIDefaults navigationControllerWithRootViewController:downloadsViewController]
+                                             ];
+        
+        tabBarController;
+    });
     
     return YES;
 }

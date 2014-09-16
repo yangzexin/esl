@@ -16,4 +16,6 @@
 
 + (LevelDB *)levelDBWithName:(NSString *)name;
 
++ (LevelDB *)keyURLStringValueHTML;
+
 @end

@@ -28,4 +28,22 @@
     return db;
 }
 
++ (LevelDB *)keyURLStringValueHTML
+{
+    static LevelDB *keyURLStringValueHTML = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        keyURLStringValueHTML = [self levelDBWithName:@"keyURLStringValueHTML"];
+        
+        [keyURLStringValueHTML setEncoder:^NSData *(LevelDBKey * key, NSString *object){
+            return [object dataUsingEncoding:NSUTF8StringEncoding];
+        }];
+        [keyURLStringValueHTML setDecoder:^id(LevelDBKey *key, NSData *data){
+            return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }];
+    });
+    
+    return keyURLStringValueHTML;
+}
+
 @end

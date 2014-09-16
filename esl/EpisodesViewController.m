@@ -53,7 +53,7 @@
         [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
         [self.tableView addSubview:refreshControl];
     }
-    [self setLeftBarButtonItemAsSideMenuSwitcher];
+//    [self setLeftBarButtonItemAsSideMenuSwitcher];
 }
 
 - (void)viewDidLoad

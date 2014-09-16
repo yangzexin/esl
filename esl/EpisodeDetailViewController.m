@@ -21,6 +21,8 @@
 #import "SFiOSKit.h"
 #import "SFFoundation.h"
 
+#import "AppDelegate+SharedUtils.h"
+
 @interface EpisodeDetailViewController () <PlayerStatusViewDelegate>
 
 @property (nonatomic, strong) EpisodeDetailViewModel *viewModel;
@@ -30,6 +32,8 @@
 
 @property (nonatomic, copy) NSString *html;
 
+@property (nonatomic, strong) LevelDB *textCacheDB;
+
 @end
 
 @implementation EpisodeDetailViewController
@@ -38,6 +42,7 @@
 {
     EpisodeDetailViewController *controller = [self new];
     controller.viewModel = viewModel;
+    controller.hidesBottomBarWhenPushed = YES;
     
     return controller;
 }
@@ -65,15 +70,9 @@
         [self.view addSubview:_playerStatusView];
         
         @weakify(self);
-//        [_viewModel.episodeDetailSignal subscribeNext:^(id x) {
-//            @strongify(self);
-//            self.html = x;
-//            [self _updateHtml];
-//        } error:^(NSError *error) {
-//            
-//        }];
         
         self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemAction eventHandler:^{
+            @strongify(self);
             NSMutableArray *actionTitles = [NSMutableArray array];
             if ([self.viewModel downloadState] == SFDownloadStateDownloaded) {
                 [actionTitles addObject:@"重新下载"];
@@ -85,13 +84,23 @@
                     [self.viewModel redownload];
                     [self.viewModel startDownload];
                 } else if ([buttonTitle isEqualToString:@"显示文本"]) {
-                    [self.viewModel.episodeDetailSignal subscribeNext:^(id x) {
-                        @strongify(self);
-                        self.html = x;
+                    if (self.textCacheDB == nil) {
+                        self.textCacheDB = [AppDelegate keyURLStringValueHTML];
+                    }
+                    NSString *html = [self.textCacheDB objectForKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
+                    if (html.length != 0) {
+                        self.html = html;
                         [self _updateHtml];
-                    } error:^(NSError *error) {
-                        
-                    }];
+                    } else {
+                        [self.viewModel.episodeDetailSignal subscribeNext:^(id x) {
+                            @strongify(self);
+                            self.html = x;
+                            [self.textCacheDB setObject:self.html forKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
+                            [self _updateHtml];
+                        } error:^(NSError *error) {
+                            
+                        }];
+                    }
                 }
             } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitleList:actionTitles];
         }];
