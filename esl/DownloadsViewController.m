@@ -41,7 +41,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setLeftBarButtonItemAsSideMenuSwitcher];
     
     @weakify(self);
     [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:1.0f tick:^{
