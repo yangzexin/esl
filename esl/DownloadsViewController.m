@@ -38,9 +38,9 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
     @weakify(self);
     [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:1.0f tick:^{
@@ -53,6 +53,12 @@
         self.keyEpisodeIdValuePercent = keyEpisodeIdValuePercent;
         [self.tableView reloadData];
     }] identifier:@"CheckDownloadsState"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeRepositionSupportedObjectWithIdentifier:@"CheckDownloadsState"];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
