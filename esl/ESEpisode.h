@@ -26,4 +26,6 @@ typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 
 - (SFImageLabelText *)titleFormatted;
 
+- (NSString *)simpleTitle;
+
 @end

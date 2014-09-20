@@ -10,6 +10,8 @@
 
 #import "SFImageLabel.h"
 
+#import "SFFoundation.h"
+
 @implementation ESEpisode {
     SFImageLabelText *_titleFormatted;
 }
@@ -37,7 +39,7 @@
 
 - (void)_build
 {
-    NSString *text = [NSString stringWithFormat:@"%@\n", _title];
+    NSString *text = [NSString stringWithFormat:@"%@\n", self.simpleTitle];
     _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(27, 20);
     }];
@@ -72,6 +74,18 @@
         [self _build];
     }
     return _titleFormatted;
+}
+
+- (NSString *)simpleTitle
+{
+    NSString *simpleTitle = [self associatedObjectWithKey:@"simpleTitle"];
+    
+    if (simpleTitle == nil) {
+        simpleTitle = [[self.title lowercaseString] hasPrefix:@"esl podcast "] ? [self.title substringFromIndex:12] : self.title;
+        [self setAssociatedObject:simpleTitle key:@"simpleTitle"];
+    }
+    
+    return simpleTitle;
 }
 
 @end

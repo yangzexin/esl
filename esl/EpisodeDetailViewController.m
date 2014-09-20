@@ -51,7 +51,7 @@
 {
     [super loadView];
     
-    self.title = _viewModel.episode.title;
+    self.title = _viewModel.episode.simpleTitle;
     self.toolbarHidden = NO;
     
     if (SFDeviceSystemVersion < 7.0f) {

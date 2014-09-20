@@ -132,7 +132,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ESEpisode *episode = [self.viewModel.episodes objectAtIndex:indexPath.row];
-    return [episode titleFormatted].size.height + 20;
+    return [episode titleFormatted].size.height + 20 + (SFDeviceSystemVersion < 7.0f ? -30 : 0);
 }
 
 - (UIImage *)imageLabel:(SFImageLabel *)imageLabel imageWithName:(NSString *)imageName
