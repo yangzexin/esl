@@ -81,8 +81,13 @@
         } else if ([buttonTitle isEqualToString:@"继续下载"]) {
             [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
         } else if ([buttonTitle isEqualToString:@"重新下载"]) {
-            [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
-            [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
+            
+            [UIAlertView alertWithTitle:@"提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                if (buttonIndex != 0) {
+                    [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
+                    [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
+                }
+            } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         } else if ([buttonTitle isEqualToString:@"暂停下载"]) {
             [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:episode];
         } else if ([buttonTitle isEqualToString:@"删除"]) {

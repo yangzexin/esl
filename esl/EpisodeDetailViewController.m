@@ -81,8 +81,12 @@
             [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 @strongify(self);
                 if ([buttonTitle isEqualToString:@"重新下载"]) {
-                    [self.viewModel redownload];
-                    [self.viewModel startDownload];
+                    [UIAlertView alertWithTitle:@"提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                        if (buttonIndex != 0) {
+                            [self.viewModel redownload];
+                            [self.viewModel startDownload];
+                        }
+                    } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 } else if ([buttonTitle isEqualToString:@"显示文本"]) {
                     if (self.textCacheDB == nil) {
                         self.textCacheDB = [AppDelegate keyURLStringValueHTML];
@@ -224,8 +228,12 @@
         if ([buttonTitle isEqualToString:@"暂停"]) {
             [self.viewModel pauseDownload];
         } else if ([buttonTitle isEqualToString:@"重新下载"]) {
-            [self.viewModel redownload];
-            [self.viewModel startDownload];
+            [UIAlertView alertWithTitle:@"提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                if (buttonIndex != 0) {
+                    [self.viewModel redownload];
+                    [self.viewModel startDownload];
+                }
+            } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         }
     } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"暂停", @"重新下载", nil];
 }
