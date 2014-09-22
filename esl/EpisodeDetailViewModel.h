@@ -47,4 +47,6 @@
 - (void)rewind;
 - (void)fastForward;
 
+- (void)playSubWithTitle:(NSString *)subTitle HTML:(NSString *)HTML;
+
 @end

@@ -23,7 +23,7 @@
 
 #import "AppDelegate+SharedUtils.h"
 
-@interface EpisodeDetailViewController () <PlayerStatusViewDelegate>
+@interface EpisodeDetailViewController () <PlayerStatusViewDelegate, UIWebViewDelegate>
 
 @property (nonatomic, strong) EpisodeDetailViewModel *viewModel;
 @property (nonatomic, weak) UIWebView *textView;
@@ -33,6 +33,8 @@
 @property (nonatomic, copy) NSString *html;
 
 @property (nonatomic, strong) LevelDB *textCacheDB;
+
+@property (nonatomic, assign) BOOL updatingHTML;
 
 @end
 
@@ -51,7 +53,7 @@
 {
     [super loadView];
     
-    self.title = _viewModel.episode.simpleTitle;
+    self.title = @"Episode";
     self.toolbarHidden = NO;
     
     if (SFDeviceSystemVersion < 7.0f) {
@@ -63,6 +65,9 @@
         textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [textView removeShadow];
         [self.view addSubview:textView];
+        textView.delegate = self;
+        textView.opaque = NO;
+        textView.backgroundColor = [UIColor clearColor];
         self.textView = textView;
         
         self.playerStatusView = [[PlayerStatusView alloc] initWithFrame:CGRectMake(0, SFDeviceSystemVersion < 7.0f ? 0 : 64, self.view.frame.size.width, 50)];
@@ -77,7 +82,7 @@
             if ([self.viewModel downloadState] == SFDownloadStateDownloaded) {
                 [actionTitles addObject:@"重新下载"];
             }
-            [actionTitles addObject:@"显示文本"];
+            [actionTitles addObject:self.html.length == 0 ? @"显示文本" : @"刷新文本"];
             [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 @strongify(self);
                 if ([buttonTitle isEqualToString:@"重新下载"]) {
@@ -87,24 +92,8 @@
                             [self.viewModel startDownload];
                         }
                     } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                } else if ([buttonTitle isEqualToString:@"显示文本"]) {
-                    if (self.textCacheDB == nil) {
-                        self.textCacheDB = [AppDelegate keyURLStringValueHTML];
-                    }
-                    NSString *html = [self.textCacheDB objectForKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
-                    if (html.length != 0) {
-                        self.html = html;
-                        [self _updateHtml];
-                    } else {
-                        [self.viewModel.episodeDetailSignal subscribeNext:^(id x) {
-                            @strongify(self);
-                            self.html = x;
-                            [self.textCacheDB setObject:self.html forKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
-                            [self _updateHtml];
-                        } error:^(NSError *error) {
-                            
-                        }];
-                    }
+                } else if ([buttonTitle isEqualToString:@"显示文本"] || [buttonTitle isEqualToString:@"刷新文本"]) {
+                    [self _viewTextContentWithRefreshing:[buttonTitle isEqualToString:@"刷新文本"]];
                 }
             } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitleList:actionTitles];
         }];
@@ -114,7 +103,7 @@
     [RACObserve(_viewModel, loadingEpisodeDetail) subscribeNext:^(id x) {
         NSNumber *loading = x;
         @strongify(self);
-        [SFWaitingIndicator showLoading:[loading boolValue] inView:self.view];
+        [SFWaitingIndicator showLoading:[loading boolValue] inView:self.textView transparentBackground:NO identifier:@"loadingEpisodeDetail"];
     }];
     
     UIBarButtonItem *downloadingIndicatorButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(_downloadingIndicatorButtonTapped)];
@@ -204,11 +193,40 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self.html.length == 0) {
+        [self _viewTextContentWithRefreshing:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+- (void)_viewTextContentWithRefreshing:(BOOL)refreshing
+{
+    NSString *html = nil;
+    if (!refreshing && self.textCacheDB == nil) {
+        self.textCacheDB = [AppDelegate keyURLStringValueHTML];html = [self.textCacheDB objectForKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
+    }
+    if (html.length != 0) {
+        self.html = html;
+        [SFWaitingIndicator showLoading:YES inView:self.textView transparentBackground:NO identifier:@"loadingHTML"];
+        self.updatingHTML = YES;
+        [self _updateHtml];
+    } else {
+        @weakify(self);
+        [self.viewModel.episodeDetailSignal subscribeNext:^(id x) {
+            @strongify(self);
+            self.html = x;
+            [self.textCacheDB setObject:self.html forKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
+            [SFWaitingIndicator showLoading:YES inView:self.textView transparentBackground:NO identifier:@"loadingHTML"];
+            self.updatingHTML = YES;
+            [self _updateHtml];
+        } error:^(NSError *error) {
+            
+        }];
+    }
 }
 
 - (void)_updateHtml
@@ -258,6 +276,32 @@
 - (void)playerStatusView:(PlayerStatusView *)playerStatusView didChangeToNewPosition:(float)value
 {
     [_viewModel jumpToTime:value];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *URLString = [[request URL] absoluteString];
+    if ([URLString hasPrefix:@"esl://"]) {
+        NSString *const kCommandPlaySub = @"esl://playSubWithTitle?";
+        if ([URLString hasPrefix:kCommandPlaySub]) {
+            NSString *subTitle = [URLString substringFromIndex:kCommandPlaySub.length];
+            [self.viewModel playSubWithTitle:[subTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] HTML:self.html];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    if (self.updatingHTML) {
+        self.textView.alpha = .0f;
+        [SFWaitingIndicator showLoading:NO inView:self.textView transparentBackground:NO identifier:@"loadingHTML"];
+        [UIView animateWithDuration:.50f animations:^{
+            self.textView.alpha = 1.0f;
+        }];
+        self.updatingHTML = NO;
+    }
 }
 
 @end

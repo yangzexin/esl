@@ -64,6 +64,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
     NSMutableArray *actionTitles = [NSMutableArray array];
     [actionTitles addObject:@"查看"];
     SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
@@ -91,7 +97,11 @@
         } else if ([buttonTitle isEqualToString:@"暂停下载"]) {
             [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:episode];
         } else if ([buttonTitle isEqualToString:@"删除"]) {
-            [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
+            [UIAlertView alertWithTitle:@"提示" message:@"确定要删除节目吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                if (buttonIndex != 0) {
+                    [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
+                }
+            } cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         }
     } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitleList:actionTitles];
 }
@@ -112,9 +122,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0f];
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
     
     ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];

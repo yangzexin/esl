@@ -20,6 +20,8 @@
 
 #import "ESSoundPlayContext.h"
 
+#import "NSString+SFAddition.h"
+
 @interface EpisodeDetailViewModel ()
 
 @property (nonatomic, strong) ESEpisode *episode;
@@ -36,6 +38,9 @@
 
 @property (nonatomic, assign) BOOL soundPlaying;
 @property (nonatomic, assign) BOOL playingCurrentEpisode;
+
+@property (nonatomic, strong) NSArray *subSoundTitles;
+@property (nonatomic, strong) NSDictionary *keySubSoundTitleValueTime;
 
 @end
 
@@ -60,6 +65,8 @@
         [self _updateStates];
     }] identifier:@"downloadPercentRefreshTimer"];
     
+    self.subSoundTitles = @[@"Slow dialog", @"Explanations", @"Fast dialog"];
+    
     return self;
 }
 
@@ -75,10 +82,18 @@
 - (RACSignal *)episodeDetailSignal
 {
     if (_episodeDetailSignal == nil) {
+        @weakify(self);
         self.episodeDetailSignal = [[[[[[NSURLConnection rac_sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_episode.contentURLString]]] map:^id(id value) {
             if (![value isKindOfClass:[NSError class]]) {
+                @strongify(self);
                 NSData *responseData = [value last];
                 NSString *HTML = [[NSString alloc] initWithData:responseData encoding:NSWindowsCP1252StringEncoding];
+                NSString *outReplacedHTML = nil;
+                [self _getAudioIndexesWithHTML:HTML outReplacedHTML:&outReplacedHTML];
+                
+                if (outReplacedHTML.length != 0) {
+                    HTML = outReplacedHTML;
+                }
                 
                 value = HTML;
                 
@@ -90,8 +105,12 @@
                     NSInteger endIndex = [HTML find:endMatching fromIndex:beginIndex];
                     if (endIndex != -1) {
                         NSString *content = [HTML substringWithBeginIndex:beginIndex endIndex:endIndex];
-                        NSString *contentWrapper = @"<html><body><div style='font-family:Verdana;padding-top:$paddingTop;'>$content</div></body></html>";
+                        NSString *contentWrapper = @"<html><body><div style='font-family:Verdana;padding-top:$paddingTop;'>"\
+                        "<div style=\"font-size:12pt;font-weight:bold;padding-bottom:10px;\">$title</div>"\
+                        "<div>$content</div>"\
+                        "</div></body></html>";
                         value = [contentWrapper stringByReplacingOccurrencesOfString:@"$content" withString:content];
+                        value = [value stringByReplacingOccurrencesOfString:@"$title" withString:self.episode.title];
                     }
                 }
             }
@@ -100,7 +119,6 @@
         
         self.loadingEpisodeDetail = YES;
         
-        @weakify(self);
         [self.episodeDetailSignal subscribeCompleted:^{
             @strongify(self);
             self.loadingEpisodeDetail = NO;
@@ -108,6 +126,60 @@
         }];
     }
     return _episodeDetailSignal;
+}
+
+- (void)_getAudioIndexesWithHTML:(NSString *)HTML outReplacedHTML:(NSString **)outReplacedHTML
+{
+    NSString *matching = @"Audio Index:";
+    NSInteger beginIndex = [HTML find:matching];
+    if (beginIndex != -1) {
+        NSInteger endIndex = [HTML find:@"</span>" fromIndex:beginIndex + matching.length];
+        NSString *innerText = [HTML substringWithBeginIndex:beginIndex + matching.length endIndex:endIndex];
+        
+        NSMutableDictionary *keySubSoundTitleValueTime = [NSMutableDictionary dictionary];
+        
+        for (NSString *subSoundTitle in self.subSoundTitles) {
+            [keySubSoundTitleValueTime setObject:@([self _getAudioIndexTimeWithHTML:innerText prefix:[NSString stringWithFormat:@"%@:", subSoundTitle]])
+                                          forKey:subSoundTitle];
+        }
+        
+        self.keySubSoundTitleValueTime = keySubSoundTitleValueTime;
+        
+        NSMutableString *replacedHTML = [NSMutableString stringWithFormat:@"<!-- %@ -->", innerText];
+        for (NSString *subSoundTitle in self.subSoundTitles) {
+            [replacedHTML appendFormat:@"<div>"\
+             "<a style=\"color:blue;\" href=\"#\" onclick=\"javascript:window.location.href='esl://playSubWithTitle?%@';\">"\
+             "<span style=\"display:block;font-size:12pt;padding-top:10px;padding-bottom:10px;\">%@</span>"\
+             "</a>"\
+             "</div>",
+             [subSoundTitle stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], subSoundTitle];
+        }
+        
+        if (outReplacedHTML) {
+            *outReplacedHTML = [HTML stringByReplacingOccurrencesOfString:innerText withString:replacedHTML];
+        }
+    }
+}
+
+- (double)_getAudioIndexTimeWithHTML:(NSString *)HTML prefix:(NSString *)prefix
+{
+    double time = 0;
+    
+    NSInteger beginIndex = [HTML find:prefix];
+    if (beginIndex != -1) {
+        NSInteger endIndex = [HTML find:@"<br>" fromIndex:beginIndex + prefix.length];
+        if (endIndex != -1) {
+            NSString *timeDescription = [HTML substringWithBeginIndex:beginIndex + prefix.length endIndex:endIndex];
+            NSArray *timeAttrs = [timeDescription componentsSeparatedByString:@":"];
+            if (timeAttrs.count == 2) {
+                NSInteger minute = [[timeAttrs objectAtIndex:0] integerValue];
+                NSInteger second = [[timeAttrs objectAtIndex:1] integerValue];
+                time = minute * 60 + second;
+            }
+        }
+    }
+    
+    return time;
 }
 
 - (RACSignal *)downloadSignal
@@ -192,6 +264,20 @@
 - (void)fastForward
 {
     [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] + 2];
+}
+
+- (void)playSubWithTitle:(NSString *)subTitle HTML:(NSString *)HTML
+{
+    if (self.keySubSoundTitleValueTime.count == 0) {
+        [self _getAudioIndexesWithHTML:HTML outReplacedHTML:NULL];
+    }
+    if (self.keySubSoundTitleValueTime.count != 0) {
+        double time = [[self.keySubSoundTitleValueTime objectForKey:subTitle] doubleValue];
+        if (![self soundPlaying]) {
+            [self playSound];
+        }
+        [self jumpToTime:time];
+    }
 }
 
 @end
