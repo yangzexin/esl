@@ -288,11 +288,11 @@
             if (self.viewModel.downloadState == SFDownloadStateDownloaded) {
                 [self.viewModel playSubWithTitle:[subTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] HTML:self.html];
             } else {
-                [UIAlertView alertWithTitle:@"温馨提示" message:@"当前节目还没有下载" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                [UIAlertView alertWithTitle:@"温馨提示" message:@"当前节目还没有下载完成" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                     if (buttonIndex != 0) {
                         if (self.viewModel.downloadState == SFDownloadStateNotDowloaded) {
                             [self.viewModel startDownload];
-                        } else {
+                        } else if (self.viewModel.downloadState != SFDownloadStateDownloading) {
                             [self _retryButtonTapped];
                         }
                     }
