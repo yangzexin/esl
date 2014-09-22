@@ -65,8 +65,6 @@
         [self _updateStates];
     }] identifier:@"downloadPercentRefreshTimer"];
     
-    self.subSoundTitles = @[@"Slow dialog", @"Explanations", @"Fast dialog"];
-    
     return self;
 }
 
@@ -136,27 +134,45 @@
         NSInteger endIndex = [HTML find:@"</span>" fromIndex:beginIndex + matching.length];
         NSString *innerText = [HTML substringWithBeginIndex:beginIndex + matching.length endIndex:endIndex];
         
-        NSMutableDictionary *keySubSoundTitleValueTime = [NSMutableDictionary dictionary];
-        
-        for (NSString *subSoundTitle in self.subSoundTitles) {
-            [keySubSoundTitleValueTime setObject:@([self _getAudioIndexTimeWithHTML:innerText prefix:[NSString stringWithFormat:@"%@:", subSoundTitle]])
-                                          forKey:subSoundTitle];
+        if ([innerText find:@"<br>"] != -1) {
+            NSArray *subSoundTitleStrings = [innerText componentsSeparatedByString:@"<br>"];
+            NSMutableArray *subSoundTitles = [NSMutableArray array];
+            for (NSString *subSoundTitleString in subSoundTitleStrings) {
+                NSString *tmpSubSoundTitleString = [subSoundTitleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                if (tmpSubSoundTitleString.length != 0) {
+                    NSInteger bracketIndex = [tmpSubSoundTitleString find:@":"];
+                    if (bracketIndex != -1) {
+                        NSString *subSoundTitle = [tmpSubSoundTitleString substringToIndex:bracketIndex];
+                        [subSoundTitles addObject:subSoundTitle];
+                    }
+                }
+            }
+            self.subSoundTitles = subSoundTitles;
         }
         
-        self.keySubSoundTitleValueTime = keySubSoundTitleValueTime;
-        
-        NSMutableString *replacedHTML = [NSMutableString stringWithFormat:@"<!-- %@ -->", innerText];
-        for (NSString *subSoundTitle in self.subSoundTitles) {
-            [replacedHTML appendFormat:@"<div>"\
-             "<a style=\"color:blue;\" href=\"#\" onclick=\"javascript:window.location.href='esl://playSubWithTitle?%@';\">"\
-             "<span style=\"display:block;font-size:12pt;padding-top:10px;padding-bottom:10px;\">%@</span>"\
-             "</a>"\
-             "</div>",
-             [subSoundTitle stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], subSoundTitle];
-        }
-        
-        if (outReplacedHTML) {
-            *outReplacedHTML = [HTML stringByReplacingOccurrencesOfString:innerText withString:replacedHTML];
+        if (self.subSoundTitles.count != 0) {
+            NSMutableDictionary *keySubSoundTitleValueTime = [NSMutableDictionary dictionary];
+            
+            for (NSString *subSoundTitle in self.subSoundTitles) {
+                [keySubSoundTitleValueTime setObject:@([self _getAudioIndexTimeWithHTML:innerText prefix:[NSString stringWithFormat:@"%@:", subSoundTitle]])
+                                              forKey:subSoundTitle];
+            }
+            
+            self.keySubSoundTitleValueTime = keySubSoundTitleValueTime;
+            
+            NSMutableString *replacedHTML = [NSMutableString stringWithFormat:@"<!-- %@ -->", innerText];
+            for (NSString *subSoundTitle in self.subSoundTitles) {
+                [replacedHTML appendFormat:@"<div>"\
+                 "<a style=\"color:blue;\" href=\"#\" onclick=\"javascript:window.location.href='esl://playSubWithTitle?%@';\">"\
+                 "<span style=\"display:block;font-size:12pt;padding-top:10px;padding-bottom:10px;\">%@</span>"\
+                 "</a>"\
+                 "</div>",
+                 [subSoundTitle stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], subSoundTitle];
+            }
+            
+            if (outReplacedHTML) {
+                *outReplacedHTML = [HTML stringByReplacingOccurrencesOfString:innerText withString:replacedHTML];
+            }
         }
     }
 }
