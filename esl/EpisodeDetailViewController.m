@@ -86,7 +86,7 @@
             [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 @strongify(self);
                 if ([buttonTitle isEqualToString:@"重新下载"]) {
-                    [UIAlertView alertWithTitle:@"提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                    [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                         if (buttonIndex != 0) {
                             [self.viewModel redownload];
                             [self.viewModel startDownload];
@@ -246,7 +246,7 @@
         if ([buttonTitle isEqualToString:@"暂停"]) {
             [self.viewModel pauseDownload];
         } else if ([buttonTitle isEqualToString:@"重新下载"]) {
-            [UIAlertView alertWithTitle:@"提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [self.viewModel redownload];
                     [self.viewModel startDownload];
@@ -285,7 +285,19 @@
         NSString *const kCommandPlaySub = @"esl://playSubWithTitle?";
         if ([URLString hasPrefix:kCommandPlaySub]) {
             NSString *subTitle = [URLString substringFromIndex:kCommandPlaySub.length];
-            [self.viewModel playSubWithTitle:[subTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] HTML:self.html];
+            if (self.viewModel.downloadState == SFDownloadStateDownloaded) {
+                [self.viewModel playSubWithTitle:[subTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] HTML:self.html];
+            } else {
+                [UIAlertView alertWithTitle:@"温馨提示" message:@"当前节目还没有下载" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                    if (buttonIndex != 0) {
+                        if (self.viewModel.downloadState == SFDownloadStateNotDowloaded) {
+                            [self.viewModel startDownload];
+                        } else {
+                            [self _retryButtonTapped];
+                        }
+                    }
+                } cancelButtonTitle:@"取消" otherButtonTitles:@"下载", nil];
+            }
         }
         return NO;
     }

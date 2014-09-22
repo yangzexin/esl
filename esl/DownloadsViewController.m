@@ -88,7 +88,7 @@
             [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
         } else if ([buttonTitle isEqualToString:@"重新下载"]) {
             
-            [UIAlertView alertWithTitle:@"提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
                     [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
@@ -97,7 +97,7 @@
         } else if ([buttonTitle isEqualToString:@"暂停下载"]) {
             [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:episode];
         } else if ([buttonTitle isEqualToString:@"删除"]) {
-            [UIAlertView alertWithTitle:@"提示" message:@"确定要删除节目吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要删除节目吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
                 }
