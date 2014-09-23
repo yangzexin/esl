@@ -165,7 +165,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
             NSMutableString *replacedHTML = [NSMutableString stringWithFormat:@"<!-- %@ -->", innerText];
             for (NSString *subSoundTitle in self.subSoundTitles) {
                 [replacedHTML appendFormat:@"<div>"\
-                 "<a style=\"color:blue;\" href=\"#\" onclick=\"javascript:window.location.href='esl://playSubWithTitle?%@';\">"\
+                 "<a style=\"color:blue;\" href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='esl://playSubWithTitle?%@';\">"\
                  "<span style=\"display:block;font-size:12pt;padding-top:10px;padding-bottom:10px;\">%@</span>"\
                  "</a>"\
                  "</div>",
