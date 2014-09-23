@@ -65,7 +65,7 @@
     [loadMoreLabel setTitle:@"Show More .." forState:UIControlStateNormal];
     [loadMoreLabel setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [loadMoreLabel setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithIntegerRed:247 green:247 blue:247] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
     [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithIntegerRed:230 green:230 blue:230] size:CGSizeMake(1, 1)]
                              forState:UIControlStateHighlighted];
     [self.loadMoreFooter addSubview:loadMoreLabel];

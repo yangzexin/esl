@@ -25,6 +25,10 @@
 @property (nonatomic, strong) NSArray *downloadingEpisodes;
 @property (nonatomic, strong) NSDictionary *keyEpisodeIdValuePercent;
 
+@property (nonatomic, assign) BOOL downloadsUpdated;
+
+@property (nonatomic, assign) BOOL visible;
+
 @end
 
 @implementation DownloadsViewController
@@ -49,14 +53,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    @weakify(self);
+    [self depositNotificationObserver:[[NSNotificationCenter defaultCenter] addObserverForName:ESEpisodeDidStartDownloadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        @strongify(self);
+        self.downloadsUpdated = YES;
+    }]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.downloadingEpisodes.count == 0) {
+    if (self.downloadingEpisodes.count == 0 || self.downloadsUpdated) {
+        self.downloadsUpdated = NO;
         [self _refreshDownloads];
     }
+    self.visible = YES;
 }
 
 - (void)_refreshDownloads
@@ -71,6 +82,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.visible = NO;
 }
 
 - (void)_refreshDownloadsWithCompletion:(void(^)())completion
@@ -164,7 +176,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
-    return [episode titleFormattedWithWidth:[UIScreen mainScreen].bounds.size.width - 50].size.height + 20 + (SFDeviceSystemVersion < 7.0f ? -30 : 0) + 10;
+    return [episode titleFormattedWithWidth:[UIScreen mainScreen].bounds.size.width - 50].size.height + 20 + (SFDeviceSystemVersion < 7.0f ? -30 : 0) + 27;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -195,9 +207,9 @@
         imageLabel.drawsImageWithImageSize = YES;
         [cell.contentView addSubview:imageLabel];
         
-        downloadPercentLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.contentView.frame.size.height - 18, cell.contentView.frame.size.width, 15)];
+        downloadPercentLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.contentView.frame.size.height - 27, cell.contentView.frame.size.width, 17)];
         downloadPercentLabel.backgroundColor = [UIColor clearColor];
-        downloadPercentLabel.font = [UIFont systemFontOfSize:12.0f];
+        downloadPercentLabel.font = [UIFont boldSystemFontOfSize:12.0f];
         downloadPercentLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         downloadPercentLabel.tag = 1002;
         [cell.contentView addSubview:downloadPercentLabel];
@@ -208,12 +220,28 @@
     ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
     imageLabel.text = [episode titleFormattedWithWidth:[UIScreen mainScreen].bounds.size.width - 50];
     
-    SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
-    downloadPercentLabel.textColor = (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) ? [UIColor lightGrayColor] : [UIColor darkGrayColor];
-    if (downloadState == SFDownloadStateDownloading) {
-        downloadPercentLabel.textColor = [UIColor redColor];
-    }
-    downloadPercentLabel.text = [NSString stringWithFormat:@"%.0f%%", [[_keyEpisodeIdValuePercent objectForKey:episode.uid] floatValue] * 100];;
+    @weakify(episode);
+    @weakify(downloadPercentLabel);
+    @weakify(cell);
+    @weakify(self);
+    [cell addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:.50f tick:^{
+        @strongify(episode);
+        @strongify(downloadPercentLabel);
+        @strongify(cell);
+        @strongify(self);
+        if (self.visible && episode != nil) {
+            SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
+            downloadPercentLabel.textColor = (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) ? [UIColor lightGrayColor] : [UIColor darkGrayColor];
+            cell.backgroundColor = downloadState == SFDownloadStateDownloading ? [UIColor colorWithIntegerRed:220 green:0 blue:0 alpha:7] : [UIColor whiteColor];
+            if (downloadState == SFDownloadStateDownloading) {
+                downloadPercentLabel.textColor = [UIColor redColor];
+            }
+            
+            float percent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:episode];
+            downloadPercentLabel.text = [NSString stringWithFormat:@"%.0f%%", percent * 100];
+        }
+        
+    }] identifier:@"refreshTimer"];
     
     return cell;
 }

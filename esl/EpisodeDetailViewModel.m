@@ -22,6 +22,8 @@
 
 #import "NSString+SFAddition.h"
 
+NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownloadNotification";
+
 @interface EpisodeDetailViewModel ()
 
 @property (nonatomic, strong) ESEpisode *episode;
@@ -247,6 +249,7 @@
 
 - (void)startDownload
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ESEpisodeDidStartDownloadNotification object:self.episode];
     [self.downloadSignal subscribeNext:^(id x) {
         
     }];

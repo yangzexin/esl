@@ -13,6 +13,8 @@
 
 @class ESEpisode;
 
+OBJC_EXPORT NSString *const ESEpisodeDidStartDownloadNotification;
+
 @interface EpisodeDetailViewModel : BaseViewModel
 
 @property (nonatomic, strong, readonly) ESEpisode *episode;
