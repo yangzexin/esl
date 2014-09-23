@@ -54,6 +54,7 @@
     self.request.downloadProgressDelegate = self;
     self.request.showAccurateProgress = YES;
     [self.request startAsynchronous];
+    NSLog(@"%@", self.request.url);
 }
 
 - (ASIHTTPRequest *)HTTPGetWithParameters:(NSDictionary *)parameters

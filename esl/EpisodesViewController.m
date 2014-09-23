@@ -16,6 +16,7 @@
 
 #import "ODRefreshControl.h"
 #import "SFBlockedBarButtonItem.h"
+#import "SVPullToRefresh.h"
 
 #import "AppDelegate.h"
 
@@ -27,6 +28,8 @@
 @interface EpisodesViewController () <SFImageLabelDelegate>
 
 @property (nonatomic, strong) EpisodesViewModel *viewModel;
+
+@property (nonatomic, strong) UIView *loadMoreFooter;
 
 @end
 
@@ -53,7 +56,58 @@
         [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
         [self.tableView addSubview:refreshControl];
     }
-//    [self setLeftBarButtonItemAsSideMenuSwitcher];
+    
+    SFCardLayout *loadMoreFooter = [[SFCardLayout alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 72)];
+    loadMoreFooter.alignment = SFCardLayoutAlignmentCenter;
+    loadMoreFooter.spacing = 5.0f;
+    loadMoreFooter.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    loadMoreFooter.backgroundColor = [UIColor clearColor];
+    self.loadMoreFooter = loadMoreFooter;
+    
+    SFBlockedButton *loadMoreLabel = [[SFBlockedButton alloc] initWithFrame:CGRectMake(0, 0, loadMoreFooter.frame.size.width, loadMoreFooter.frame.size.height)];
+    loadMoreLabel.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    loadMoreLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [loadMoreLabel setTitle:@"Show More .." forState:UIControlStateNormal];
+    [loadMoreLabel setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [loadMoreLabel setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithIntegerRed:230 green:230 blue:230] size:CGSizeMake(1, 1)]
+                             forState:UIControlStateHighlighted];
+    [self.loadMoreFooter addSubview:loadMoreLabel];
+    
+    @weakify(self);
+    @weakify(loadMoreLabel);
+    [loadMoreLabel setTapHandler:^{
+        @strongify(self);
+        @strongify(loadMoreLabel);
+        [loadMoreLabel setTitle:@"Loading .." forState:UIControlStateNormal];
+        loadMoreLabel.userInteractionEnabled = NO;
+        @weakify(self);
+        [self.viewModel.nextPageEpisodesSignal subscribeError:^(NSError *error) {
+            @strongify(self);
+            [self.tableView reloadData];
+            @strongify(loadMoreLabel);
+            [loadMoreLabel setTitle:@"Show More .." forState:UIControlStateNormal];
+            loadMoreLabel.userInteractionEnabled = YES;
+        } completed:^{
+            @strongify(self);
+            [self.tableView reloadData];
+            @strongify(loadMoreLabel);
+            [loadMoreLabel setTitle:@"Show More .." forState:UIControlStateNormal];
+            loadMoreLabel.userInteractionEnabled = YES;
+        }];
+    }];
+    
+    [RACObserve(self.viewModel, hasMorePages) subscribeNext:^(NSNumber *x) {
+        @strongify(self);
+        [self setShouldLoadMore:[x boolValue] && self.viewModel.episodes.count != 0];
+    }];
+}
+
+- (void)setShouldLoadMore:(BOOL)more
+{
+    self.tableView.tableFooterView = more ? self.loadMoreFooter : nil;
+    [self.loadMoreFooter setNeedsLayout];
 }
 
 - (void)viewDidLoad
@@ -104,6 +158,7 @@
 #pragma mark - UI events
 - (void)_refreshControlDidBeginRefreshing:(id)refreshControl
 {
+    self.viewModel.pageIndex = 0;
     @weakify(self);
     [_viewModel.refreshEpisodesSignal subscribeError:^(NSError *error) {
         [refreshControl endRefreshing];

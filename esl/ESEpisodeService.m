@@ -88,7 +88,8 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
 
 - (void)_requestEpisodesWithCompletion:(ESServiceCompletion)completion
 {
-    ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:kEpisodesListURLString useHTTPPost:NO];
+    ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:[NSString stringWithFormat:@"%@?low_rec=%d", kEpisodesListURLString, self.pageIndex * [self pageSize]]
+                                                     useHTTPPost:NO];
     __weak typeof(self) weakSelf = self;
     [request setResponseDataWrapper:^id(NSData *data) {
         NSString *string = [[NSString alloc] initWithData:data encoding:NSWindowsCP1252StringEncoding];
@@ -196,6 +197,11 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
         self.completion(episodes, error);
         self.executing = NO;
     });
+}
+
+- (NSInteger)pageSize
+{
+    return 20;
 }
 
 - (BOOL)isExecuting

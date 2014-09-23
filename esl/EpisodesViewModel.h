@@ -11,8 +11,12 @@
 
 @interface EpisodesViewModel : BaseViewModel
 
-@property (nonatomic, strong, readonly) NSArray *episodes;
+@property (nonatomic, strong, readonly) NSMutableArray *episodes;
 
 @property (nonatomic, strong, readonly) RACSignal *refreshEpisodesSignal;
+@property (nonatomic, strong, readonly) RACSignal *nextPageEpisodesSignal;
+
+@property (nonatomic, assign) NSInteger pageIndex;
+@property (nonatomic, assign, readonly) BOOL hasMorePages;
 
 @end

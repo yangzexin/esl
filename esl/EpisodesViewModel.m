@@ -12,11 +12,15 @@
 
 @interface EpisodesViewModel ()
 
-@property (nonatomic, strong) NSArray *episodes;
+@property (nonatomic, strong) NSMutableArray *episodes;
 
 @property (nonatomic, strong) RACSignal *refreshEpisodesSignal;
 
 @property (nonatomic, assign) BOOL usingCache;
+
+@property (nonatomic, assign) BOOL hasMorePages;
+
+@property (nonatomic, assign) BOOL refreshing;
 
 @end
 
@@ -27,6 +31,8 @@
     self = [super init];
     
     self.usingCache = YES;
+    self.episodes = [NSMutableArray array];
+    self.hasMorePages = NO;
     
     @weakify(self);
     [self.refreshEpisodesSignal subscribeCompleted:^{
@@ -41,17 +47,20 @@
     return self;
 }
 
-- (RACSignal *)refreshEpisodesSignal
+- (RACSignal *)_episodesSignal
 {
     if (_refreshEpisodesSignal == nil) {
         @weakify(self);
         self.refreshEpisodesSignal = [[[[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             ESEpisodeService *episodesService = [ESEpisodeService new];
             episodesService.useCache = self.usingCache;
-            [episodesService requestWithCompletion:^(id resultObject, NSError *error) {
+            episodesService.pageIndex = self.pageIndex;
+            [episodesService requestWithCompletion:^(NSArray *resultObject, NSError *error) {
+                @strongify(self);
                 if (resultObject) {
                     [subscriber sendNext:resultObject];
                 } else {
+                    --self.pageIndex;
                     [subscriber sendError:error];
                 }
                 [subscriber sendCompleted];
@@ -59,9 +68,15 @@
             return [RACDisposable disposableWithBlock:^{
                 [episodesService cancel];
             }];
-        }] doNext:^(id x) {
+        }] doNext:^(NSArray *x) {
             @strongify(self);
-            self.episodes = x;
+            NSMutableArray *episodes = [NSMutableArray array];
+            if (!self.refreshing) {
+                [episodes addObjectsFromArray:self.episodes];
+            }
+            [episodes addObjectsFromArray:x];
+            self.episodes = episodes;
+            self.hasMorePages = x.count == 20;
         }] doError:^(NSError *error) {
             @strongify(self);
             self.refreshEpisodesSignal = nil;
@@ -71,6 +86,20 @@
         }] publish] autoconnect];
     }
     return _refreshEpisodesSignal;
+}
+
+- (RACSignal *)refreshEpisodesSignal
+{
+    self.pageIndex = 0;
+    self.refreshing = YES;
+    return [self _episodesSignal];
+}
+
+- (RACSignal *)nextPageEpisodesSignal
+{
+    self.refreshing = NO;
+    ++self.pageIndex;
+    return [self _episodesSignal];
 }
 
 @end
