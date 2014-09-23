@@ -231,10 +231,10 @@
         @strongify(self);
         if (self.visible && episode != nil) {
             SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
-            downloadPercentLabel.textColor = (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) ? [UIColor lightGrayColor] : [UIColor darkGrayColor];
-            cell.backgroundColor = downloadState == SFDownloadStateDownloading ? [UIColor colorWithIntegerRed:220 green:0 blue:0 alpha:7] : [UIColor whiteColor];
-            if (downloadState == SFDownloadStateDownloading) {
-                downloadPercentLabel.textColor = [UIColor redColor];
+            downloadPercentLabel.textColor = (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) ? [UIColor redColor] : [UIColor darkGrayColor];
+            cell.backgroundColor = downloadState == SFDownloadStateDownloading ? [UIColor colorWithIntegerRed:0 green:0 blue:0 alpha:7] : [UIColor whiteColor];
+            if (downloadState == SFDownloadStateDownloading) {//94	165	70
+                downloadPercentLabel.textColor = [UIColor colorWithIntegerRed:94 green:195 blue:70];
             }
             
             float percent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:episode];
