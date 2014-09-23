@@ -126,6 +126,9 @@
 }
 
 NSString *(^_defaultHTMLLyricsWrapper)(NSString *lyrics) = ^NSString *(NSString *lyrics){
+    if (lyrics == nil) {
+        lyrics = @"";
+    }
     NSString *HTMLString = [NSString stringWithFormat:@"<html><head>$header</head><body style=\"$bodyStyle\">$content</body></html>"];
     lyrics = [lyrics stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/>"];
     HTMLString = [HTMLString stringByReplacingOccurrencesOfString:@"$content" withString:lyrics];

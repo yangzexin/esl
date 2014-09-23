@@ -107,8 +107,8 @@
                         "<div style=\"font-size:12pt;font-weight:bold;padding-bottom:10px;\">$title</div>"\
                         "<div>$content</div>"\
                         "</div></body></html>";
-                        value = [contentWrapper stringByReplacingOccurrencesOfString:@"$content" withString:content];
-                        value = [value stringByReplacingOccurrencesOfString:@"$title" withString:self.episode.title];
+                        value = [contentWrapper stringByReplacingOccurrencesOfString:@"$content" withString:content.length == 0 ? @"" : content];
+                        value = [value stringByReplacingOccurrencesOfString:@"$title" withString:self.episode.title.length == 0 ? @"" : self.episode.title];
                     }
                 }
             }

@@ -22,9 +22,13 @@ typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 @property (nonatomic, copy) NSString *soundURLString;
 @property (nonatomic, copy) NSString *contentURLString;
 
+@property (nonatomic, assign) NSInteger sort;
+
 @property (nonatomic, copy) ESEpisodeIntrodutionFormatter introdutionFormatter;
 
 - (SFImageLabelText *)titleFormatted;
+
+- (SFImageLabelText *)titleFormattedWithWidth:(CGFloat)width;
 
 - (NSString *)simpleTitle;
 

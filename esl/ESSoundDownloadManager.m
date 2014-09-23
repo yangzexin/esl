@@ -165,10 +165,15 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     NSArray *downloadURLStrings = [_downloadManager downloadingURLStrings];
     NSMutableArray *downloadingEpisodes = [NSMutableArray array];
     for (NSString *URLString in downloadURLStrings) {
-        [downloadingEpisodes addObject:[_keyURLStringValueEpisode objectForKey:URLString]];
+        ESEpisode *episode = [_keyURLStringValueEpisode objectForKey:URLString];
+        SFDownloadState state = [self stateForEpisode:episode];
+        if (state != SFDownloadStateDownloaded) {
+            episode.sort += 10000;
+        }
+        [downloadingEpisodes addObject:episode];
     }
     [downloadingEpisodes sortUsingComparator:^NSComparisonResult(ESEpisode *obj1, ESEpisode *obj2) {
-        return [obj1.title compare:obj2.title];
+        return obj1.sort > obj2.sort ? NSOrderedAscending : NSOrderedDescending;
     }];
     return downloadingEpisodes;
 }

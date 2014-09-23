@@ -183,7 +183,9 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
     
     NSString *contentRange = [headers objectForKey:@"Content-Range"];
     NSString *AcceptRanges = [headers objectForKey:@"Accept-Ranges"];
-    contentRange = [contentRange stringByReplacingOccurrencesOfString:AcceptRanges withString:@""];
+    if (AcceptRanges) {
+        contentRange = [contentRange stringByReplacingOccurrencesOfString:AcceptRanges withString:@""];
+    }
     contentRange = [contentRange stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSArray *attrs = [contentRange componentsSeparatedByString:@"-"];
     if (attrs.count != 0) {

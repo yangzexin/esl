@@ -27,6 +27,16 @@
 //    if (_introdution != nil) {
 //        [self _build];
 //    }
+    
+    NSString *simpleTitle = [self simpleTitle];
+    NSInteger sortIndex = [simpleTitle find:@" –"];
+    NSString *const cafePrefix = @"English Café";
+    if (sortIndex != -1) {
+        NSString *sortString = [simpleTitle substringToIndex:sortIndex];
+        self.sort = [sortString integerValue] + 10000;
+    } else if ([simpleTitle hasPrefix:cafePrefix]) {
+        self.sort = [[simpleTitle substringFromIndex:cafePrefix.length] integerValue] + 1000;
+    }
 }
 
 - (void)setIntrodution:(NSString *)introdution
@@ -37,10 +47,10 @@
 //    }
 }
 
-- (void)_build
+- (void)_buildWithWidth:(CGFloat)width
 {
     NSString *text = [NSString stringWithFormat:@"%@\n", self.simpleTitle];
-    _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
+    _titleFormatted = [SFImageLabelText textFromString:text constraitsWidth:width imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(27, 20);
     }];
     _titleFormatted.font = [UIFont boldSystemFontOfSize:15.0f];
@@ -48,7 +58,7 @@
     _titleFormatted.imageMatchingRight = @"]";
     [_titleFormatted build];
     
-    SFImageLabelText *dateText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@\n", _date] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
+    SFImageLabelText *dateText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@\n", _date] constraitsWidth:width imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(27, 20);
     }];
     dateText.textColor = [UIColor lightGrayColor];
@@ -58,8 +68,8 @@
     [dateText build];
     _titleFormatted = [_titleFormatted textByAppendingText:dateText];
     
-    SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@", _introdution] constraitsWidth:310 imageSizeCalculator:^CGSize(NSString *imageName) {
-        return CGSizeMake(310, 82);
+    SFImageLabelText *introText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@", _introdution] constraitsWidth:width imageSizeCalculator:^CGSize(NSString *imageName) {
+        return CGSizeMake(width, 82);
     }];
     introText.textColor = [UIColor darkGrayColor];
     introText.imageMatchingLeft = @"[";
@@ -70,8 +80,13 @@
 
 - (SFImageLabelText *)titleFormatted
 {
+    return [self titleFormattedWithWidth:[UIScreen mainScreen].bounds.size.width - 10];
+}
+
+- (SFImageLabelText *)titleFormattedWithWidth:(CGFloat)width
+{
     if (_titleFormatted == nil) {
-        [self _build];
+        [self _buildWithWidth:width];
     }
     return _titleFormatted;
 }

@@ -48,14 +48,9 @@
 - (void)loadView
 {
     [super loadView];
-    if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
-        ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-        [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-    } else {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
-        [self.tableView addSubview:refreshControl];
-    }
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
     
     SFCardLayout *loadMoreFooter = [[SFCardLayout alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 72)];
     loadMoreFooter.alignment = SFCardLayoutAlignmentCenter;
