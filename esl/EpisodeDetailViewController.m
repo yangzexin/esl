@@ -296,7 +296,7 @@
                             [self _retryButtonTapped];
                         }
                     }
-                } cancelButtonTitle:@"取消" otherButtonTitles:@"下载", nil];
+                } cancelButtonTitle:self.viewModel.downloadState == SFDownloadStateDownloading ? @"确定" : @"取消" otherButtonTitles:self.viewModel.downloadState == SFDownloadStateDownloading ? nil : @"下载", nil];
             }
         }
         return NO;
