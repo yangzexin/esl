@@ -24,6 +24,7 @@
 #import "SFFoundation.h"
 
 #import "ESSoundPlayContext.h"
+#import "ESSoundDownloadManager.h"
 
 @interface EpisodesViewController () <SFImageLabelDelegate>
 
@@ -48,6 +49,9 @@
 - (void)loadView
 {
     [super loadView];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
@@ -222,6 +226,7 @@
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
         cell.detailTextLabel.textColor = [UIColor darkGrayColor];
+        cell.backgroundView = [UIView new];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 7, cell.contentView.bounds.size.width - 10, cell.contentView.bounds.size.height)];
@@ -230,6 +235,8 @@
         imageLabel.delegate = self;
         imageLabel.drawsImageWithImageSize = YES;
         [cell.contentView addSubview:imageLabel];
+        
+        [cell.contentView addBottomLineWithColor:[UIColor colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
     } else {
         imageLabel = (id)[cell.contentView viewWithTag:1001];
     }
@@ -237,6 +244,9 @@
 //    cell.textLabel.text = episode.title;
 //    cell.detailTextLabel.text = [NSString stringWithFormat:@"\n%@\n%@", episode.date, episode.formattedIntrodution];
     imageLabel.text = [episode titleFormatted];
+    
+    SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
+    cell.backgroundView.backgroundColor = downloadState == SFDownloadStateDownloaded ? [UIColor colorWithIntegerRed:0 green:255 blue:0 alpha:27] : [UIColor whiteColor];
     
     return cell;
 }

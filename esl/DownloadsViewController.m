@@ -45,6 +45,9 @@
 - (void)loadView
 {
     [super loadView];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(_refreshControlDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
@@ -175,8 +178,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
-    return [episode titleFormattedWithWidth:[UIScreen mainScreen].bounds.size.width - 50].size.height + 20 + (SFDeviceSystemVersion < 7.0f ? -30 : 0) + 27;
+    return 60;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -189,56 +191,58 @@
     static NSString *identifier = @"__id";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
-    SFImageLabel *imageLabel = nil;
-    UILabel *downloadPercentLabel = nil;
+    UIView *downloadPercentView = nil;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.textLabel.numberOfLines = 1;
-        cell.detailTextLabel.numberOfLines = 4;
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
-        cell.detailTextLabel.textColor = [UIColor darkGrayColor];
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         
-        imageLabel = [[SFImageLabel alloc] initWithFrame:CGRectMake(5, 7, [UIScreen mainScreen].bounds.size.width - 50, cell.contentView.bounds.size.height)];
-        imageLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        imageLabel.tag = 1001;
-        imageLabel.drawsImageWithImageSize = YES;
-        [cell.contentView addSubview:imageLabel];
+        downloadPercentView = [[UIView alloc] initWithFrame:cell.bounds];
+        downloadPercentView.tag = 1001;
+        downloadPercentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [cell insertSubview:downloadPercentView belowSubview:cell.contentView];
         
-        downloadPercentLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.contentView.frame.size.height - 27, cell.contentView.frame.size.width, 17)];
-        downloadPercentLabel.backgroundColor = [UIColor clearColor];
-        downloadPercentLabel.font = [UIFont boldSystemFontOfSize:12.0f];
-        downloadPercentLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        downloadPercentLabel.tag = 1002;
-        [cell.contentView addSubview:downloadPercentLabel];
+        [cell addBottomLineWithColor:[UIColor colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
     } else {
-        imageLabel = (id)[cell.contentView viewWithTag:1001];
-        downloadPercentLabel = (id)[cell.contentView viewWithTag:1002];
+        downloadPercentView = (id)[cell viewWithTag:1001];
     }
     ESEpisode *episode = [_downloadingEpisodes objectAtIndex:indexPath.row];
-    imageLabel.text = [episode titleFormattedWithWidth:[UIScreen mainScreen].bounds.size.width - 50];
+    cell.textLabel.text = episode.simpleTitle;
+    [cell.textLabel sizeToFit];
     
     @weakify(episode);
-    @weakify(downloadPercentLabel);
+    @weakify(downloadPercentView);
     @weakify(cell);
     @weakify(self);
     [cell addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:.50f tick:^{
         @strongify(episode);
-        @strongify(downloadPercentLabel);
+        @strongify(downloadPercentView);
         @strongify(cell);
         @strongify(self);
         if (self.visible && episode != nil) {
             SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
-            downloadPercentLabel.textColor = (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) ? [UIColor redColor] : [UIColor darkGrayColor];
-            cell.backgroundColor = downloadState == SFDownloadStateDownloading ? [UIColor colorWithIntegerRed:27 green:27 blue:27 alpha:7] : [UIColor whiteColor];
-            if (downloadState == SFDownloadStateDownloading) {
-                downloadPercentLabel.textColor = [UIColor colorWithIntegerRed:94 green:195 blue:70];
+            if (downloadState == SFDownloadStateDownloaded) {
+                downloadPercentView.hidden = YES;
+            } else {
+                downloadPercentView.hidden = NO;
+                
+                if (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) {
+                    downloadPercentView.backgroundColor = [UIColor colorWithIntegerRed:255 green:0 blue:0 alpha:72];
+                } else {
+                    downloadPercentView.backgroundColor = [UIColor colorWithIntegerRed:0 green:255 blue:0 alpha:27];
+                }
+                
+                float percent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:episode];
+                CGRect tmpFrame = downloadPercentView.frame;
+                tmpFrame.size.width = cell.frame.size.width * percent;
+                if (tmpFrame.size.width == 0.0f) {
+                    tmpFrame.size.width = 2.0f;
+                }
+                downloadPercentView.frame = tmpFrame;
             }
-            
-            float percent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:episode];
-            downloadPercentLabel.text = [NSString stringWithFormat:@"%.0f%%", percent * 100];
         }
         
     }] identifier:@"refreshTimer"];

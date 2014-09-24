@@ -61,7 +61,7 @@
     SFImageLabelText *dateText = [SFImageLabelText textFromString:[NSString stringWithFormat:@"%@\n", _date] constraitsWidth:width imageSizeCalculator:^CGSize(NSString *imageName) {
         return CGSizeMake(27, 20);
     }];
-    dateText.textColor = [UIColor lightGrayColor];
+    dateText.textColor = [UIColor grayColor];
     dateText.font = [UIFont systemFontOfSize:12.0f];
     dateText.imageMatchingLeft = @"[";
     dateText.imageMatchingRight = @"]";
@@ -101,6 +101,21 @@
     }
     
     return simpleTitle;
+}
+
+- (SFImageLabelText *)simpleTitleTextWithWidth:(CGFloat)width
+{
+    NSString *key = [NSString stringWithFormat:@"simpleTitleText-%.0f", width];
+    
+    SFImageLabelText *text = [self associatedObjectWithKey:key];
+    
+    if (text == nil) {
+        text = [SFImageLabelText textFromString:self.simpleTitle constraitsWidth:width];
+        [text build];
+        [self setAssociatedObject:text key:key];
+    }
+    
+    return text;
 }
 
 @end

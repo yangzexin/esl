@@ -32,4 +32,6 @@ typedef NSString *(^ESEpisodeIntrodutionFormatter)(NSString *introdution);
 
 - (NSString *)simpleTitle;
 
+- (SFImageLabelText *)simpleTitleTextWithWidth:(CGFloat)width;
+
 @end
