@@ -37,4 +37,6 @@ OBJC_EXPORT NSString *ESSoundPlayStateDidChangeNotification;
 - (void)resume;
 - (void)stop;
 
+- (void)updateEpisode:(ESEpisode *)episode separations:(NSArray *)separations;
+
 @end

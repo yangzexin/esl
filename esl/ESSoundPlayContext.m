@@ -9,6 +9,10 @@
 #import "ESSoundPlayContext.h"
 #import "ESSoundPlayer.h"
 
+#import "AppDelegate+SharedUtils.h"
+
+#import "ESEpisode.h"
+
 NSString *ESSoundPlayDidStartNotification = @"ESSoundPlayDidStartNotification";
 NSString *ESSoundPlayDidFinishNotification = @"ESSoundPlayDidFinishNotification";
 NSString *ESSoundPlayDidPauseNotification = @"ESSoundPlayStateDidChangeNotification";
@@ -19,6 +23,8 @@ NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNot
 
 @property (nonatomic, strong) ESEpisode *playingEpisode;
 @property (nonatomic, strong) ESSoundPlayer *soundPlayer;
+
+@property (nonatomic, strong) LevelDB *keyEpisodeTitleValueTimeSeparations;
 
 @end
 
@@ -39,6 +45,7 @@ NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNot
     self = [super init];
     
     _soundPlayer = [ESSoundPlayer sharedPlayer];
+    self.keyEpisodeTitleValueTimeSeparations = [AppDelegate levelDBWithName:@"keyEpisodeTitleValueTimeSeparations"];
     
     return self;
 }
@@ -124,6 +131,33 @@ NSString *ESSoundPlayStateDidChangeNotification = @"ESSoundPlayStateDidChangeNot
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
 {
     [self.soundPlayer remoteControlReceivedWithEvent:event];
+}
+
+- (void)updateEpisode:(ESEpisode *)episode separations:(NSArray *)separations
+{
+    [self.keyEpisodeTitleValueTimeSeparations setObject:[separations componentsJoinedByString:@","] forKey:episode.title];
+}
+
+- (NSInteger)_currentTimeSeperationIndex
+{
+    NSInteger index = 0;
+    NSMutableArray *timeSeperations = [NSMutableArray arrayWithArray:[[self.keyEpisodeTitleValueTimeSeparations objectForKey:self.playingEpisode.title] componentsSeparatedByString:@","]];
+    [timeSeperations addObject:@([self duration])];
+    
+    for (NSInteger timeSeperationIndex = 0; timeSeperationIndex < timeSeperations.count; ++timeSeperationIndex) {
+        NSInteger nextTimeSeperationIndex = timeSeperationIndex + 1;
+        if (nextTimeSeperationIndex < timeSeperations.count) {
+            double leftTime = [[timeSeperations objectAtIndex:timeSeperationIndex] doubleValue];
+            double rightTime = [[timeSeperations objectAtIndex:nextTimeSeperationIndex] doubleValue];
+            if (self.currentTime >= leftTime && self.currentTime < rightTime) {
+                index = timeSeperationIndex;
+                break;
+            }
+        }
+    }
+    
+    return index;
+    
 }
 
 @end
