@@ -155,18 +155,12 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
         if (self.subSoundTitles.count != 0) {
             NSMutableDictionary *keySubSoundTitleValueTime = [NSMutableDictionary dictionary];
             
-            NSMutableArray *timeSeparations = [NSMutableArray arrayWithObject:@(0)];
-            
             for (NSString *subSoundTitle in self.subSoundTitles) {
-                double time = [self _getAudioIndexTimeWithHTML:innerText prefix:[NSString stringWithFormat:@"%@:", subSoundTitle]];
-                [keySubSoundTitleValueTime setObject:@(time)
+                [keySubSoundTitleValueTime setObject:@([self _getAudioIndexTimeWithHTML:innerText prefix:[NSString stringWithFormat:@"%@:", subSoundTitle]])
                                               forKey:subSoundTitle];
-                [timeSeparations addObject:@(time)];
             }
             
             self.keySubSoundTitleValueTime = keySubSoundTitleValueTime;
-            
-            [[ESSoundPlayContext sharedContext] updateEpisode:self.episode separations:timeSeparations];
             
             NSMutableString *replacedHTML = [NSMutableString stringWithFormat:@"<!-- %@ -->", innerText];
             for (NSString *subSoundTitle in self.subSoundTitles) {
@@ -283,12 +277,12 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
 
 - (void)rewind
 {
-    [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] - 2];
+    [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] - 5];
 }
 
 - (void)fastForward
 {
-    [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] + 2];
+    [[ESSoundPlayContext sharedContext] setCurrentTime:[[ESSoundPlayContext sharedContext] currentTime] + 5];
 }
 
 - (void)playSubWithTitle:(NSString *)subTitle HTML:(NSString *)HTML

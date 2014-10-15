@@ -160,7 +160,10 @@
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
 {
     if (self.isPlaying) {
-        if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
+        if (event.subtype == UIEventSubtypeRemoteControlNextTrack) {
+            double time = self.audioPlayer.currentTime - 5;
+            self.audioPlayer.currentTime = time < 0 ? 0 : time;
+        } else if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
             if (event.subtype == UIEventSubtypeRemoteControlTogglePlayPause) {
                 self.isPaused ? [self resume] : [self pause];
                 [self _notifyPlayStateChangedByExternal];
