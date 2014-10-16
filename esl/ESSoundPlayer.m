@@ -126,6 +126,11 @@
     }
 }
 
+- (void)clearResumeWhenPlugout
+{
+    self.pausedByPlugout = NO;
+}
+
 - (void)resume
 {
     if (self.isPaused) {
@@ -161,7 +166,7 @@
 {
     if (self.isPlaying) {
         if (event.subtype == UIEventSubtypeRemoteControlNextTrack) {
-            double time = self.audioPlayer.currentTime - 5;
+            double time = self.audioPlayer.currentTime - 10;
             self.audioPlayer.currentTime = time < 0 ? 0 : time;
         } else if ([UIDevice currentDevice].systemVersion.floatValue < 7.0f) {
             if (event.subtype == UIEventSubtypeRemoteControlTogglePlayPause) {
@@ -189,6 +194,11 @@
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
 {
     [self _playerStopedWithError:error];
+}
+
+- (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player
+{
+    NSLog(@"audioPlayerBeginInterruption:%@", player);
 }
 
 void audioRouteChange(

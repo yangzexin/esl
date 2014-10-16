@@ -29,4 +29,6 @@
 - (void)pause;
 - (void)stop;
 
+- (void)clearResumeWhenPlugout;
+
 @end
