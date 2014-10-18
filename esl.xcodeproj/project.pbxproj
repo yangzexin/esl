@@ -233,7 +233,7 @@
 		3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocalEpisodesController.m; sourceTree = "<group>"; };
 		3ECA521E181EB5F800740EAF /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODRefreshControl.h; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.h; sourceTree = "<group>"; };
 		3ECA521F181EB5F800740EAF /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODRefreshControl.m; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.m; sourceTree = "<group>"; };
-		3EE152593C474FB997412F7E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		3EE19A4B19F1EAA600A93BE0 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		3EF0F05B182A1E430032DC7F /* ESEnglishpodManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEnglishpodManager.h; sourceTree = "<group>"; };
 		3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEnglishpodManager.m; sourceTree = "<group>"; };
 		3EF0F05E182A1EA80032DC7F /* ESSharedEpisodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSharedEpisodeManager.h; sourceTree = "<group>"; };
@@ -268,7 +268,9 @@
 		3EF77C7D1855CE8500B95134 /* ASIWebPageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIWebPageRequest.m; sourceTree = "<group>"; };
 		3EF77C7E1855CE8500B95134 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3EF77C7F1855CE8500B95134 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		65150D9BCC4C00659B918569 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		738F5CF723674A96AFDF4C1B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFF63280AF5AE84E0520D0F7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 				3E690417191294600099E71D /* libc++.dylib in Frameworks */,
 				3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */,
 				3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */,
+				73F77C77737E43BEABCE884F /* libPods.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
 				3E98E163181A065700AF8C7F /* CFNetwork.framework in Frameworks */,
 				3E98E161181A065100AF8C7F /* CoreLocation.framework in Frameworks */,
@@ -291,7 +294,6 @@
 				3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */,
 				3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */,
 				3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */,
-				73F77C77737E43BEABCE884F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +426,7 @@
 				3E98E128181A01B000AF8C7F /* eslTests */,
 				3E98E108181A01B000AF8C7F /* Frameworks */,
 				3E98E107181A01B000AF8C7F /* Products */,
-				3EE152593C474FB997412F7E /* Pods.xcconfig */,
+				7C4D3840D369E96CB12AEFE5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -440,6 +442,7 @@
 		3E98E108181A01B000AF8C7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EE19A4B19F1EAA600A93BE0 /* libstdc++.dylib */,
 				3E690416191294600099E71D /* libc++.dylib */,
 				3E2AE564181D40BF001AAE9D /* AVFoundation.framework */,
 				3E98E162181A065700AF8C7F /* CFNetwork.framework */,
@@ -649,6 +652,15 @@
 			path = "Vendor/asi-http-request";
 			sourceTree = "<group>";
 		};
+		7C4D3840D369E96CB12AEFE5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FFF63280AF5AE84E0520D0F7 /* Pods.debug.xcconfig */,
+				65150D9BCC4C00659B918569 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -811,7 +823,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -921,7 +933,6 @@
 /* Begin XCBuildConfiguration section */
 		3E98E130181A01B000AF8C7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -962,7 +973,6 @@
 		};
 		3E98E131181A01B000AF8C7F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -997,21 +1007,28 @@
 		};
 		3E98E133181A01B000AF8C7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
+			baseConfigurationReference = FFF63280AF5AE84E0520D0F7 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "esl/esl-Prefix.pch";
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "esl/esl-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "298763D3-85F4-4BC0-9F3D-0CC714844FD5";
-				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) ../SFLibraries/** Vendor/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1019,21 +1036,28 @@
 		};
 		3E98E134181A01B000AF8C7F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
+			baseConfigurationReference = 65150D9BCC4C00659B918569 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "esl/esl-Prefix.pch";
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "esl/esl-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "298763D3-85F4-4BC0-9F3D-0CC714844FD5";
-				USER_HEADER_SEARCH_PATHS = "../SFLibraries/** Vendor/**";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) ../SFLibraries/** Vendor/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1041,7 +1065,6 @@
 		};
 		3E98E136181A01B000AF8C7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/esl.app/esl";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1064,7 +1087,6 @@
 		};
 		3E98E137181A01B000AF8C7F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE152593C474FB997412F7E /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/esl.app/esl";
 				FRAMEWORK_SEARCH_PATHS = (
