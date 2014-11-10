@@ -26,6 +26,11 @@
 		3E25EDF71A1054C80084B0AB /* SFFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDF61A1054C80084B0AB /* SFFileWriter.m */; };
 		3E25EDFA1A1054F40084B0AB /* SFURLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDF91A1054F40084B0AB /* SFURLDownloader.m */; };
 		3E25EDFD1A105A630084B0AB /* SFMultiThreadURLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDFC1A105A630084B0AB /* SFMultiThreadURLDownloader.m */; };
+		3E25EE091A10B1770084B0AB /* SFSingleThreadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EE081A10B1770084B0AB /* SFSingleThreadHandler.m */; };
+		3E25EE0C1A10B18F0084B0AB /* SFFileFragment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EE0B1A10B18F0084B0AB /* SFFileFragment.m */; };
+		3E25EE101A10B3490084B0AB /* SFPreparedFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EE0F1A10B3490084B0AB /* SFPreparedFileWriter.m */; };
+		3E25EE1B1A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EE1A1A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.m */; };
+		3E25EE1F1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EE1E1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.m */; };
 		3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */; };
 		3E2AE553181D24F9001AAE9D /* ESLinearController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE552181D24F9001AAE9D /* ESLinearController.m */; };
 		3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */; };
@@ -167,6 +172,18 @@
 		3E25EDF91A1054F40084B0AB /* SFURLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFURLDownloader.m; sourceTree = "<group>"; };
 		3E25EDFB1A105A630084B0AB /* SFMultiThreadURLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMultiThreadURLDownloader.h; sourceTree = "<group>"; };
 		3E25EDFC1A105A630084B0AB /* SFMultiThreadURLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMultiThreadURLDownloader.m; sourceTree = "<group>"; };
+		3E25EE071A10B1770084B0AB /* SFSingleThreadHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSingleThreadHandler.h; sourceTree = "<group>"; };
+		3E25EE081A10B1770084B0AB /* SFSingleThreadHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSingleThreadHandler.m; sourceTree = "<group>"; };
+		3E25EE0A1A10B18F0084B0AB /* SFFileFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFileFragment.h; sourceTree = "<group>"; };
+		3E25EE0B1A10B18F0084B0AB /* SFFileFragment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFileFragment.m; sourceTree = "<group>"; };
+		3E25EE0D1A10B1EE0084B0AB /* SFFileWritable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFFileWritable.h; sourceTree = "<group>"; };
+		3E25EE0E1A10B3490084B0AB /* SFPreparedFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPreparedFileWriter.h; sourceTree = "<group>"; };
+		3E25EE0F1A10B3490084B0AB /* SFPreparedFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPreparedFileWriter.m; sourceTree = "<group>"; };
+		3E25EE191A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFURLConnectionSkipableURLDownloader.h; sourceTree = "<group>"; };
+		3E25EE1A1A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFURLConnectionSkipableURLDownloader.m; sourceTree = "<group>"; };
+		3E25EE1C1A10B7E10084B0AB /* SFSkipableURLDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFSkipableURLDownloader.h; sourceTree = "<group>"; };
+		3E25EE1D1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMultiThreadDownloadingContext.h; sourceTree = "<group>"; };
+		3E25EE1E1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMultiThreadDownloadingContext.m; sourceTree = "<group>"; };
 		3E2AE54C181D216C001AAE9D /* ESViewEpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewEpisodeController.h; sourceTree = "<group>"; };
 		3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewEpisodeController.m; sourceTree = "<group>"; };
 		3E2AE551181D24F9001AAE9D /* ESLinearController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLinearController.h; sourceTree = "<group>"; };
@@ -399,16 +416,36 @@
 		3E25EDF41A1054A90084B0AB /* URLDownload */ = {
 			isa = PBXGroup;
 			children = (
+				3E25EE041A10B1600084B0AB /* SFMultiThreadURLDownloader */,
 				3E25EDF51A1054C80084B0AB /* SFFileWriter.h */,
 				3E25EDF61A1054C80084B0AB /* SFFileWriter.m */,
 				3E25EDF81A1054F40084B0AB /* SFURLDownloader.h */,
 				3E25EDF91A1054F40084B0AB /* SFURLDownloader.m */,
-				3E25EDFB1A105A630084B0AB /* SFMultiThreadURLDownloader.h */,
-				3E25EDFC1A105A630084B0AB /* SFMultiThreadURLDownloader.m */,
 				3E69041A191298B50099E71D /* SFDownloadManager.h */,
 				3E69041B191298B50099E71D /* SFDownloadManager.m */,
 			);
 			name = URLDownload;
+			sourceTree = "<group>";
+		};
+		3E25EE041A10B1600084B0AB /* SFMultiThreadURLDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				3E25EDFB1A105A630084B0AB /* SFMultiThreadURLDownloader.h */,
+				3E25EDFC1A105A630084B0AB /* SFMultiThreadURLDownloader.m */,
+				3E25EE1D1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.h */,
+				3E25EE1E1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.m */,
+				3E25EE071A10B1770084B0AB /* SFSingleThreadHandler.h */,
+				3E25EE081A10B1770084B0AB /* SFSingleThreadHandler.m */,
+				3E25EE191A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.h */,
+				3E25EE1A1A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.m */,
+				3E25EE1C1A10B7E10084B0AB /* SFSkipableURLDownloader.h */,
+				3E25EE0A1A10B18F0084B0AB /* SFFileFragment.h */,
+				3E25EE0B1A10B18F0084B0AB /* SFFileFragment.m */,
+				3E25EE0D1A10B1EE0084B0AB /* SFFileWritable.h */,
+				3E25EE0E1A10B3490084B0AB /* SFPreparedFileWriter.h */,
+				3E25EE0F1A10B3490084B0AB /* SFPreparedFileWriter.m */,
+			);
+			name = SFMultiThreadURLDownloader;
 			sourceTree = "<group>";
 		};
 		3E2AE566181D4C2E001AAE9D /* ESViewEpisodeController */ = {
@@ -911,13 +948,16 @@
 				3EF77C801855CE8500B95134 /* ASIAuthenticationDialog.m in Sources */,
 				3E72473518ED209E0055EB66 /* SettingsViewController.m in Sources */,
 				3EF77C831855CE8500B95134 /* ASIDownloadCache.m in Sources */,
+				3E25EE101A10B3490084B0AB /* SFPreparedFileWriter.m in Sources */,
 				3E2AE563181D3D42001AAE9D /* ESSoundPlayContext.m in Sources */,
 				3E72472618ED074B0055EB66 /* MenuController.m in Sources */,
 				3E98E13E181A02A900AF8C7F /* ESViewController.m in Sources */,
 				3E40641418E465E0006B2B12 /* EpisodesViewController.m in Sources */,
+				3E25EE1B1A10B7CA0084B0AB /* SFURLConnectionSkipableURLDownloader.m in Sources */,
 				3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */,
 				3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */,
 				3E21847319BE9B650001ADB6 /* AppDelegate+SharedUtils.m in Sources */,
+				3E25EE0C1A10B18F0084B0AB /* SFFileFragment.m in Sources */,
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
 				3E25EDEE1A1052740084B0AB /* SFBuildInCacheFilters.m in Sources */,
 				3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */,
@@ -939,6 +979,7 @@
 				3E25EDF11A1052740084B0AB /* SFFileCache.m in Sources */,
 				3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */,
 				3E98E11A181A01B000AF8C7F /* AppDelegate.m in Sources */,
+				3E25EE1F1A10D2AB0084B0AB /* SFMultiThreadDownloadingContext.m in Sources */,
 				3E09513D19D1040700699141 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */,
 				3E2AE553181D24F9001AAE9D /* ESLinearController.m in Sources */,
@@ -953,6 +994,7 @@
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
 				3E25EDF31A1052740084B0AB /* SFSharedCache.m in Sources */,
 				3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */,
+				3E25EE091A10B1770084B0AB /* SFSingleThreadHandler.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
 				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,
 				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,

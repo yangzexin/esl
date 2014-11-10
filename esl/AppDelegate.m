@@ -33,13 +33,17 @@
 #import "SFDict2Object.h"
 #import "ESEpisode.h"
 
+#import "SFURLConnectionSkipableURLDownloader.h"
+#import "SFSingleThreadHandler.h"
+#import "SFFileFragment.h"
+#import "SFPreparedFileWriter.h"
 #import "SFMultiThreadURLDownloader.h"
 
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 
-@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate, SFImageLabelDelegate, SFSwitchTabControllerDelegate>
+@interface AppDelegate () <SFSideMenuControllerDelegate, SFURLDownloaderDelegate, SFImageLabelDelegate, SFSwitchTabControllerDelegate, SFSkipableURLDownloaderDelegate, SFSingleThreadHandlerDelegate>
 
 @end
 
@@ -144,6 +148,18 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //        [fileWriter writeData:[@"test0" dataUsingEncoding:NSUTF8StringEncoding] offset:0];
 //    }];
     
+    
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *tmpFilePath = [documentPath stringByAppendingPathComponent:@"tmp.txt"];
+    SFPreparedFileWriter *fileWriter = [[SFPreparedFileWriter alloc] initWithFilePath:tmpFilePath];
+    NSString *URLString = @"http://images.apple.com/v/osx/c/images/overview/hero_icon_large.png";
+//    NSString *URLString = @"http://images.apple.com/v/osx/c/images/overview/hero_xlarge.jpg";
+    SFMultiThreadURLDownloader *downloader = [[SFMultiThreadURLDownloader alloc] initWithURLString:URLString fileWritable:fileWriter];
+    downloader.delegate = self;
+    [downloader start];
+    
+    [self setAssociatedObject:downloader key:@"downloader"];
+    
     return YES;
 }
 
@@ -205,7 +221,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
-#pragma mark - test
+#pragma mark - SFURLDownloaderDelegate
 - (void)downloaderDidStartDownloading:(id<SFURLDownloader>)downloader
 {
     NSLog(@"downloaderDidStartDownloading");
@@ -224,6 +240,43 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 - (void)downloader:(id<SFURLDownloader>)downloader didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError");
+}
+
+- (void)skipableURLDownloader:(id<SFSkipableURLDownloader>)skipableURLDownloader didReceiveResponse:(NSURLResponse *)response contentLength:(unsigned long long)contentLength skipable:(BOOL)skipable
+{
+    NSLog(@"%@, %lld, %@", response, contentLength, skipable ? @"skipable" : @"not skipable");
+}
+
+- (void)skipableURLDownloader:(id<SFSkipableURLDownloader>)skipableURLDownloader didDownloadData:(NSData *)data
+{
+    NSLog(@"%d", data.length);
+}
+
+- (void)skipableURLDownloaderDidFinishDownloading:(id<SFSkipableURLDownloader>)skipableURLDownloader
+{
+}
+
+- (void)skipableURLDownloader:(id<SFSkipableURLDownloader>)skipableURLDownloader didFailWithError:(NSError *)error
+{
+}
+
+#pragma mark - SFSingleThreadHandlerDelegate
+- (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didReceiveResponse:(NSURLResponse *)response contentLength:(unsigned long long)contentLength skipable:(BOOL)skipable
+{
+    id<SFPreparedFileWritable> fileWritable = [self associatedObjectWithKey:@"fileWriter"];
+    [fileWritable preparingForFileWritingWithFileSize:contentLength];
+    [singleThreadHandler.fragment setContentLength:contentLength];
+    NSLog(@"%@, %lld, %@", response, contentLength, skipable ? @"skipable" : @"not skipable");
+}
+
+- (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didFinishDownloadingFragment:(SFFileFragment *)fragment
+{
+    NSLog(@"didFinishDownloadingFragment:%@", fragment);
+}
+
+- (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didFailDownloadingFragment:(SFFileFragment *)fragment
+{
+    NSLog(@"didFailDownloadingFragment:%@", fragment);
 }
 
 @end

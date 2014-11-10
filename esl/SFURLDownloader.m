@@ -140,8 +140,8 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 {
     if ([self.delegate respondsToSelector:@selector(downloader:didFailWithError:)]) {
         [self.delegate downloader:self didFailWithError:[NSError errorWithDomain:NSStringFromClass([self class])
-                                                                        code:SFURLDownloaderErrorCodeResumingFail
-                                                                    userInfo:@{NSLocalizedDescriptionKey : @"resumeing failed, skiped bytes not equals downloaded bytes"}]];
+                                                                            code:SFURLDownloaderErrorCodeResumingFail
+                                                                        userInfo:@{NSLocalizedDescriptionKey : @"resumeing failed, skiped bytes not equals downloaded bytes"}]];
     }
 }
 

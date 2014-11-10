@@ -9,19 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "SFURLDownloader.h"
 #import "SFCancellable.h"
-
-@interface SFMultiThreadFileWriter : NSObject
-
-- (instancetype)initWithFilePath:(NSString *)filePath;
-
-- (SFCancellable *)openWithCreatingEmptyFileWithSize:(unsigned long long)size completion:(void(^)(BOOL success))completion;
-
-- (void)writeData:(NSData *)data offset:(unsigned long long)offset;
-
-@end
+#import "SFFileWritable.h"
 
 @interface SFMultiThreadURLDownloader : NSObject <SFURLDownloader>
 
-- (id)initWithURLString:(NSString *)URLString;
+- (id)initWithURLString:(NSString *)URLString fileWritable:(id<SFPreparedFileWritable>)fileWritable;
 
 @end

@@ -7,96 +7,20 @@
 //
 
 #import "SFMultiThreadURLDownloader.h"
+#import "SFSingleThreadHandler.h"
+#import "SFFileFragment.h"
+#import "SFMultiThreadDownloadingContext.h"
+#import "SFURLConnectionSkipableURLDownloader.h"
 
-@interface SFMultiThreadFileWriter ()
-
-@property (nonatomic, copy) NSString *filePath;
-@property (nonatomic, assign) dispatch_queue_t queue;
-
-@property (nonatomic, strong) NSFileHandle *fileHandle;
-
-@end
-
-@implementation SFMultiThreadFileWriter
-
-- (void)dealloc
-{
-    dispatch_release(self.queue);
-}
-
-- (instancetype)initWithFilePath:(NSString *)filePath
-{
-    self = [super init];
-    
-    self.filePath = filePath;
-    self.queue = dispatch_queue_create([[NSString stringWithFormat:@"fileWriter-%@", filePath] UTF8String], NULL);
-    
-    return self;
-}
-
-- (SFCancellable *)openWithCreatingEmptyFileWithSize:(unsigned long long)size completion:(void(^)(BOOL success))completion
-{
-    __block BOOL cancelled = NO;
-    
-    dispatch_async(self.queue, ^{
-        if ([[NSFileManager defaultManager] fileExistsAtPath:self.filePath]) {
-            [[NSFileManager defaultManager] removeItemAtPath:self.filePath error:nil];
-        }
-        [[NSFileManager defaultManager] createFileAtPath:self.filePath contents:[NSData data] attributes:nil];
-        self.fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.filePath];
-        if (self.fileHandle) {
-            unsigned int sizeOfEmptyBytes = sizeof(char) * 1024 * 1024;
-            if (size < sizeOfEmptyBytes) {
-                sizeOfEmptyBytes = (unsigned int)size;
-            }
-            char *emptyBytes = malloc(sizeOfEmptyBytes);
-            NSData *emptyData = [NSData dataWithBytes:emptyBytes length:sizeOfEmptyBytes];
-            NSInteger numberOfEmptyDataWritingLoops = (NSInteger)(size / (unsigned long long)sizeOfEmptyBytes);
-            for (NSInteger i = 0; i < numberOfEmptyDataWritingLoops; ++i) {
-                if (cancelled) {
-                    break;
-                }
-                [self.fileHandle writeData:emptyData];
-            }
-            if (!cancelled) {
-                unsigned int remainsEmptyDataSize = size % sizeOfEmptyBytes;
-                [self.fileHandle writeData:[NSData dataWithBytes:malloc(remainsEmptyDataSize) length:remainsEmptyDataSize]];
-                
-                completion(YES);
-            } else {
-                completion(NO);
-            }
-        } else {
-            completion(NO);
-        }
-    });
-    
-    return [SFCancellable cancellableWithWhenCancel:^{
-        cancelled = YES;
-    }];
-}
-
-- (void)writeData:(NSData *)data offset:(unsigned long long)offset
-{
-    [self writeData:data offset:offset completion:nil];
-}
-
-- (void)writeData:(NSData *)data offset:(unsigned long long)offset completion:(void(^)())completion
-{
-    dispatch_async(self.queue, ^{
-        [self.fileHandle seekToFileOffset:offset];
-        [self.fileHandle writeData:data];
-    });
-}
-
-@end
-
-@interface SFMultiThreadURLDownloader ()
+@interface SFMultiThreadURLDownloader () <SFSingleThreadHandlerDelegate, SFMultiThreadDownloadingContextDelegate>
 
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
 
-@property (nonatomic, strong) NSFileHandle *fileHandle;
+@property (nonatomic, strong) id<SFPreparedFileWritable> fileWriter;
+
+@property (nonatomic, strong) SFMultiThreadDownloadingContext *context;
+@property (nonatomic, strong) NSArray *singleThreadHandlers;
 
 @end
 
@@ -104,11 +28,12 @@
 
 @synthesize delegate;
 
-- (id)initWithURLString:(NSString *)URLString
+- (id)initWithURLString:(NSString *)URLString fileWritable:(id<SFPreparedFileWritable>)fileWritable
 {
     self = [super init];
     
     self.URLString = URLString;
+    self.fileWriter = fileWritable;
     
     return self;
 }
@@ -120,7 +45,33 @@
 
 - (void)start
 {
-    //TODO:open file writer and create empty file
+    self.singleThreadHandlers = @[
+                                  [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
+                                  , [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
+                                  ];
+    self.context = [[SFMultiThreadDownloadingContext alloc] initWithURLString:self.URLString];
+    self.context.delegate = self;
+    
+    [self _tryDownloading];
+}
+
+- (void)_tryDownloading
+{
+    SFSingleThreadHandler *usableHandler = nil;
+    for (SFSingleThreadHandler *tmpHandler in self.singleThreadHandlers) {
+        if (![tmpHandler isExecuting]) {
+            usableHandler = tmpHandler;
+            break;
+        }
+    }
+    SFFileFragment *fragment = [self.context nextFragment];
+    if ([self.context isFinished]) {
+        return;
+    }
+    if (usableHandler) {
+        usableHandler.delegate = self;
+        [usableHandler startWithFragment:fragment];
+    }
 }
 
 - (void)resume
@@ -149,24 +100,35 @@
     return NO;
 }
 
-#pragma mark - private methods
-- (SFCancellable *)_createEmptyFileWithSize:(unsigned long long)fileSize completion:(void(^)())completion
+#pragma mark - SFMultiThreadDownloadingContextDelegate
+- (void)multiThreadDownloadingContextDidFinishDownloading:(SFMultiThreadDownloadingContext *)multiThreadDownloadingContext
 {
-    __block BOOL cancelled = NO;
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-    });
-    
-    return [SFCancellable cancellableWithWhenCancel:^{
-        cancelled = YES;
-    }];
+    [self.fileWriter close];
+    NSLog(@"multiThreadDownloadingContextDidFinishDownloading:%@", multiThreadDownloadingContext.URLString);
 }
 
-- (void)_writeData:(NSData *)data offset:(unsigned long long)offset
+#pragma mark - SFSingleThreadHandlerDelegate
+- (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didReceiveResponse:(NSURLResponse *)response contentLength:(unsigned long long)contentLength skipable:(BOOL)skipable
 {
-    [self.fileHandle seekToFileOffset:offset];
-    [self.fileHandle writeData:data];
+    [self.context.mainFragment setContentLength:contentLength];
+    self.context.mainFragment.uncuttable = !skipable;
+    [self.fileWriter preparingForFileWritingWithFileSize:contentLength];
+    
+    [self _tryDownloading];
+}
+
+- (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didFinishDownloadingFragment:(SFFileFragment *)fragment
+{
+    NSLog(@"didFinishDownloadingFragment:%lld-%lld", fragment.offset, fragment.offset + fragment.size);
+    [self.context fragmentDidFinish:fragment];
+    [self _tryDownloading];
+}
+
+- (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didFailDownloadingFragment:(SFFileFragment *)fragment
+{
+    NSLog(@"didFailDownloadingFragment:%lld-%lld", fragment.offset, fragment.offset + fragment.size);
+    [self.context fragmentDidFail:fragment];
+    [self _tryDownloading];
 }
 
 @end
