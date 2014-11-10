@@ -11,6 +11,7 @@
 @interface SFURLConnectionSkipableURLDownloader ()
 
 @property (nonatomic, strong) NSURLConnection *connection;
+@property (nonatomic, strong) NSMutableURLRequest *request;
 @property (nonatomic, assign) unsigned long long offset;
 @property (nonatomic, assign) unsigned long long contentLength;
 
@@ -26,10 +27,11 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString]];
     if (offset != 0) {
-        [request setValue:[NSString stringWithFormat:@"bytes=%llu-32932", self.offset] forHTTPHeaderField:@"Range"];
+        [request setValue:[NSString stringWithFormat:@"bytes=%llu-", self.offset] forHTTPHeaderField:@"Range"];
     }
     
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    self.request = request;
 }
 
 - (void)cancel
