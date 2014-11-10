@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFCache.h"
+#import "SFCacheManager.h"
 
 @interface SFDBCacheManager : NSObject <SFCacheManager>
 

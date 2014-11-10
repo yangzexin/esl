@@ -17,6 +17,12 @@
 		3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D6691831FC990048A788 /* ESHighlightManager.m */; };
 		3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D66C1831FCA70048A788 /* ESHighlight.m */; };
 		3E21847319BE9B650001ADB6 /* AppDelegate+SharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E21847219BE9B650001ADB6 /* AppDelegate+SharedUtils.m */; };
+		3E25EDEE1A1052740084B0AB /* SFBuildInCacheFilters.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDE31A1052740084B0AB /* SFBuildInCacheFilters.m */; };
+		3E25EDEF1A1052740084B0AB /* SFCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDE51A1052740084B0AB /* SFCacheManager.m */; };
+		3E25EDF01A1052740084B0AB /* SFCacheUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDE71A1052740084B0AB /* SFCacheUtils.m */; };
+		3E25EDF11A1052740084B0AB /* SFFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDE91A1052740084B0AB /* SFFileCache.m */; };
+		3E25EDF21A1052740084B0AB /* SFFileCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDEB1A1052740084B0AB /* SFFileCacheManager.m */; };
+		3E25EDF31A1052740084B0AB /* SFSharedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E25EDED1A1052740084B0AB /* SFSharedCache.m */; };
 		3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */; };
 		3E2AE553181D24F9001AAE9D /* ESLinearController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE552181D24F9001AAE9D /* ESLinearController.m */; };
 		3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AE55F181D3C90001AAE9D /* ESSoundPlayer.m */; };
@@ -140,6 +146,18 @@
 		3E19D66C1831FCA70048A788 /* ESHighlight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESHighlight.m; sourceTree = "<group>"; };
 		3E21847119BE9B650001ADB6 /* AppDelegate+SharedUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+SharedUtils.h"; sourceTree = "<group>"; };
 		3E21847219BE9B650001ADB6 /* AppDelegate+SharedUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+SharedUtils.m"; sourceTree = "<group>"; };
+		3E25EDE21A1052740084B0AB /* SFBuildInCacheFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBuildInCacheFilters.h; sourceTree = "<group>"; };
+		3E25EDE31A1052740084B0AB /* SFBuildInCacheFilters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFBuildInCacheFilters.m; sourceTree = "<group>"; };
+		3E25EDE41A1052740084B0AB /* SFCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCacheManager.h; sourceTree = "<group>"; };
+		3E25EDE51A1052740084B0AB /* SFCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCacheManager.m; sourceTree = "<group>"; };
+		3E25EDE61A1052740084B0AB /* SFCacheUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCacheUtils.h; sourceTree = "<group>"; };
+		3E25EDE71A1052740084B0AB /* SFCacheUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCacheUtils.m; sourceTree = "<group>"; };
+		3E25EDE81A1052740084B0AB /* SFFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFileCache.h; sourceTree = "<group>"; };
+		3E25EDE91A1052740084B0AB /* SFFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFileCache.m; sourceTree = "<group>"; };
+		3E25EDEA1A1052740084B0AB /* SFFileCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFileCacheManager.h; sourceTree = "<group>"; };
+		3E25EDEB1A1052740084B0AB /* SFFileCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFileCacheManager.m; sourceTree = "<group>"; };
+		3E25EDEC1A1052740084B0AB /* SFSharedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSharedCache.h; sourceTree = "<group>"; };
+		3E25EDED1A1052740084B0AB /* SFSharedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSharedCache.m; sourceTree = "<group>"; };
 		3E2AE54C181D216C001AAE9D /* ESViewEpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewEpisodeController.h; sourceTree = "<group>"; };
 		3E2AE54D181D216C001AAE9D /* ESViewEpisodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewEpisodeController.m; sourceTree = "<group>"; };
 		3E2AE551181D24F9001AAE9D /* ESLinearController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLinearController.h; sourceTree = "<group>"; };
@@ -350,6 +368,25 @@
 			name = ESHighlight;
 			sourceTree = "<group>";
 		};
+		3E25EDDF1A10526A0084B0AB /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				3E25EDE21A1052740084B0AB /* SFBuildInCacheFilters.h */,
+				3E25EDE31A1052740084B0AB /* SFBuildInCacheFilters.m */,
+				3E25EDE41A1052740084B0AB /* SFCacheManager.h */,
+				3E25EDE51A1052740084B0AB /* SFCacheManager.m */,
+				3E25EDE61A1052740084B0AB /* SFCacheUtils.h */,
+				3E25EDE71A1052740084B0AB /* SFCacheUtils.m */,
+				3E25EDE81A1052740084B0AB /* SFFileCache.h */,
+				3E25EDE91A1052740084B0AB /* SFFileCache.m */,
+				3E25EDEA1A1052740084B0AB /* SFFileCacheManager.h */,
+				3E25EDEB1A1052740084B0AB /* SFFileCacheManager.m */,
+				3E25EDEC1A1052740084B0AB /* SFSharedCache.h */,
+				3E25EDED1A1052740084B0AB /* SFSharedCache.m */,
+			);
+			name = Cache;
+			sourceTree = "<group>";
+		};
 		3E2AE566181D4C2E001AAE9D /* ESViewEpisodeController */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +502,7 @@
 		3E98E10F181A01B000AF8C7F /* esl */ = {
 			isa = PBXGroup;
 			children = (
+				3E25EDDF1A10526A0084B0AB /* Cache */,
 				3E19D6671831FC680048A788 /* ESHighlight */,
 				3EF0F06C182A1F670032DC7F /* ESEpisodeManager */,
 				3E2AE574181E3C24001AAE9D /* Utils */,
@@ -845,6 +883,7 @@
 				3EF77C851855CE8500B95134 /* ASIHTTPRequest.m in Sources */,
 				3E2AE560181D3C90001AAE9D /* ESSoundPlayer.m in Sources */,
 				3EF77C811855CE8500B95134 /* ASIDataCompressor.m in Sources */,
+				3E25EDEF1A1052740084B0AB /* SFCacheManager.m in Sources */,
 				3EF77C801855CE8500B95134 /* ASIAuthenticationDialog.m in Sources */,
 				3E72473518ED209E0055EB66 /* SettingsViewController.m in Sources */,
 				3EF77C831855CE8500B95134 /* ASIDownloadCache.m in Sources */,
@@ -856,8 +895,10 @@
 				3E19D66D1831FCA70048A788 /* ESHighlight.m in Sources */,
 				3E21847319BE9B650001ADB6 /* AppDelegate+SharedUtils.m in Sources */,
 				3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */,
+				3E25EDEE1A1052740084B0AB /* SFBuildInCacheFilters.m in Sources */,
 				3E2AE54E181D216C001AAE9D /* ESViewEpisodeController.m in Sources */,
 				3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */,
+				3E25EDF01A1052740084B0AB /* SFCacheUtils.m in Sources */,
 				3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
 				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
@@ -870,6 +911,7 @@
 				3E09513E19D1040700699141 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				3EF77C871855CE8500B95134 /* ASINetworkQueue.m in Sources */,
 				3E84594718F4F9A10045FFAF /* BaseViewModel.m in Sources */,
+				3E25EDF11A1052740084B0AB /* SFFileCache.m in Sources */,
 				3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */,
 				3E98E11A181A01B000AF8C7F /* AppDelegate.m in Sources */,
 				3E09513D19D1040700699141 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
@@ -880,8 +922,10 @@
 				3EF77C881855CE8500B95134 /* ASIWebPageRequest.m in Sources */,
 				3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */,
 				3E08068F18FAB6BA003C2AC0 /* SFObjectServiceSession.m in Sources */,
+				3E25EDF21A1052740084B0AB /* SFFileCacheManager.m in Sources */,
 				3E72472B18ED1AFD0055EB66 /* DownloadsViewController.m in Sources */,
 				3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */,
+				3E25EDF31A1052740084B0AB /* SFSharedCache.m in Sources */,
 				3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */,
 				3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */,
 				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,

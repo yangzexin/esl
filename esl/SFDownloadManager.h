@@ -62,6 +62,20 @@ typedef NS_ENUM(NSUInteger, SFDownloadState) {
     SFDownloadStatePaused,
 };
 
+@interface SFDownloadItem : NSObject <NSCoding>
+
+@property (nonatomic, copy, readonly) NSString *URLString;
+@property (nonatomic, assign, readonly) float percent;
+@property (nonatomic, assign, readonly) SFDownloadState state;
+@property (nonatomic, copy, readonly) NSString *filePath;
+@property (nonatomic, strong, readonly) NSError *error;
+
+@property (nonatomic, strong, readonly) SFURLDownloader *downloader;
+
++ (instancetype)downloadItemWithURLString:(NSString *)URLString;
+
+@end
+
 @class SFDownloadManager;
 
 @protocol SFDownloadManagerDelegate <NSObject>

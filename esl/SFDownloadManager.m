@@ -263,7 +263,7 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 
 @end
 
-@interface SFDownloadItem : NSObject <NSCoding>
+@interface SFDownloadItem ()
 
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, assign) float percent;
@@ -272,8 +272,6 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 @property (nonatomic, strong) NSError *error;
 
 @property (nonatomic, strong) SFURLDownloader *downloader;
-
-+ (instancetype)downloadItemWithURLString:(NSString *)URLString;
 
 @end
 
