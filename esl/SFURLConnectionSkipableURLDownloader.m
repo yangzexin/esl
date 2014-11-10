@@ -74,6 +74,7 @@
                                contentLength:self.contentLength
                                     skipable:skipable];
     } else if (!skipable) {
+        [self cancel];
         [self.delegate skipableURLDownloader:self didFailWithError:nil];
     }
 }

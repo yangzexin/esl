@@ -65,7 +65,6 @@
 - (void)skipableURLDownloader:(id<SFSkipableURLDownloader>)skipableURLDownloader didDownloadData:(NSData *)data
 {
     unsigned long long downloadedSize  = self.fragment.downloadedSize + data.length;
-//    NSLog(@"%lld->%lld, %lld-%lld", self.fragment.offset, self.fragment.offset + self.fragment.size, self.fragment.offset + downloadedSize, self.fragment.offset + self.fragment.size);
     NSInteger numberOfDatasOutOfBounds = -1;
     if (self.fragment.size != 0 && downloadedSize > self.fragment.size) {
         numberOfDatasOutOfBounds = (NSInteger)(downloadedSize - self.fragment.size);
