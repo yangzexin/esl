@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong) NSFileHandle *fileHandle;
 
-@property (nonatomic, strong) NSMutableData *data;
-
 @end
 
 @implementation SFPreparedFileWriter
@@ -39,14 +37,12 @@
     [self.fileHandle seekToFileOffset:offset];
     [self.fileHandle writeData:data];
     NSLog(@"%lld-%lld", offset, offset + data.length);
-    [self.data appendData:data];
 }
 
 - (void)close
 {
     [self.fileHandle closeFile];
     self.fileHandle = nil;
-    [self.data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"test.png"] atomically:NO];
 }
 
 - (void)preparingForFileWritingWithFileSize:(unsigned long long)fileSize
@@ -76,7 +72,6 @@
             free(remainsBytes);
         }
     }
-    self.data = [NSMutableData data];
 }
 
 @end

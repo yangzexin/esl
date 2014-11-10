@@ -150,9 +150,9 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     
     
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *tmpFilePath = [documentPath stringByAppendingPathComponent:@"tmp.txt"];
+    NSString *tmpFilePath = [documentPath stringByAppendingPathComponent:@"tmp.jpg"];
     SFPreparedFileWriter *fileWriter = [[SFPreparedFileWriter alloc] initWithFilePath:tmpFilePath];
-    NSString *URLString = @"http://images.apple.com/v/osx/c/images/overview/hero_icon_large.png";
+    NSString *URLString = @"http://img5.cache.netease.com/photo/0001/2014-11-10/AANF7QQ100AO0001.jpg";
 //    NSString *URLString = @"http://images.apple.com/v/osx/c/images/overview/hero_xlarge.jpg";
     SFMultiThreadURLDownloader *downloader = [[SFMultiThreadURLDownloader alloc] initWithURLString:URLString fileWritable:fileWriter];
     downloader.delegate = self;

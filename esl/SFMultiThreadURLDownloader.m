@@ -18,9 +18,11 @@
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
 
 @property (nonatomic, strong) id<SFPreparedFileWritable> fileWriter;
+@property (nonatomic, assign) BOOL fileWriterPrepared;
 
 @property (nonatomic, strong) SFMultiThreadDownloadingContext *context;
 @property (nonatomic, strong) NSArray *singleThreadHandlers;
+
 
 @end
 
@@ -112,7 +114,10 @@
 {
     [self.context.mainFragment setContentLength:contentLength];
     self.context.mainFragment.uncuttable = !skipable;
-    [self.fileWriter preparingForFileWritingWithFileSize:contentLength];
+    if (!self.fileWriterPrepared) {
+        [self.fileWriter preparingForFileWritingWithFileSize:contentLength];
+        self.fileWriterPrepared = YES;
+    }
     
     [self _tryDownloading];
 }

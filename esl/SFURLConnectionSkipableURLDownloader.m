@@ -22,9 +22,11 @@
 
 - (void)startWithURLString:(NSString *)URLString offset:(unsigned long long)offset
 {
+    self.offset = offset;
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString]];
     if (offset != 0) {
-        [request setValue:[NSString stringWithFormat:@"bytes=%llu-", self.offset] forHTTPHeaderField:@"Range"];
+        [request setValue:[NSString stringWithFormat:@"bytes=%llu-32932", self.offset] forHTTPHeaderField:@"Range"];
     }
     
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
@@ -64,9 +66,14 @@
 {
     NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
     self.contentLength = [[headers objectForKey:@"Content-Length"] longLongValue] + self.offset;
-    [self.delegate skipableURLDownloader:self didReceiveResponse:response
-                           contentLength:self.contentLength
-                                skipable:[self _isSkipedBytesEqualsDownloadBytesWithHeaders:[(NSHTTPURLResponse *)response allHeaderFields]]];
+    BOOL skipable = [self _isSkipedBytesEqualsDownloadBytesWithHeaders:[(NSHTTPURLResponse *)response allHeaderFields]];
+    if (self.offset == 0 || (self.offset != 0 && skipable)) {
+        [self.delegate skipableURLDownloader:self didReceiveResponse:response
+                               contentLength:self.contentLength
+                                    skipable:skipable];
+    } else if (!skipable) {
+        [self.delegate skipableURLDownloader:self didFailWithError:nil];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

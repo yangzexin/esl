@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, strong) NSMutableArray *fragments;
 @property (nonatomic, strong) SFFileFragment *mainFragment;
+@property (nonatomic, assign) BOOL notified;
 
 @end
 
@@ -67,7 +68,8 @@
 - (void)_checkIfFinished
 {
     BOOL isFinished = [self isFinished];
-    if (isFinished) {
+    if (isFinished && !self.notified) {
+        self.notified = YES;
         [self.delegate multiThreadDownloadingContextDidFinishDownloading:self];
     }
 }
