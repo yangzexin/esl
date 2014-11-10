@@ -85,7 +85,9 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 {
     self = [super init];
     
-    self.downloadManager = [[SFDownloadManager alloc] initWithDownloadItemSerialization:[ESDownloadItemSerialization new]];
+    self.downloadManager = [[SFDownloadManager alloc] initWithDownloadItemSerialization:[ESDownloadItemSerialization new] downloaderBuilder:^id<SFURLDownloader>(NSString *URLString) {
+        return [[SFSimpleURLDownloader alloc] initWithURLString:URLString];
+    }];
     _downloadManager.delegate = self;
     
     self.keyURLStringValueEpisode = [AppDelegate levelDBWithName:@"keyURLStringValueEpisode"];

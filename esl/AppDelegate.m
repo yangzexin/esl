@@ -33,6 +33,8 @@
 #import "SFDict2Object.h"
 #import "ESEpisode.h"
 
+#import "SFMultiThreadURLDownloader.h"
+
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
@@ -133,6 +135,15 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         tabBarController;
     });
     
+//    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    NSLog(@"%@", documentPath);
+//    SFMultiThreadFileWriter *fileWriter = [[SFMultiThreadFileWriter alloc] initWithFilePath:[documentPath stringByAppendingPathComponent:@"test.txt"]];
+//    [fileWriter openWithCreatingEmptyFileWithSize:1000000 completion:^(BOOL success) {
+//        [fileWriter writeData:[@"test1" dataUsingEncoding:NSUTF8StringEncoding] offset:10];
+//        [fileWriter writeData:[@"test2" dataUsingEncoding:NSUTF8StringEncoding] offset:900000];
+//        [fileWriter writeData:[@"test0" dataUsingEncoding:NSUTF8StringEncoding] offset:0];
+//    }];
+    
     return YES;
 }
 
@@ -195,22 +206,22 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 }
 
 #pragma mark - test
-- (void)downloaderDidStartDownloading:(SFURLDownloader *)downloader
+- (void)downloaderDidStartDownloading:(id<SFURLDownloader>)downloader
 {
     NSLog(@"downloaderDidStartDownloading");
 }
 
-- (void)downloader:(SFURLDownloader *)downloader progress:(float)progress
+- (void)downloader:(id<SFURLDownloader>)downloader progress:(float)progress
 {
     NSLog(@"%f", progress);
 }
 
-- (void)downloaderDidFinishDownloading:(SFURLDownloader *)downloader filePath:(NSString *)filePath
+- (void)downloaderDidFinishDownloading:(id<SFURLDownloader>)downloader filePath:(NSString *)filePath
 {
     NSLog(@"downloaderDidFinishDownloading");
 }
 
-- (void)downloader:(SFURLDownloader *)downloader didFailWithError:(NSError *)error
+- (void)downloader:(id<SFURLDownloader>)downloader didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError");
 }

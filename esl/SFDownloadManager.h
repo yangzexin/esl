@@ -9,50 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "SFObjectRepository.h"
-
-@interface SFFileWriter : NSObject
-
-@property (nonatomic, copy) NSString *filePath;
-@property (nonatomic, strong) NSFileHandle *fileHandle;
-
-- (id)initWithFilePath:(NSString *)filePath memoryCacheSizeInMegabyte:(float)memoryCacheSizeInMegabyte;
-- (unsigned long long)prepareForWriting;
-- (void)appendWithData:(NSData *)data;
-- (void)closeFile;
-
-@end
-
-@class SFURLDownloader;
-
-@protocol SFURLDownloaderDelegate <NSObject>
-
-@optional
-- (void)downloaderDidStartDownloading:(SFURLDownloader *)downloader;
-- (void)downloader:(SFURLDownloader *)downloader progress:(float)progress;
-- (void)downloaderDidFinishDownloading:(SFURLDownloader *)downloader filePath:(NSString *)filePath;
-- (void)downloader:(SFURLDownloader *)downloader didFailWithError:(NSError *)error;
-
-@end
-
-OBJC_EXPORT NSInteger const SFURLDownloaderErrorCodeResumingFail;
-
-@interface SFURLDownloader : NSObject <SFRepositionSupportedObject>
-
-@property (nonatomic, readonly) NSString *downloadingURLString;
-@property (nonatomic, assign, readonly) unsigned long long numberOfBytesDownloaded;
-@property (nonatomic, assign, readonly) unsigned long long contentLength;
-
-@property (nonatomic, weak) id<SFURLDownloaderDelegate> delegate;
-
-- (id)initWithURLString:(NSString *)URLString;
-- (void)start;
-- (void)resume;
-- (void)pause;
-- (void)stop;
-- (BOOL)isDownloading;
-- (CGFloat)downloadedPercent;
-
-@end
+#import "SFURLDownloader.h"
 
 typedef NS_ENUM(NSUInteger, SFDownloadState) {
     SFDownloadStateNotDowloaded,
@@ -65,14 +22,6 @@ typedef NS_ENUM(NSUInteger, SFDownloadState) {
 @interface SFDownloadItem : NSObject <NSCoding>
 
 @property (nonatomic, copy, readonly) NSString *URLString;
-@property (nonatomic, assign, readonly) float percent;
-@property (nonatomic, assign, readonly) SFDownloadState state;
-@property (nonatomic, copy, readonly) NSString *filePath;
-@property (nonatomic, strong, readonly) NSError *error;
-
-@property (nonatomic, strong, readonly) SFURLDownloader *downloader;
-
-+ (instancetype)downloadItemWithURLString:(NSString *)URLString;
 
 @end
 
@@ -104,7 +53,10 @@ typedef NS_ENUM(NSUInteger, SFDownloadState) {
 
 @property (nonatomic, strong) id<SFDownloadItemSerialization> downloadItemSerialization;
 
-- (instancetype)initWithDownloadItemSerialization:(id<SFDownloadItemSerialization>)downloadItemSerialization;
+- (instancetype)initWithDownloaderBuilder:(id<SFURLDownloader>(^)(NSString *URLString))downloaderBuilder;
+
+- (instancetype)initWithDownloadItemSerialization:(id<SFDownloadItemSerialization>)downloadItemSerialization
+                                downloaderBuilder:(id<SFURLDownloader>(^)(NSString *URLString))downloaderBuilder;
 
 - (void)downloadWithURLString:(NSString *)URLString;
 
