@@ -70,7 +70,7 @@
     if ([self.context isFinished]) {
         return;
     }
-    if (usableHandler) {
+    if (fragment && usableHandler) {
         usableHandler.delegate = self;
         [usableHandler startWithFragment:fragment];
     }
