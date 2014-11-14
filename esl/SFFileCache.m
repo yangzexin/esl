@@ -37,7 +37,7 @@
 
 - (NSString *)_wrappedIdentifier
 {
-    return [self.identifier stringByEncryptingUsingMD5];
+    return [self.identifier sf_stringByEncryptingUsingMD5];
 }
 
 - (NSData *)_decoratedDataByDecoratingWithOriginalData:(NSData *)data

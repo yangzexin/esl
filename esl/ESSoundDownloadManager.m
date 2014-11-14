@@ -92,13 +92,13 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
     
     self.keyURLStringValueEpisode = [AppDelegate levelDBWithName:@"keyURLStringValueEpisode"];
     [_keyURLStringValueEpisode setEncoder:^NSData *(LevelDBKey *key, ESEpisode *object){
-        NSDictionary *dictionary = [object dictionary];
+        NSDictionary *dictionary = [object sf_dictionary];
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
         return data;
     }];
     [_keyURLStringValueEpisode setDecoder:^id(LevelDBKey *key, NSData *data){
         NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        return [ESEpisode objectFromDictionary:dictionary];
+        return [ESEpisode sf_objectFromDictionary:dictionary];
     }];
     
     self.keyURLStringValueError = [AppDelegate levelDBWithName:@"keyURLStringValueError"];
@@ -209,7 +209,7 @@ NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"E
 {
     NSString *soundFilePath = [downloadManager filePathWithURLString:URLString];
     NSString *soundFolder = [self _soundFolder];
-    NSString *soundFileName = [URLString stringByEncryptingUsingMD5];
+    NSString *soundFileName = [URLString sf_stringByEncryptingUsingMD5];
     NSString *newSoundFilePath = [soundFolder stringByAppendingPathComponent:soundFileName];
     
     [[NSFileManager defaultManager] moveItemAtPath:soundFilePath toPath:newSoundFilePath error:nil];

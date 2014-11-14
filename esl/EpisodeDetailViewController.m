@@ -63,7 +63,7 @@
     {
         UIWebView *textView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [textView removeShadow];
+        [textView sf_removeShadow];
         [self.view addSubview:textView];
         textView.delegate = self;
         textView.opaque = NO;
@@ -83,10 +83,10 @@
                 [actionTitles addObject:@"重新下载"];
             }
             [actionTitles addObject:self.html.length == 0 ? @"显示文本" : @"刷新文本"];
-            [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIActionSheet sf_actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 @strongify(self);
                 if ([buttonTitle isEqualToString:@"重新下载"]) {
-                    [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                    [UIAlertView sf_alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                         if (buttonIndex != 0) {
                             [self.viewModel redownload];
                             [self.viewModel startDownload];
@@ -207,7 +207,7 @@
 {
     NSString *html = nil;
     if (!refreshing && self.textCacheDB == nil) {
-        self.textCacheDB = [AppDelegate keyURLStringValueHTML];html = [self.textCacheDB objectForKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
+        self.textCacheDB = [AppDelegate keyURLStringValueHTML];html = [self.textCacheDB objectForKey:[self.viewModel.episode.contentURLString sf_stringByEncryptingUsingMD5]];
     }
     if (html.length != 0) {
         self.html = html;
@@ -219,7 +219,7 @@
         [self.viewModel.episodeDetailSignal subscribeNext:^(id x) {
             @strongify(self);
             self.html = x;
-            [self.textCacheDB setObject:self.html forKey:[self.viewModel.episode.contentURLString stringByEncryptingUsingMD5]];
+            [self.textCacheDB setObject:self.html forKey:[self.viewModel.episode.contentURLString sf_stringByEncryptingUsingMD5]];
             [SFWaitingIndicator showLoading:YES inView:self.textView transparentBackground:NO identifier:@"loadingHTML"];
             self.updatingHTML = YES;
             [self _updateHtml];
@@ -242,11 +242,11 @@
 
 - (void)_downloadingIndicatorButtonTapped
 {
-    [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+    [UIActionSheet sf_actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
         if ([buttonTitle isEqualToString:@"暂停"]) {
             [self.viewModel pauseDownload];
         } else if ([buttonTitle isEqualToString:@"重新下载"]) {
-            [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView sf_alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [self.viewModel redownload];
                     [self.viewModel startDownload];
@@ -288,7 +288,7 @@
             if (self.viewModel.downloadState == SFDownloadStateDownloaded) {
                 [self.viewModel playSubWithTitle:[subTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] HTML:self.html];
             } else {
-                [UIAlertView alertWithTitle:@"温馨提示" message:@"当前节目还没有下载完成" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                [UIAlertView sf_alertWithTitle:@"温馨提示" message:@"当前节目还没有下载完成" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                     if (buttonIndex != 0) {
                         if (self.viewModel.downloadState == SFDownloadStateNotDowloaded) {
                             [self.viewModel startDownload];

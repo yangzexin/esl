@@ -28,7 +28,7 @@
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:_webView];
     
-    [_webView compatibleGetScrollView].bounces = NO;
+    [_webView sf_scrollView].bounces = NO;
     
 //    [[UIMenuController sharedMenuController] addMenuItemIfNotExistsWithTitle:@"Highlight" action:@selector(_highlightMenuItemTapped)];
 //    [[UIMenuController sharedMenuController] addMenuItemIfNotExistsWithTitle:@"Unhighlight" action:@selector(_unhighlightMenuItemTapped)];
@@ -38,26 +38,26 @@
 
 - (void)_highlightMenuItemTapped
 {
-    NSLog(@"%d", [self.webView selectedTextStartOffset]);
+    NSLog(@"%d", [self.webView sf_selectedTextStartOffset]);
     if ([self.delegate respondsToSelector:@selector(autoHeightWebView:highlightingText:)]) {
-        [self.delegate autoHeightWebView:self highlightingText:self.webView.selectedText];
+        [self.delegate autoHeightWebView:self highlightingText:self.webView.sf_selectedText];
     }
 }
 
 - (void)_unhighlightMenuItemTapped
 {
     if ([self.delegate respondsToSelector:@selector(autoHeightWebView:unhighlightingText:)]) {
-        [self.delegate autoHeightWebView:self unhighlightingText:self.webView.selectedText];
+        [self.delegate autoHeightWebView:self unhighlightingText:self.webView.sf_selectedText];
     }
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (action == @selector(_highlightMenuItemTapped)) {
-        NSString *selectedText = self.webView.selectedText;
+        NSString *selectedText = self.webView.sf_selectedText;
         return selectedText.length != 0;
     } else if (action == @selector(_unhighlightMenuItemTapped)) {
-        NSString *selectedText = self.webView.selectedText;
+        NSString *selectedText = self.webView.sf_selectedText;
         BOOL canPerform = selectedText.length != 0;
         if (canPerform) {
             if ([self.delegate respondsToSelector:@selector(autoHeightWebView:shouldUnhightText:)]) {

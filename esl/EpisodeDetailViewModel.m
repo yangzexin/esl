@@ -62,7 +62,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
     self.episode = episode;
     
     @weakify(self);
-    [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
+    [self sf_addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
         @strongify(self);
         [self _updateStates];
     }] identifier:@"downloadPercentRefreshTimer"];
@@ -99,12 +99,12 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
                 
                 NSString *beginMatching = @"class=\"podcast_table_home\"";
                 NSString *endMatching = @"<a class=\"grayButton\"";
-                NSInteger beginIndex = [HTML find:beginMatching];
+                NSInteger beginIndex = [HTML sf_find:beginMatching];
                 if (beginIndex != -1) {
                     beginIndex += beginMatching.length + 1;
-                    NSInteger endIndex = [HTML find:endMatching fromIndex:beginIndex];
+                    NSInteger endIndex = [HTML sf_find:endMatching fromIndex:beginIndex];
                     if (endIndex != -1) {
-                        NSString *content = [HTML substringWithBeginIndex:beginIndex endIndex:endIndex];
+                        NSString *content = [HTML sf_substringWithBeginIndex:beginIndex endIndex:endIndex];
                         NSString *contentWrapper = @"<html><body><div style='font-family:Verdana;padding-top:$paddingTop;'>"\
                         "<div style=\"font-size:12pt;font-weight:bold;padding-bottom:10px;\">$title</div>"\
                         "<div>$content</div>"\
@@ -131,18 +131,18 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
 - (void)_getAudioIndexesWithHTML:(NSString *)HTML outReplacedHTML:(NSString **)outReplacedHTML
 {
     NSString *matching = @"Audio Index:";
-    NSInteger beginIndex = [HTML find:matching];
+    NSInteger beginIndex = [HTML sf_find:matching];
     if (beginIndex != -1) {
-        NSInteger endIndex = [HTML find:@"</span>" fromIndex:beginIndex + matching.length];
-        NSString *innerText = [HTML substringWithBeginIndex:beginIndex + matching.length endIndex:endIndex];
+        NSInteger endIndex = [HTML sf_find:@"</span>" fromIndex:beginIndex + matching.length];
+        NSString *innerText = [HTML sf_substringWithBeginIndex:beginIndex + matching.length endIndex:endIndex];
         
-        if ([innerText find:@"<br>"] != -1) {
+        if ([innerText sf_find:@"<br>"] != -1) {
             NSArray *subSoundTitleStrings = [innerText componentsSeparatedByString:@"<br>"];
             NSMutableArray *subSoundTitles = [NSMutableArray array];
             for (NSString *subSoundTitleString in subSoundTitleStrings) {
                 NSString *tmpSubSoundTitleString = [subSoundTitleString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 if (tmpSubSoundTitleString.length != 0) {
-                    NSInteger bracketIndex = [tmpSubSoundTitleString find:@":"];
+                    NSInteger bracketIndex = [tmpSubSoundTitleString sf_find:@":"];
                     if (bracketIndex != -1) {
                         NSString *subSoundTitle = [tmpSubSoundTitleString substringToIndex:bracketIndex];
                         [subSoundTitles addObject:subSoundTitle];
@@ -183,11 +183,11 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
 {
     double time = 0;
     
-    NSInteger beginIndex = [HTML find:prefix];
+    NSInteger beginIndex = [HTML sf_find:prefix];
     if (beginIndex != -1) {
-        NSInteger endIndex = [HTML find:@"<br>" fromIndex:beginIndex + prefix.length];
+        NSInteger endIndex = [HTML sf_find:@"<br>" fromIndex:beginIndex + prefix.length];
         if (endIndex != -1) {
-            NSString *timeDescription = [HTML substringWithBeginIndex:beginIndex + prefix.length endIndex:endIndex];
+            NSString *timeDescription = [HTML sf_substringWithBeginIndex:beginIndex + prefix.length endIndex:endIndex];
             NSArray *timeAttrs = [timeDescription componentsSeparatedByString:@":"];
             if (timeAttrs.count == 2) {
                 NSInteger minute = [[timeAttrs objectAtIndex:0] integerValue];
@@ -209,7 +209,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
             [[ESSoundDownloadManager sharedManager] downloadEpisode:self.episode];
         }
         @weakify(self);
-        [self addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
+        [self sf_addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
             @strongify(self);
             if ([[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode] == SFDownloadStateDownloaded) {
                 [subscriber sendNext:[[ESSoundDownloadManager sharedManager] soundFilePathForEpisode:self.episode]];
@@ -221,7 +221,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
         }] identifier:@"CheckDownloadStateTimer"];
         return [RACDisposable disposableWithBlock:^{
             @strongify(self);
-            [self removeRepositionSupportedObjectWithIdentifier:@"CheckDownloadStateTimer"];
+            [self sf_removeRepositionSupportedObjectWithIdentifier:@"CheckDownloadStateTimer"];
         }];
     }];
     return _downloadSignal;

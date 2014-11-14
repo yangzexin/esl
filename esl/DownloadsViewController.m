@@ -57,7 +57,7 @@
 {
     [super viewDidLoad];
     @weakify(self);
-    [self depositNotificationObserver:[[NSNotificationCenter defaultCenter] addObserverForName:ESEpisodeDidStartDownloadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+    [self sf_depositNotificationObserver:[[NSNotificationCenter defaultCenter] addObserverForName:ESEpisodeDidStartDownloadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         @strongify(self);
         self.downloadsUpdated = YES;
     }]];
@@ -130,14 +130,14 @@
     [actionTitles addObject:@"重新下载"];
     [actionTitles addObject:@"删除"];
     
-    [UIActionSheet actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+    [UIActionSheet sf_actionSheetWithTitle:@"" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
         if ([buttonTitle isEqualToString:@"查看"]) {
             [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];
         } else if ([buttonTitle isEqualToString:@"继续下载"]) {
             [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
             [self _refreshDownloads];
         } else if ([buttonTitle isEqualToString:@"重新下载"]) {
-            [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView sf_alertWithTitle:@"温馨提示" message:@"确定要重新下载音频吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
                     [[ESSoundDownloadManager sharedManager] downloadEpisode:episode];
@@ -148,7 +148,7 @@
             [[ESSoundDownloadManager sharedManager] pauseDownloadingEpisode:episode];
             [self _refreshDownloads];
         } else if ([buttonTitle isEqualToString:@"删除"]) {
-            [UIAlertView alertWithTitle:@"温馨提示" message:@"确定要删除节目吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView sf_alertWithTitle:@"温馨提示" message:@"确定要删除节目吗？" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [[ESSoundDownloadManager sharedManager] removeEpisode:episode];
                     [self _refreshDownloads];
@@ -205,7 +205,7 @@
         downloadPercentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [cell insertSubview:downloadPercentView belowSubview:cell.contentView];
         
-        [cell addBottomLineWithColor:[UIColor colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
+        [cell sf_addBottomLineWithColor:[UIColor sf_colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
     } else {
         downloadPercentView = (id)[cell viewWithTag:1001];
     }
@@ -217,7 +217,7 @@
     @weakify(downloadPercentView);
     @weakify(cell);
     @weakify(self);
-    [cell addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:.50f tick:^{
+    [cell sf_addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:.50f tick:^{
         @strongify(episode);
         @strongify(downloadPercentView);
         @strongify(cell);
@@ -230,9 +230,9 @@
                 downloadPercentView.hidden = NO;
                 
                 if (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) {
-                    downloadPercentView.backgroundColor = [UIColor colorWithIntegerRed:255 green:0 blue:0 alpha:72];
+                    downloadPercentView.backgroundColor = [UIColor sf_colorWithIntegerRed:255 green:0 blue:0 alpha:72];
                 } else {
-                    downloadPercentView.backgroundColor = [UIColor colorWithIntegerRed:0 green:255 blue:0 alpha:27];
+                    downloadPercentView.backgroundColor = [UIColor sf_colorWithIntegerRed:0 green:255 blue:0 alpha:27];
                 }
                 
                 float percent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:episode];

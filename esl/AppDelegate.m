@@ -51,7 +51,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 
 - (UIImage *)imageLabel:(SFImageLabel *)imageLabel imageWithName:(NSString *)imageName
 {
-    return [UIImage imageWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
+    return [UIImage sf_imageWithColor:[UIColor redColor] size:CGSizeMake(20, 20)];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -158,7 +158,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     downloader.delegate = self;
     [downloader start];
     
-    [self setAssociatedObject:downloader key:@"downloader"];
+    [self sf_setAssociatedObject:downloader key:@"downloader"];
     
     return YES;
 }
@@ -263,7 +263,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 #pragma mark - SFSingleThreadHandlerDelegate
 - (void)singleThreadHandler:(SFSingleThreadHandler *)singleThreadHandler didReceiveResponse:(NSURLResponse *)response contentLength:(unsigned long long)contentLength skipable:(BOOL)skipable
 {
-    id<SFPreparedFileWritable> fileWritable = [self associatedObjectWithKey:@"fileWriter"];
+    id<SFPreparedFileWritable> fileWritable = [self sf_associatedObjectWithKey:@"fileWriter"];
     [fileWritable preparingForFileWritingWithFileSize:contentLength];
     [singleThreadHandler.fragment setContentLength:contentLength];
     NSLog(@"%@, %lld, %@", response, contentLength, skipable ? @"skipable" : @"not skipable");

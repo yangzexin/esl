@@ -69,8 +69,8 @@
     [loadMoreLabel setTitle:@"Show More .." forState:UIControlStateNormal];
     [loadMoreLabel setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [loadMoreLabel setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithIntegerRed:247 green:247 blue:247] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
-    [loadMoreLabel setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithIntegerRed:230 green:230 blue:230] size:CGSizeMake(1, 1)]
+    [loadMoreLabel setBackgroundImage:[UIImage sf_imageWithColor:[UIColor sf_colorWithIntegerRed:247 green:247 blue:247] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    [loadMoreLabel setBackgroundImage:[UIImage sf_imageWithColor:[UIColor sf_colorWithIntegerRed:230 green:230 blue:230] size:CGSizeMake(1, 1)]
                              forState:UIControlStateHighlighted];
     [self.loadMoreFooter addSubview:loadMoreLabel];
     
@@ -202,10 +202,10 @@
         label.contentMode = UIViewContentModeBottom;
         
         label.text = @"📀";
-        [keyImageNameValueImage setObject:[label toImageLegacy] forKey:@"title"];
+        [keyImageNameValueImage setObject:[label sf_toImageLegacy] forKey:@"title"];
         
         label.text = @"📅";
-        [keyImageNameValueImage setObject:[label toImageLegacy] forKey:@"date"];
+        [keyImageNameValueImage setObject:[label sf_toImageLegacy] forKey:@"date"];
         
         [keyImageNameValueImage setObject:[UIImage imageNamed:@"logo.gif"] forKey:@"introdution"];
     }
@@ -236,7 +236,7 @@
         imageLabel.drawsImageWithImageSize = YES;
         [cell.contentView addSubview:imageLabel];
         
-        [cell.contentView addBottomLineWithColor:[UIColor colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
+        [cell.contentView sf_addBottomLineWithColor:[UIColor sf_colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
     } else {
         imageLabel = (id)[cell.contentView viewWithTag:1001];
     }
@@ -246,7 +246,7 @@
     imageLabel.text = [episode titleFormatted];
     
     SFDownloadState downloadState = [[ESSoundDownloadManager sharedManager] stateForEpisode:episode];
-    cell.backgroundView.backgroundColor = downloadState == SFDownloadStateDownloaded ? [UIColor colorWithIntegerRed:0 green:255 blue:0 alpha:27] : [UIColor whiteColor];
+    cell.backgroundView.backgroundColor = downloadState == SFDownloadStateDownloaded ? [UIColor sf_colorWithIntegerRed:0 green:255 blue:0 alpha:27] : [UIColor whiteColor];
     
     return cell;
 }

@@ -55,7 +55,7 @@
 + (id<SFCacheFilter>)dayCacheFilterWithNumberOfDays:(NSInteger)numberOfDays
 {
     return [SFBlockedCacheFilter blockedCacheFilterWithValidator:^BOOL(id<SFCache> cache) {
-        NSInteger days = [[cache createDate] numberOfDayIntervalsWithDate:[NSDate new] usingZeroHourDate:YES];
+        NSInteger days = [[cache createDate] sf_numberOfDayIntervalsWithDate:[NSDate new] usingZeroHourDate:YES];
         return days < numberOfDays;
     }];
 }

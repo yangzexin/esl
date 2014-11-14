@@ -58,7 +58,7 @@
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, 0)];
     self.titleLabel.text = self.episode.title;
     self.titleLabel.font = [UIFont systemFontOfSize:20.0f];
-    [self.titleLabel fitHeightByTextUsingCurrentFontWithMaxHeight:0];
+    [self.titleLabel sf_fitHeightByTextUsingCurrentFontWithMaxHeight:0];
     [self addView:self.titleLabel];
 
     self.introdutionWebView = [[ESAutoHeightWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 7)];
@@ -140,7 +140,7 @@
     if (self.downloading) {
         __weak typeof(self) weakSelf = self;
         self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"0%" eventHandler:^{
-            [UIAlertView alertWithTitle:@"Download" message:@"r u sure to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView sf_alertWithTitle:@"Download" message:@"r u sure to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf stopRequestingServiceWithIdnentifier:@"download_sound"];
                     weakSelf.downloading = NO;
@@ -221,7 +221,7 @@
     [[ESSoundPlayContext sharedContext] playWithEpisode:self.episode soundPath:soundPath finishBlock:^(BOOL success, NSError *error){
         [weakSelf _playFinished];
         if (error) {
-            [UIAlertView alertWithTitle:@"Error" message:@"It seems error encountered when playing sound, would u want to redownload this sound?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView sf_alertWithTitle:@"Error" message:@"It seems error encountered when playing sound, would u want to redownload this sound?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf _downloadSoundAndPlay:YES];
                 }
@@ -249,7 +249,7 @@
     [self requestService:downloadSoundService identifier:@"download_sound" completion:^(id resultObject, NSError *error) {
         weakSelf.downloading = NO;
         if (error != nil) {
-            [UIAlertView alertWithTitle:@"Download" message:[NSString stringWithFormat:@"Download failed:%@", error.localizedDescription] completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+            [UIAlertView sf_alertWithTitle:@"Download" message:[NSString stringWithFormat:@"Download failed:%@", error.localizedDescription] completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf _downloadSoundAndPlay:playWhenDownloadFinished];
                 } else {
@@ -259,7 +259,7 @@
         } else {
             [weakSelf _updateUIStates];
             if (playWhenDownloadFinished) {
-                [UIAlertView alertWithTitle:@"Download" message:@"Download finished, would u like to play now?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
+                [UIAlertView sf_alertWithTitle:@"Download" message:@"Download finished, would u like to play now?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                     if (buttonIndex != 0) {
                         [weakSelf _playWithSoundPath:resultObject];
                     }

@@ -132,7 +132,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 - (BOOL)isEpisodeDownloaded:(ESEpisode *)episode
 {
     BOOL downloaded = NO;
-    downloaded = [self.cacheManager isCacheExistsWithIdentifier:[episode.soundURLString stringByEncryptingUsingMD5]];
+    downloaded = [self.cacheManager isCacheExistsWithIdentifier:[episode.soundURLString sf_stringByEncryptingUsingMD5]];
     return downloaded;
 }
 
@@ -148,7 +148,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
     
     ESHTTPRequest *request = [ESHTTPRequest requestWithURLString:URLString];
     [request setResponseDataWrapper:^id(NSData * data) {
-        NSString *identifier = [URLString stringByEncryptingUsingMD5];
+        NSString *identifier = [URLString sf_stringByEncryptingUsingMD5];
         [self.cacheManager storeCacheWithIdentifier:identifier data:data];
         NSString *cachedDataFilePath = [self.cacheManager cachedDataFilePathWithIdentifier:identifier];
         return cachedDataFilePath;
@@ -161,7 +161,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
     if (forceDownload == NO) {
         ESRequestProxyWrapper *wrappedRequest = [ESRequestProxyWrapper wrapperWithRequestProxy:requestProxy resultGetter:^id(NSDictionary *parameters) {
             id result = nil;
-            NSString *identifier = [URLString stringByEncryptingUsingMD5];
+            NSString *identifier = [URLString sf_stringByEncryptingUsingMD5];
             NSData *data = [self.cacheManager cachedDataWithIdentifier:identifier filter:[SFBuildInCacheFilters foreverCacheFilter]];
             if (data != nil) {
                 NSString *cachedDataFilePath = [self.cacheManager cachedDataFilePathWithIdentifier:identifier];

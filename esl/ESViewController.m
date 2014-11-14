@@ -103,7 +103,7 @@
         }
     }
     showSideMenuImage.opaque = NO;
-    UIImage *image = [showSideMenuImage toImageLegacy];
+    UIImage *image = [showSideMenuImage sf_toImageLegacy];
     self.navigationItem.leftBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithCustomView:({
         SFBlockedButton *button = [SFBlockedButton blockedButtonWithTapHandler:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:ESShowSideMenuNotification object:nil];

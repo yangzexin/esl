@@ -29,7 +29,7 @@
 //    }
     
     NSString *simpleTitle = [self simpleTitle];
-    NSInteger sortIndex = [simpleTitle find:@" –"];
+    NSInteger sortIndex = [simpleTitle sf_find:@" –"];
     NSString *const cafePrefix = @"English Café";
     if (sortIndex != -1) {
         NSString *sortString = [simpleTitle substringToIndex:sortIndex];
@@ -93,11 +93,11 @@
 
 - (NSString *)simpleTitle
 {
-    NSString *simpleTitle = [self associatedObjectWithKey:@"simpleTitle"];
+    NSString *simpleTitle = [self sf_associatedObjectWithKey:@"simpleTitle"];
     
     if (simpleTitle == nil) {
         simpleTitle = [[self.title lowercaseString] hasPrefix:@"esl podcast "] ? [self.title substringFromIndex:12] : self.title;
-        [self setAssociatedObject:simpleTitle key:@"simpleTitle"];
+        [self sf_setAssociatedObject:simpleTitle key:@"simpleTitle"];
     }
     
     return simpleTitle;
@@ -107,12 +107,12 @@
 {
     NSString *key = [NSString stringWithFormat:@"simpleTitleText-%.0f", width];
     
-    SFImageLabelText *text = [self associatedObjectWithKey:key];
+    SFImageLabelText *text = [self sf_associatedObjectWithKey:key];
     
     if (text == nil) {
         text = [SFImageLabelText textFromString:self.simpleTitle constraitsWidth:width];
         [text build];
-        [self setAssociatedObject:text key:key];
+        [self sf_setAssociatedObject:text key:key];
     }
     
     return text;

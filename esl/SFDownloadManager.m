@@ -68,8 +68,8 @@
     
     NSString *hexString = [[NSUserDefaults standardUserDefaults] objectForKey:@"keyURLStringValueDownloadItem"];
     if (hexString.length != 0) {
-        NSData *data = [hexString dataByRestoringHexRepresentation];
-        data = [data dataByPerformingDESOperation:kCCDecrypt key:NSStringFromClass([self class])];
+        NSData *data = [hexString sf_dataByRestoringHexRepresentation];
+        data = [data sf_dataByPerformingDESOperation:kCCDecrypt key:NSStringFromClass([self class])];
         dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
     
@@ -79,8 +79,8 @@
 - (void)setKeyURLStringValueDownloadItem:(NSDictionary *)keyURLStringValueDownloadItem
 {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:keyURLStringValueDownloadItem];
-    data = [data dataByPerformingDESOperation:kCCEncrypt key:NSStringFromClass([self class])];
-    [[NSUserDefaults standardUserDefaults] setObject:[data hexRepresentation] forKey:@"keyURLStringValueDownloadItem"];
+    data = [data sf_dataByPerformingDESOperation:kCCEncrypt key:NSStringFromClass([self class])];
+    [[NSUserDefaults standardUserDefaults] setObject:[data sf_hexRepresentation] forKey:@"keyURLStringValueDownloadItem"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

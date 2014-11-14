@@ -53,7 +53,7 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    path = [path stringByAppendingPathComponent:[_URLString stringByEncryptingUsingMD5]];
+    path = [path stringByAppendingPathComponent:[_URLString sf_stringByEncryptingUsingMD5]];
     
     return path;
 }

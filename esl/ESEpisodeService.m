@@ -113,30 +113,30 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
     NSInteger endIndex = 0;
     
     NSMutableArray *episodes = [NSMutableArray array];
-    while ((beginIndex = [responseString find:matching fromIndex:endIndex]) != -1
-           && (endIndex = [responseString find:bottomMatching fromIndex:beginIndex + matching.length]) != -1) {
+    while ((beginIndex = [responseString sf_find:matching fromIndex:endIndex]) != -1
+           && (endIndex = [responseString sf_find:bottomMatching fromIndex:beginIndex + matching.length]) != -1) {
         NSInteger currentIndex = beginIndex += matching.length;
         
         ESEpisode *episode = [ESEpisode new];
         
         NSString *const dateMatching = @"<span class=\"date-header\">";
         NSString *const dateBottomMatching = @"</span><br>";
-        NSInteger dateBeginIndex = [responseString find:dateMatching fromIndex:currentIndex];
+        NSInteger dateBeginIndex = [responseString sf_find:dateMatching fromIndex:currentIndex];
         if (dateBeginIndex != -1) {
             dateBeginIndex += dateMatching.length;
-            NSInteger dateEndIndex = [responseString find:dateBottomMatching fromIndex:dateBeginIndex];
-            NSString *date = [responseString substringWithBeginIndex:dateBeginIndex endIndex:dateEndIndex];
+            NSInteger dateEndIndex = [responseString sf_find:dateBottomMatching fromIndex:dateBeginIndex];
+            NSString *date = [responseString sf_substringWithBeginIndex:dateBeginIndex endIndex:dateEndIndex];
             date = [date stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             episode.date = date;
             currentIndex = dateEndIndex;
         }
         
         NSString *const podcastDetailPageMatching = @"show_podcast.php?";
-        NSInteger podcastDetailPageIndex = [responseString find:podcastDetailPageMatching fromIndex:currentIndex];
+        NSInteger podcastDetailPageIndex = [responseString sf_find:podcastDetailPageMatching fromIndex:currentIndex];
         if (podcastDetailPageIndex != -1) {
-            NSInteger podcastDetailPageEndIndex = [responseString find:@"\"" fromIndex:podcastDetailPageIndex];
+            NSInteger podcastDetailPageEndIndex = [responseString sf_find:@"\"" fromIndex:podcastDetailPageIndex];
             if (podcastDetailPageEndIndex != -1) {
-                NSString *podcastDetailPageLink = [responseString substringWithBeginIndex:podcastDetailPageIndex endIndex:podcastDetailPageEndIndex];
+                NSString *podcastDetailPageLink = [responseString sf_substringWithBeginIndex:podcastDetailPageIndex endIndex:podcastDetailPageEndIndex];
                 episode.contentURLString = [NSString stringWithFormat:@"%@%@", kEpisodesContentPrefixURLString, podcastDetailPageLink];
                 currentIndex = podcastDetailPageEndIndex;
             }
@@ -144,48 +144,48 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
         
         NSString *const titleMatching = @"class=\"podcast_title\">";
         NSString *const titleBottomMatching = @"</a>";
-        NSInteger titleBeginIndex = [responseString find:titleMatching fromIndex:currentIndex];
+        NSInteger titleBeginIndex = [responseString sf_find:titleMatching fromIndex:currentIndex];
         if (titleBeginIndex != -1) {
             titleBeginIndex += titleMatching.length;
-            NSInteger titleEndIndex = [responseString find:titleBottomMatching fromIndex:titleBeginIndex];
-            NSString *title = [responseString substringWithBeginIndex:titleBeginIndex endIndex:titleEndIndex];
+            NSInteger titleEndIndex = [responseString sf_find:titleBottomMatching fromIndex:titleBeginIndex];
+            NSString *title = [responseString sf_substringWithBeginIndex:titleBeginIndex endIndex:titleEndIndex];
             title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             episode.title = title;
             currentIndex = titleEndIndex;
         }
         
         NSString *const soundURLStringMatching = @"Download Podcast";
-        NSInteger downloadStringIndex = [responseString find:soundURLStringMatching fromIndex:currentIndex];
+        NSInteger downloadStringIndex = [responseString sf_find:soundURLStringMatching fromIndex:currentIndex];
         if (downloadStringIndex != -1) {
-            NSInteger aLinkBeginIndex = [responseString find:@"<a" fromIndex:downloadStringIndex reverse:YES];
-            NSInteger aLinkEndIndex = [responseString find:@">" fromIndex:aLinkBeginIndex];
-            NSString *aLinkInnerHTML = [responseString substringWithBeginIndex:aLinkBeginIndex endIndex:aLinkEndIndex];
+            NSInteger aLinkBeginIndex = [responseString sf_find:@"<a" fromIndex:downloadStringIndex reverse:YES];
+            NSInteger aLinkEndIndex = [responseString sf_find:@">" fromIndex:aLinkBeginIndex];
+            NSString *aLinkInnerHTML = [responseString sf_substringWithBeginIndex:aLinkBeginIndex endIndex:aLinkEndIndex];
             
             NSString *const hrefMatching = @"href=\"";
-            NSInteger hrefBeginIndex = [aLinkInnerHTML find:hrefMatching];
+            NSInteger hrefBeginIndex = [aLinkInnerHTML sf_find:hrefMatching];
             if (hrefBeginIndex != -1) {
                 hrefBeginIndex += hrefMatching.length;
-                NSInteger hrefEndIndex = [aLinkInnerHTML find:@"\"" fromIndex:hrefBeginIndex];
-                NSString *soundURLString = [aLinkInnerHTML substringWithBeginIndex:hrefBeginIndex endIndex:hrefEndIndex];
+                NSInteger hrefEndIndex = [aLinkInnerHTML sf_find:@"\"" fromIndex:hrefBeginIndex];
+                NSString *soundURLString = [aLinkInnerHTML sf_substringWithBeginIndex:hrefBeginIndex endIndex:hrefEndIndex];
                 episode.soundURLString = soundURLString;
             }
             currentIndex = downloadStringIndex;
         }
         
         NSString *const episodeDescriptionMatching = @"</span>";
-        NSInteger episodeDescriptionBeginIndex = [responseString find:episodeDescriptionMatching fromIndex:currentIndex];
+        NSInteger episodeDescriptionBeginIndex = [responseString sf_find:episodeDescriptionMatching fromIndex:currentIndex];
         if (episodeDescriptionBeginIndex != -1) {
             episodeDescriptionBeginIndex += episodeDescriptionMatching.length;
-            NSInteger episodeDescriptionEndIndex = [responseString find:@"<br>" fromIndex:episodeDescriptionBeginIndex];
-            NSString *episodeDescription = [responseString substringWithBeginIndex:episodeDescriptionBeginIndex endIndex:episodeDescriptionEndIndex];
+            NSInteger episodeDescriptionEndIndex = [responseString sf_find:@"<br>" fromIndex:episodeDescriptionBeginIndex];
+            NSString *episodeDescription = [responseString sf_substringWithBeginIndex:episodeDescriptionBeginIndex endIndex:episodeDescriptionEndIndex];
             episodeDescription = [episodeDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             episodeDescription = [episodeDescription stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             episodeDescription = [episodeDescription stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-            episode.introdution = [episodeDescription stripHTMLTags];
+            episode.introdution = [episodeDescription sf_stringByStrippingHTMLTags];
             episode.formattedIntrodution = episodeDescription;
             currentIndex = episodeDescriptionEndIndex;
         }
-        episode.uid = [[NSString stringWithFormat:@"%@", episode.title] stringByEncryptingUsingMD5];
+        episode.uid = [[NSString stringWithFormat:@"%@", episode.title] sf_stringByEncryptingUsingMD5];
         [episodes addObject:episode];
     }
     return episodes;

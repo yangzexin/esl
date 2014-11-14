@@ -98,7 +98,7 @@
     frame.origin.y = (self.bounds.size.height - frame.size.height) / 2;
     self.positionSilder.frame = frame;
     
-    frame.size.width = [@"000:00" compatibleSizeWithFont:self.currentTimeLabel.font].width;
+    frame.size.width = [@"000:00" sf_sizeWithFont:self.currentTimeLabel.font].width;
     frame.origin.x = self.positionSilder.frame.origin.x - frame.size.width - 2;
     frame.origin.y = self.positionSilder.frame.origin.y;
     frame.size.height = self.positionSilder.frame.size.height;
