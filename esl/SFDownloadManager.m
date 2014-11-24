@@ -112,6 +112,8 @@
     
     self.keyURLStringValueDownloadItem = [NSMutableDictionary dictionaryWithDictionary:[self.downloadItemSerialization keyURLStringValueDownloadItem]];
     
+    self.downloaderBuilder = downloaderBuilder;
+    
     return self;
 }
 
