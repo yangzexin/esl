@@ -29,6 +29,7 @@
     if (offset != 0) {
         [request setValue:[NSString stringWithFormat:@"bytes=%llu-", self.offset] forHTTPHeaderField:@"Range"];
     }
+    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
     self.request = request;

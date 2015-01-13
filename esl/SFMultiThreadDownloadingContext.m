@@ -36,12 +36,6 @@
         self.fragments = [NSMutableArray array];
         fragment = self.mainFragment;
         [self.fragments addObject:fragment];
-    } else if (self.fragments.count == 1) {
-        SFFileFragment *firstFragment = [self.fragments objectAtIndex:0];
-        fragment = [firstFragment fragmentByHalfCutting];
-        if (fragment) {
-            [self.fragments addObject:fragment];
-        }
     } else {
         for (SFFileFragment *tmpFragment in self.fragments) {
             if (!tmpFragment.downloading && !tmpFragment.finished) {
@@ -49,8 +43,27 @@
                 break;
             }
         }
+        
+        if (!fragment) {
+            // find biggest fragment and cut it
+            SFFileFragment *biggestFragment = [self.fragments objectAtIndex:0];
+            for (NSInteger i = 1; i < self.fragments.count; ++i) {
+                SFFileFragment *tmpFragment = [self.fragments objectAtIndex:i];
+                if (tmpFragment.size > biggestFragment.size) {
+                    biggestFragment = tmpFragment;
+                }
+            }
+            
+            if ((biggestFragment.size - biggestFragment.downloadedSize) > 1024 * 1024 * 2) {
+                fragment = [biggestFragment fragmentByHalfCutting];
+                if (fragment) {
+                    [self.fragments addObject:fragment];
+                }
+            }
+        }
     }
-    if (!fragment.downloading) {
+    
+    if (fragment && !fragment.downloading) {
         fragment.downloading = YES;
     }
     
@@ -59,10 +72,12 @@
 
 - (void)readFromDisk
 {
+    //TODO:readFromDisk
 }
 
 - (void)saveToDisk
 {
+    //TODO:saveToDisk
 }
 
 - (void)_checkIfFinished

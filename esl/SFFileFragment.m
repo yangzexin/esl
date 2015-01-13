@@ -82,7 +82,8 @@
     SFFileFragment *fragment = nil;
     
     if (!self.uncuttable) {
-        unsigned long long halfUndownloadedSize = (self.size - self.downloadedSize) / 2;
+        unsigned long long remainSize = self.size - self.downloadedSize;
+        unsigned long long halfUndownloadedSize = remainSize / 2 - (remainSize % 2 == 0 ? 0 : 1);
         fragment = [SFFileFragment fragmentWithURLString:self.URLString offset:self.offset + self.downloadedSize + halfUndownloadedSize size:halfUndownloadedSize];
         
         self.size -= halfUndownloadedSize;

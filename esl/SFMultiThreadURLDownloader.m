@@ -50,6 +50,9 @@
     self.singleThreadHandlers = @[
                                   [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
                                   , [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
+                                  , [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
+                                  , [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
+                                  , [SFSingleThreadHandler handlerWithSkipableURLDownloader:[SFURLConnectionSkipableURLDownloader new] fileWritable:self.fileWriter]
                                   ];
     self.context = [[SFMultiThreadDownloadingContext alloc] initWithURLString:self.URLString];
     self.context.delegate = self;
@@ -78,14 +81,17 @@
 
 - (void)resume
 {
+    //TODO:resume
 }
 
 - (void)pause
 {
+    //TODO:pause
 }
 
 - (void)stop
 {
+    //TODO:stop
 }
 
 - (CGFloat)downloadedPercent
