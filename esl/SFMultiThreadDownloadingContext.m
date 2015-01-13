@@ -54,7 +54,7 @@
                 }
             }
             
-            if ((biggestFragment.size - biggestFragment.downloadedSize) > 1024 * 1024 * 2) {
+            if ((biggestFragment.size - biggestFragment.downloadedSize) > 1024 * 1024) {
                 fragment = [biggestFragment fragmentByHalfCutting];
                 if (fragment) {
                     [self.fragments addObject:fragment];

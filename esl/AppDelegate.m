@@ -150,14 +150,13 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
     
     
     NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *URLString = @"http://support.apple.com/downloads/DL1572/zh_CN/JavaForOSX2014-001.dmg";
+    NSString *URLString = @"http://libsyn.com/media/eslpod/EC485.mp3";
 //    NSString *URLString = @"http://images.apple.com/v/start-something-new/a/images/austin_mann_zoom.jpg";
     NSString *tmpFilePath = [documentPath stringByAppendingPathComponent:[URLString lastPathComponent]];
     SFPreparedFileWriter *fileWriter = [[SFPreparedFileWriter alloc] initWithFilePath:tmpFilePath];
     SFMultiThreadURLDownloader *downloader = [[SFMultiThreadURLDownloader alloc] initWithURLString:URLString fileWritable:fileWriter];
     downloader.delegate = self;
     [downloader start];
-    
     [self sf_setAssociatedObject:downloader key:@"downloader"];
     
     return YES;
