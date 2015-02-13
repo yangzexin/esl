@@ -1139,7 +1139,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "298763D3-85F4-4BC0-9F3D-0CC714844FD5";
+				PROVISIONING_PROFILE = "183ed4de-b570-4b8a-a197-ca037352ba9c";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) ../SFLibraries/** Vendor/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1168,7 +1168,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "298763D3-85F4-4BC0-9F3D-0CC714844FD5";
+				PROVISIONING_PROFILE = "183ed4de-b570-4b8a-a197-ca037352ba9c";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) ../SFLibraries/** Vendor/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
