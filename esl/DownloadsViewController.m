@@ -205,7 +205,7 @@
         downloadPercentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [cell insertSubview:downloadPercentView belowSubview:cell.contentView];
         
-        [cell sf_addBottomLineWithColor:[UIColor sf_colorWithIntegerRed:0 green:0 blue:0 alpha:10]];
+        [cell sf_addBottomLineWithColor:[UIColor sf_colorWithRed:0 green:0 blue:0 alpha:10]];
     } else {
         downloadPercentView = (id)[cell viewWithTag:1001];
     }
@@ -230,9 +230,9 @@
                 downloadPercentView.hidden = NO;
                 
                 if (downloadState == SFDownloadStateErrored || downloadState == SFDownloadStatePaused) {
-                    downloadPercentView.backgroundColor = [UIColor sf_colorWithIntegerRed:255 green:0 blue:0 alpha:72];
+                    downloadPercentView.backgroundColor = [UIColor sf_colorWithRed:255 green:0 blue:0 alpha:72];
                 } else {
-                    downloadPercentView.backgroundColor = [UIColor sf_colorWithIntegerRed:0 green:255 blue:0 alpha:27];
+                    downloadPercentView.backgroundColor = [UIColor sf_colorWithRed:0 green:255 blue:0 alpha:27];
                 }
                 
                 float percent = [[ESSoundDownloadManager sharedManager] downloadedPercentForEpisode:episode];
