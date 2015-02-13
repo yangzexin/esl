@@ -83,7 +83,7 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
 //                                      ];
 //    
 //    self.window.rootViewController = tabController;
-    
+//    
 //    SFCompatibleTabController *tabBarController = [SFCompatibleTabController new];
 //    tabBarController.viewControllers = @[
 //                                         [ESUIDefaults navigationControllerWithRootViewController:[EpisodesViewController new]]
@@ -138,26 +138,6 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         
         tabBarController;
     });
-    
-//    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-//    NSLog(@"%@", documentPath);
-//    SFMultiThreadFileWriter *fileWriter = [[SFMultiThreadFileWriter alloc] initWithFilePath:[documentPath stringByAppendingPathComponent:@"test.txt"]];
-//    [fileWriter openWithCreatingEmptyFileWithSize:1000000 completion:^(BOOL success) {
-//        [fileWriter writeData:[@"test1" dataUsingEncoding:NSUTF8StringEncoding] offset:10];
-//        [fileWriter writeData:[@"test2" dataUsingEncoding:NSUTF8StringEncoding] offset:900000];
-//        [fileWriter writeData:[@"test0" dataUsingEncoding:NSUTF8StringEncoding] offset:0];
-//    }];
-    
-    
-    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *URLString = @"http://libsyn.com/media/eslpod/EC485.mp3";
-//    NSString *URLString = @"http://images.apple.com/v/start-something-new/a/images/austin_mann_zoom.jpg";
-    NSString *tmpFilePath = [documentPath stringByAppendingPathComponent:[URLString lastPathComponent]];
-    SFPreparedFileWriter *fileWriter = [[SFPreparedFileWriter alloc] initWithFilePath:tmpFilePath];
-    SFMultiThreadURLDownloader *downloader = [[SFMultiThreadURLDownloader alloc] initWithURLString:URLString fileWritable:fileWriter];
-    downloader.delegate = self;
-    [downloader start];
-    [self sf_setAssociatedObject:downloader key:@"downloader"];
     
     return YES;
 }

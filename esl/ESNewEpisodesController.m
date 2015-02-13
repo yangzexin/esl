@@ -15,6 +15,7 @@
 #import "ESLocalEpisodesController.h"
 #import "ESViewEpisodeController.h"
 #import "ESSoundPlayContext.h"
+#import "AppDelegate.h"
 
 @interface ESNewEpisodesController ()
 

@@ -11,7 +11,7 @@
 #import "ESEpisode.h"
 
 #import "NSString+SFJavaLikeStringHandle.h"
-#import "NSObject+SFAddition.h"
+#import "NSObject+SFRuntime.h"
 #import "NSObject+SFObjectRepository.h"
 
 #import "SFRepeatTimer.h"
