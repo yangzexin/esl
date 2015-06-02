@@ -143,12 +143,12 @@
 }
 
 #pragma mark - SFRepositionSupportedObject
-- (BOOL)shouldRemoveFromObjectRepository
+- (BOOL)shouldRemoveDepositable
 {
     return self.sessionUsed && self.executing == NO;
 }
 
-- (void)willRemoveFromObjectRepository
+- (void)depositableWillRemove
 {
     [self cancel];
 }

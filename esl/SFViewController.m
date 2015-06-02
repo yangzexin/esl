@@ -7,9 +7,6 @@
 //
 
 #import "SFViewController.h"
-#import "SFObjectRepository.h"
-#import "SFBlockedBarButtonItem.h"
-#import "SFWaitingIndicator.h"
 
 #pragma mark - SFViewControllerBaseObserverWrapper
 @interface SFViewControllerBaseObserverWrapper : NSObject

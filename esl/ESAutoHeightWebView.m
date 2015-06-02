@@ -8,7 +8,6 @@
 
 #import "ESAutoHeightWebView.h"
 #import "UIWebView+SFAddition.h"
-#import "UIMenuController+SFAddition.h"
 
 @interface ESAutoHeightWebView () <UIWebViewDelegate>
 

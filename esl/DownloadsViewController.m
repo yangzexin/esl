@@ -217,7 +217,7 @@
     @weakify(downloadPercentView);
     @weakify(cell);
     @weakify(self);
-    [cell sf_addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:.50f tick:^{
+    [cell sf_deposit:[SFRepeatTimer timerStartWithTimeInterval:.50f tick:^{
         @strongify(episode);
         @strongify(downloadPercentView);
         @strongify(cell);

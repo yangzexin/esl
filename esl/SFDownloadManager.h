@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SFObjectRepository.h"
+#import "SFDepositable.h"
 #import "SFURLDownloader.h"
 
 typedef NS_ENUM(NSUInteger, SFDownloadState) {

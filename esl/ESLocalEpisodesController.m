@@ -11,7 +11,6 @@
 #import "ESEpisode.h"
 #import "ESESLEpisodeManager.h"
 #import "ESViewEpisodeController.h"
-#import "ESUIDefaults.h"
 
 @interface ESLocalEpisodesController ()
 

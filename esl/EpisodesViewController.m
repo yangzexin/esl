@@ -18,13 +18,9 @@
 #import "SFBlockedBarButtonItem.h"
 #import "SVPullToRefresh.h"
 
-#import "AppDelegate.h"
-
 #import "SFiOSKit.h"
-#import "SFFoundation.h"
 
 #import "ESSoundPlayContext.h"
-#import "ESSoundDownloadManager.h"
 
 @interface EpisodesViewController () <SFImageLabelDelegate>
 

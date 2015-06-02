@@ -68,14 +68,14 @@
     return [self.session isExecuting];
 }
 
-- (void)willRemoveFromObjectRepository
+- (void)depositableWillRemove
 {
-    [self.session willRemoveFromObjectRepository];
+    [self.session depositableWillRemove];
 }
 
-- (BOOL)shouldRemoveFromObjectRepository
+- (BOOL)shouldRemoveDepositable
 {
-    return [self.session shouldRemoveFromObjectRepository];
+    return [self.session shouldRemoveDepositable];
 }
 
 - (void)setParameterWithKey:(NSString *)key value:(NSString *)value

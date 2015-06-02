@@ -8,21 +8,13 @@
 
 #import "AppDelegate.h"
 #import "ESNewEpisodesController.h"
-#import "ESLocalEpisodesController.h"
 #import "EpisodesViewController.h"
 #import "SFSideMenuController.h"
 #import "DownloadsViewController.h"
-#import "SFCompatibleTabController.h"
-#import "LocalEpisodesViewController.h"
-#import "MenuController.h"
-#import "SettingsViewController.h"
 #import "SFSwitchTabController.h"
-
-#import "SFBlockedBarButtonItem.h"
 
 #import "ESUIDefaults.h"
 #import "ESSoundPlayContext.h"
-#import "ESSharedEpisodeManager.h"
 
 #import "UIImage+SFAddition.h"
 
@@ -30,14 +22,9 @@
 #import "SFiOSKit.h"
 #import "SFDownloadManager.h"
 
-#import "SFDict2Object.h"
-#import "ESEpisode.h"
-
 #import "SFURLConnectionSkipableURLDownloader.h"
 #import "SFSingleThreadHandler.h"
 #import "SFFileFragment.h"
-#import "SFPreparedFileWriter.h"
-#import "SFMultiThreadURLDownloader.h"
 
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";

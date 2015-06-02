@@ -9,8 +9,6 @@
 #import "ESUIDefaults.h"
 #import "ESNavigationController.h"
 
-#import "SFiOSKit.h"
-
 @implementation ESUIDefaults
 
 + (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)viewController

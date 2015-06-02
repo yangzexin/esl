@@ -9,7 +9,6 @@
 #import "ESHTTPRequest.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
-#import "NSString+SFAddition.h"
 
 @interface ESHTTPRequest () <ASIHTTPRequestDelegate, ASIProgressDelegate>
 

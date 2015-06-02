@@ -10,10 +10,7 @@
 
 #import "ESEpisode.h"
 
-#import "SFDownloadManager.h"
-
 #import "SFDBCacheManager.h"
-#import "SFBuildInCacheFilters.h"
 
 #import "NSString+SFAddition.h"
 

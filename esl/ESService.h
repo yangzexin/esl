@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFObjectRepository.h"
+#import "SFDepositable.h"
 
 typedef void(^ESServiceCompletion)(id resultObject, NSError *error);
 
-@protocol ESService <SFRepositionSupportedObject>
+@protocol ESService <SFDepositable>
 
 - (void)requestWithCompletion:(ESServiceCompletion)completion;
 - (BOOL)isExecuting;

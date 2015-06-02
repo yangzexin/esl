@@ -8,8 +8,6 @@
 
 #import "MenuController.h"
 
-#import "SFiOSKit.h"
-
 @interface MenuController ()
 
 @property (nonatomic, strong) NSArray *menuItemTitles;

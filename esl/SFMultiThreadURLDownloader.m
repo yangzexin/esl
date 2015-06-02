@@ -99,11 +99,11 @@
     return .0f;
 }
 
-- (void)willRemoveFromObjectRepository
+- (void)depositableWillRemove
 {
 }
 
-- (BOOL)shouldRemoveFromObjectRepository
+- (BOOL)shouldRemoveDepositable
 {
     return NO;
 }

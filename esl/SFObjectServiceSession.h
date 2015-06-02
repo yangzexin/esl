@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFObjectRepository.h"
+#import "SFDepositable.h"
 
 typedef void(^SFRequestProxyCompletion)(id response, NSError *error);
 
@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, SFObjectServiceSessionError) {
 
 @end
 
-@interface SFObjectServiceSession : NSObject <SFRepositionSupportedObject>
+@interface SFObjectServiceSession : NSObject <SFDepositable>
 
 @property (nonatomic, retain) id<SFRequestProxy> requestProxy;
 @property (nonatomic, assign) id<SFObjectServiceSessionDelegate> delegate;

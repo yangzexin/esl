@@ -191,12 +191,12 @@ NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 }
 
 #pragma mark - SFRepositionSupportedObject
-- (BOOL)shouldRemoveFromObjectRepository
+- (BOOL)shouldRemoveDepositable
 {
     return _finished && ![self isDownloading];
 }
 
-- (void)willRemoveFromObjectRepository
+- (void)depositableWillRemove
 {
     [self stop];
 }

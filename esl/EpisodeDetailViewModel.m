@@ -11,16 +11,11 @@
 #import "ESEpisode.h"
 
 #import "NSString+SFJavaLikeStringHandle.h"
-#import "NSObject+SFRuntime.h"
-#import "NSObject+SFObjectRepository.h"
+#import "NSObject+SFDepositable.h"
 
 #import "SFRepeatTimer.h"
 
-#import "ESSoundDownloadManager.h"
-
 #import "ESSoundPlayContext.h"
-
-#import "NSString+SFAddition.h"
 
 NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownloadNotification";
 
@@ -62,7 +57,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
     self.episode = episode;
     
     @weakify(self);
-    [self sf_addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
+    [self sf_deposit:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
         @strongify(self);
         [self _updateStates];
     }] identifier:@"downloadPercentRefreshTimer"];
@@ -209,7 +204,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
             [[ESSoundDownloadManager sharedManager] downloadEpisode:self.episode];
         }
         @weakify(self);
-        [self sf_addRepositionSupportedObject:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
+        [self sf_deposit:[SFRepeatTimer timerStartWithTimeInterval:0.50f tick:^{
             @strongify(self);
             if ([[ESSoundDownloadManager sharedManager] stateForEpisode:self.episode] == SFDownloadStateDownloaded) {
                 [subscriber sendNext:[[ESSoundDownloadManager sharedManager] soundFilePathForEpisode:self.episode]];
@@ -221,7 +216,7 @@ NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownl
         }] identifier:@"CheckDownloadStateTimer"];
         return [RACDisposable disposableWithBlock:^{
             @strongify(self);
-            [self sf_removeRepositionSupportedObjectWithIdentifier:@"CheckDownloadStateTimer"];
+            [self sf_removeDepositableWithIdentifier:@"CheckDownloadStateTimer"];
         }];
     }];
     return _downloadSignal;

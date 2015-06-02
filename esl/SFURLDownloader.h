@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFObjectRepository.h"
+#import "SFDepositable.h"
 
 @protocol SFURLDownloaderDelegate;
 
-@protocol SFURLDownloader <SFRepositionSupportedObject>
+@protocol SFURLDownloader <SFDepositable>
 
 @property (nonatomic, weak) id<SFURLDownloaderDelegate> delegate;
 

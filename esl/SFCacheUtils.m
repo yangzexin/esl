@@ -7,7 +7,6 @@
 //
 
 #import "SFCacheUtils.h"
-#import "SFCacheManager.h"
 
 @implementation SFCacheUtils
 

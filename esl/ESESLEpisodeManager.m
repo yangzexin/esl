@@ -12,12 +12,12 @@
 #import "ESHTTPRequest.h"
 #import "ESServiceSession.h"
 #import "NSString+SFAddition.h"
-#import "SFSharedCache.h"
 #import "ESEpisode.h"
 #import "SFObject2Dict.h"
 #import "SFDict2Object.h"
 #import "SFBuildInCacheFilters.h"
 #import "ESEpisodeService.h"
+#import "NSObject+SFRuntime.h"
 
 NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
 
@@ -180,6 +180,7 @@ NSString *const downloadedEpisodesCacheIdentifier = @"downloaded_episodes";
             [weakSelf addDownloadedEpisode:episode];
         }
     }];
+
     return session;
 }
 

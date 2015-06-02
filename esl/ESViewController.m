@@ -8,12 +8,12 @@
 
 #import "ESViewController.h"
 #import <objc/runtime.h>
+#import "SFFoundation.h"
 #import "SFiOSKit.h"
 #import "AppDelegate.h"
 
 @interface ESViewController ()
 
-@property (nonatomic, strong) SFObjectRepository *objectRepository;
 @property (nonatomic, strong) NSMutableDictionary *keyIdentifierValueService;
 
 @end
@@ -23,14 +23,6 @@
 - (void)dealloc
 {
     NSLog(@"%@ dealloc", NSStringFromClass([self class]));
-}
-
-- (SFObjectRepository *)objectRepository
-{
-    if (_objectRepository == nil) {
-        _objectRepository = [SFObjectRepository new];
-    }
-    return _objectRepository;
 }
 
 - (NSMutableDictionary *)keyIdentifierValueService
@@ -74,11 +66,7 @@
 - (void)requestService:(id<ESService>)service identifier:(NSString *)identifier completion:(ESServiceCompletion)completion
 {
     if (service) {
-        if (identifier) {
-            [self stopRequestingServiceWithIdnentifier:identifier];
-            [self.keyIdentifierValueService setObject:service forKey:identifier];
-        }
-        [self.objectRepository addObject:service];
+        [self sf_deposit:service identifier:identifier];
         [service requestWithCompletion:completion];
     } else {
         if (completion) {

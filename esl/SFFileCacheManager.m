@@ -8,7 +8,6 @@
 
 #import "SFFileCacheManager.h"
 #import "SFCacheUtils.h"
-#import "SFFileCache.h"
 
 @interface SFFileCacheManager ()
 

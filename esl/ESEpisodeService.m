@@ -178,10 +178,11 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
             episodeDescriptionBeginIndex += episodeDescriptionMatching.length;
             NSInteger episodeDescriptionEndIndex = [responseString sf_find:@"<br>" fromIndex:episodeDescriptionBeginIndex];
             NSString *episodeDescription = [responseString sf_substringWithBeginIndex:episodeDescriptionBeginIndex endIndex:episodeDescriptionEndIndex];
-            episodeDescription = [episodeDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             episodeDescription = [episodeDescription stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             episodeDescription = [episodeDescription stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-            episode.introdution = [episodeDescription sf_stringByStrippingHTMLTags];
+            episodeDescription = [episodeDescription sf_stringByStrippingHTMLTags];
+            episodeDescription = [episodeDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            episode.introdution = episodeDescription;
             episode.formattedIntrodution = episodeDescription;
             currentIndex = episodeDescriptionEndIndex;
         }
@@ -216,12 +217,12 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
     [self.session cancel];
 }
 
-- (BOOL)shouldRemoveFromObjectRepository
+- (BOOL)shouldRemoveDepositable
 {
     return [self isExecuting] == NO;
 }
 
-- (void)willRemoveFromObjectRepository
+- (void)depositableWillRemove
 {
     [self cancel];
 }
