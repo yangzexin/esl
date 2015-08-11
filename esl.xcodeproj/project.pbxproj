@@ -60,11 +60,6 @@
 		3E98E116181A01B000AF8C7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E115181A01B000AF8C7F /* main.m */; };
 		3E98E11A181A01B000AF8C7F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E119181A01B000AF8C7F /* AppDelegate.m */; };
 		3E98E11C181A01B000AF8C7F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E98E11B181A01B000AF8C7F /* Images.xcassets */; };
-		3E98E123181A01B000AF8C7F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E122181A01B000AF8C7F /* XCTest.framework */; };
-		3E98E124181A01B000AF8C7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E109181A01B000AF8C7F /* Foundation.framework */; };
-		3E98E125181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
-		3E98E12D181A01B000AF8C7F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E98E12B181A01B000AF8C7F /* InfoPlist.strings */; };
-		3E98E12F181A01B000AF8C7F /* eslTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E12E181A01B000AF8C7F /* eslTests.m */; };
 		3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E13A181A024100AF8C7F /* ESNewEpisodesController.m */; };
 		3E98E13E181A02A900AF8C7F /* ESViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E13D181A02A900AF8C7F /* ESViewController.m */; };
 		3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E140181A04D600AF8C7F /* ESTableViewController.m */; };
@@ -77,19 +72,18 @@
 		3E98E161181A065100AF8C7F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E160181A065100AF8C7F /* CoreLocation.framework */; };
 		3E98E163181A065700AF8C7F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E162181A065700AF8C7F /* CFNetwork.framework */; };
 		3E98E167181A075800AF8C7F /* ESUIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E166181A075800AF8C7F /* ESUIDefaults.m */; };
-		3E98E168181A075800AF8C7F /* ESUIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E166181A075800AF8C7F /* ESUIDefaults.m */; };
 		3E98E16C181A087700AF8C7F /* ESEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E16B181A087700AF8C7F /* ESEpisode.m */; };
-		3E98E16D181A087700AF8C7F /* ESEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E16B181A087700AF8C7F /* ESEpisode.m */; };
 		3E98E197181B6DE300AF8C7F /* ESServiceSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E196181B6DE300AF8C7F /* ESServiceSession.m */; };
 		3E98E19C181B6E7400AF8C7F /* ESHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E19B181B6E7400AF8C7F /* ESHTTPRequest.m */; };
 		3E98E1A8181CADDA00AF8C7F /* ESESLEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */; };
 		3E98E1AE181CB19300AF8C7F /* ESRequestProxyWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */; };
+		3EB72E671B79CA6300BFA724 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB72E661B79CA6300BFA724 /* ODRefreshControl.m */; };
+		3EB72E691B79CA8100BFA724 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB72E681B79CA8100BFA724 /* ImageIO.framework */; };
 		3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */; };
 		3EC7F555192506910079B40F /* ShowSideMenuImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EC7F554192506910079B40F /* ShowSideMenuImage.xib */; };
 		3ECA51FD181B474F00740EAF /* ESService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA51FC181B474F00740EAF /* ESService.m */; };
 		3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5205181C168400740EAF /* ESEpisodeService.m */; };
 		3ECA5215181D00C100740EAF /* ESLocalEpisodesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */; };
-		3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECA521F181EB5F800740EAF /* ODRefreshControl.m */; };
 		3EF0F05D182A1E430032DC7F /* ESEnglishpodManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */; };
 		3EF0F060182A1EA80032DC7F /* ESSharedEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F05F182A1EA80032DC7F /* ESSharedEpisodeManager.m */; };
 		3EF0F063182A1EE60032DC7F /* ESEpisodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0F062182A1EE60032DC7F /* ESEpisodeManager.m */; };
@@ -124,13 +118,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 3ED59DB91828D33A002531DD;
 			remoteInfo = SFiOSKit;
-		};
-		3E98E126181A01B000AF8C7F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3E98E0FE181A01B000AF8C7F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3E98E105181A01B000AF8C7F;
-			remoteInfo = esl;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -235,11 +222,7 @@
 		3E98E118181A01B000AF8C7F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3E98E119181A01B000AF8C7F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3E98E11B181A01B000AF8C7F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3E98E121181A01B000AF8C7F /* eslTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eslTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E98E122181A01B000AF8C7F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		3E98E12A181A01B000AF8C7F /* eslTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "eslTests-Info.plist"; sourceTree = "<group>"; };
-		3E98E12C181A01B000AF8C7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3E98E12E181A01B000AF8C7F /* eslTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eslTests.m; sourceTree = "<group>"; };
 		3E98E139181A024100AF8C7F /* ESNewEpisodesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNewEpisodesController.h; sourceTree = "<group>"; };
 		3E98E13A181A024100AF8C7F /* ESNewEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESNewEpisodesController.m; sourceTree = "<group>"; };
 		3E98E13C181A02A900AF8C7F /* ESViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewController.h; sourceTree = "<group>"; };
@@ -266,6 +249,9 @@
 		3E98E1A7181CADDA00AF8C7F /* ESESLEpisodeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESESLEpisodeManager.m; sourceTree = "<group>"; };
 		3E98E1AC181CB19300AF8C7F /* ESRequestProxyWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRequestProxyWrapper.h; sourceTree = "<group>"; };
 		3E98E1AD181CB19300AF8C7F /* ESRequestProxyWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRequestProxyWrapper.m; sourceTree = "<group>"; };
+		3EB72E651B79CA6300BFA724 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		3EB72E661B79CA6300BFA724 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		3EB72E681B79CA8100BFA724 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3EC70D0E18EE8A6A00DA777A /* ESSoundDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSoundDownloadManager.h; sourceTree = "<group>"; };
 		3EC70D0F18EE8A6A00DA777A /* ESSoundDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESSoundDownloadManager.m; sourceTree = "<group>"; };
 		3EC7F554192506910079B40F /* ShowSideMenuImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowSideMenuImage.xib; sourceTree = "<group>"; };
@@ -275,8 +261,6 @@
 		3ECA5205181C168400740EAF /* ESEpisodeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEpisodeService.m; sourceTree = "<group>"; };
 		3ECA5213181D00C100740EAF /* ESLocalEpisodesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLocalEpisodesController.h; sourceTree = "<group>"; };
 		3ECA5214181D00C100740EAF /* ESLocalEpisodesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocalEpisodesController.m; sourceTree = "<group>"; };
-		3ECA521E181EB5F800740EAF /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODRefreshControl.h; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.h; sourceTree = "<group>"; };
-		3ECA521F181EB5F800740EAF /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODRefreshControl.m; path = Vendor/ODRefreshControl/ODRefreshControl/ODRefreshControl.m; sourceTree = "<group>"; };
 		3EE19A4B19F1EAA600A93BE0 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		3EF0F05B182A1E430032DC7F /* ESEnglishpodManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESEnglishpodManager.h; sourceTree = "<group>"; };
 		3EF0F05C182A1E430032DC7F /* ESEnglishpodManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESEnglishpodManager.m; sourceTree = "<group>"; };
@@ -322,6 +306,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EB72E691B79CA8100BFA724 /* ImageIO.framework in Frameworks */,
 				3E690417191294600099E71D /* libc++.dylib in Frameworks */,
 				3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */,
 				3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */,
@@ -338,16 +323,6 @@
 				3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */,
 				3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */,
 				3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E98E11E181A01B000AF8C7F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E98E123181A01B000AF8C7F /* XCTest.framework in Frameworks */,
-				3E98E125181A01B000AF8C7F /* UIKit.framework in Frameworks */,
-				3E98E124181A01B000AF8C7F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,7 +495,6 @@
 				3E98E10F181A01B000AF8C7F /* esl */,
 				3ECA520D181CA92300740EAF /* Vendor */,
 				3E98E145181A054700AF8C7F /* Dependencies */,
-				3E98E128181A01B000AF8C7F /* eslTests */,
 				3E98E108181A01B000AF8C7F /* Frameworks */,
 				3E98E107181A01B000AF8C7F /* Products */,
 				7C4D3840D369E96CB12AEFE5 /* Pods */,
@@ -531,7 +505,6 @@
 			isa = PBXGroup;
 			children = (
 				3E98E106181A01B000AF8C7F /* esl.app */,
-				3E98E121181A01B000AF8C7F /* eslTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -539,6 +512,7 @@
 		3E98E108181A01B000AF8C7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EB72E681B79CA8100BFA724 /* ImageIO.framework */,
 				3EE19A4B19F1EAA600A93BE0 /* libstdc++.dylib */,
 				3E690416191294600099E71D /* libc++.dylib */,
 				3E2AE564181D40BF001AAE9D /* AVFoundation.framework */,
@@ -592,24 +566,6 @@
 				3E98E112181A01B000AF8C7F /* InfoPlist.strings */,
 				3E98E115181A01B000AF8C7F /* main.m */,
 				3E98E117181A01B000AF8C7F /* esl-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		3E98E128181A01B000AF8C7F /* eslTests */ = {
-			isa = PBXGroup;
-			children = (
-				3E98E12E181A01B000AF8C7F /* eslTests.m */,
-				3E98E129181A01B000AF8C7F /* Supporting Files */,
-			);
-			path = eslTests;
-			sourceTree = "<group>";
-		};
-		3E98E129181A01B000AF8C7F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3E98E12A181A01B000AF8C7F /* eslTests-Info.plist */,
-				3E98E12B181A01B000AF8C7F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -672,23 +628,24 @@
 			name = Service;
 			sourceTree = "<group>";
 		};
+		3EB72E641B79CA6300BFA724 /* ODRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				3EB72E651B79CA6300BFA724 /* ODRefreshControl.h */,
+				3EB72E661B79CA6300BFA724 /* ODRefreshControl.m */,
+			);
+			name = ODRefreshControl;
+			path = Vendor/ODRefreshControl;
+			sourceTree = "<group>";
+		};
 		3ECA520D181CA92300740EAF /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				3EB72E641B79CA6300BFA724 /* ODRefreshControl */,
 				3E09513719D1040700699141 /* SVPullToRefresh */,
 				3EF77C671855CE8500B95134 /* asi-http-request */,
-				3ECA521D181EB5EB00740EAF /* ODRefreshControl */,
 			);
 			name = Vendor;
-			sourceTree = "<group>";
-		};
-		3ECA521D181EB5EB00740EAF /* ODRefreshControl */ = {
-			isa = PBXGroup;
-			children = (
-				3ECA521E181EB5F800740EAF /* ODRefreshControl.h */,
-				3ECA521F181EB5F800740EAF /* ODRefreshControl.m */,
-			);
-			name = ODRefreshControl;
 			sourceTree = "<group>";
 		};
 		3EF0F06C182A1F670032DC7F /* ESEpisodeManager */ = {
@@ -781,24 +738,6 @@
 			productReference = 3E98E106181A01B000AF8C7F /* esl.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3E98E120181A01B000AF8C7F /* eslTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3E98E135181A01B000AF8C7F /* Build configuration list for PBXNativeTarget "eslTests" */;
-			buildPhases = (
-				3E98E11D181A01B000AF8C7F /* Sources */,
-				3E98E11E181A01B000AF8C7F /* Frameworks */,
-				3E98E11F181A01B000AF8C7F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3E98E127181A01B000AF8C7F /* PBXTargetDependency */,
-			);
-			name = eslTests;
-			productName = eslTests;
-			productReference = 3E98E121181A01B000AF8C7F /* eslTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -815,9 +754,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					3E98E120181A01B000AF8C7F = {
-						TestTargetID = 3E98E105181A01B000AF8C7F;
 					};
 				};
 			};
@@ -844,7 +780,6 @@
 			projectRoot = "";
 			targets = (
 				3E98E105181A01B000AF8C7F /* esl */,
-				3E98E120181A01B000AF8C7F /* eslTests */,
 			);
 		};
 /* End PBXProject section */
@@ -880,14 +815,6 @@
 				3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */,
 				3EC7F555192506910079B40F /* ShowSideMenuImage.xib in Resources */,
 				3EF0F077182A38F60032DC7F /* icon_local_list@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3E98E11F181A01B000AF8C7F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E98E12D181A01B000AF8C7F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -966,7 +893,6 @@
 				3E25EDF01A1052740084B0AB /* SFCacheUtils.m in Sources */,
 				3EC70D1018EE8A6A00DA777A /* ESSoundDownloadManager.m in Sources */,
 				3E98E141181A04D600AF8C7F /* ESTableViewController.m in Sources */,
-				3ECA5220181EB5F800740EAF /* ODRefreshControl.m in Sources */,
 				3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */,
 				3E98E13B181A024100AF8C7F /* ESNewEpisodesController.m in Sources */,
 				3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */,
@@ -999,43 +925,18 @@
 				3E72472318ED01AD0055EB66 /* EpisodeDetailViewModel.m in Sources */,
 				3ECA5206181C168400740EAF /* ESEpisodeService.m in Sources */,
 				3E72473218ED205E0055EB66 /* LocalEpisodesViewController.m in Sources */,
+				3EB72E671B79CA6300BFA724 /* ODRefreshControl.m in Sources */,
 				3EF77C821855CE8500B95134 /* ASIDataDecompressor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3E98E11D181A01B000AF8C7F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3E98E12F181A01B000AF8C7F /* eslTests.m in Sources */,
-				3E98E16D181A087700AF8C7F /* ESEpisode.m in Sources */,
-				3E98E168181A075800AF8C7F /* ESUIDefaults.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3E98E127181A01B000AF8C7F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3E98E105181A01B000AF8C7F /* esl */;
-			targetProxy = 3E98E126181A01B000AF8C7F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3E98E112181A01B000AF8C7F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3E98E113181A01B000AF8C7F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		3E98E12B181A01B000AF8C7F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3E98E12C181A01B000AF8C7F /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1134,6 +1035,7 @@
 				);
 				INFOPLIST_FILE = "esl/esl-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1163,6 +1065,7 @@
 				);
 				INFOPLIST_FILE = "esl/esl-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1172,46 +1075,6 @@
 				USER_HEADER_SEARCH_PATHS = "$(inherited) ../SFLibraries/** Vendor/**";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		3E98E136181A01B000AF8C7F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/esl.app/esl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "esl/esl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "eslTests/eslTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		3E98E137181A01B000AF8C7F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/esl.app/esl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "esl/esl-Prefix.pch";
-				INFOPLIST_FILE = "eslTests/eslTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1232,15 +1095,6 @@
 			buildConfigurations = (
 				3E98E133181A01B000AF8C7F /* Debug */,
 				3E98E134181A01B000AF8C7F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3E98E135181A01B000AF8C7F /* Build configuration list for PBXNativeTarget "eslTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3E98E136181A01B000AF8C7F /* Debug */,
-				3E98E137181A01B000AF8C7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
