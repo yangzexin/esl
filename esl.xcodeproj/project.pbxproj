@@ -43,7 +43,6 @@
 		3E40641718E4668A006B2B12 /* EpisodesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40641618E4668A006B2B12 /* EpisodesViewModel.m */; };
 		3E48D4E61912764500548FAB /* ESNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4E51912764500548FAB /* ESNavigationController.m */; };
 		3E48D4EF1912930900548FAB /* SFDBCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E48D4EE1912930900548FAB /* SFDBCacheManager.m */; };
-		3E5B786E191E461B000634A7 /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E5B786D191E461B000634A7 /* logo.gif */; };
 		3E690417191294600099E71D /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E690416191294600099E71D /* libc++.dylib */; };
 		3E69041C191298B50099E71D /* SFDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E69041B191298B50099E71D /* SFDownloadManager.m */; };
 		3E72471E18ED003A0055EB66 /* EpisodeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72471D18ED003A0055EB66 /* EpisodeDetailViewController.m */; };
@@ -193,7 +192,6 @@
 		3E48D4E51912764500548FAB /* ESNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESNavigationController.m; sourceTree = "<group>"; };
 		3E48D4ED1912930900548FAB /* SFDBCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDBCacheManager.h; sourceTree = "<group>"; };
 		3E48D4EE1912930900548FAB /* SFDBCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDBCacheManager.m; sourceTree = "<group>"; };
-		3E5B786D191E461B000634A7 /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
 		3E690416191294600099E71D /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		3E69041A191298B50099E71D /* SFDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDownloadManager.h; sourceTree = "<group>"; };
 		3E69041B191298B50099E71D /* SFDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDownloadManager.m; sourceTree = "<group>"; };
@@ -666,7 +664,6 @@
 		3EF0F071182A38EC0032DC7F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3E5B786D191E461B000634A7 /* logo.gif */,
 				3EF0F072182A38F60032DC7F /* icon_local_list.png */,
 				3EF0F073182A38F60032DC7F /* icon_local_list@2x.png */,
 				3EF0F074182A38F60032DC7F /* icon_news_list.png */,
@@ -811,7 +808,6 @@
 				3E98E114181A01B000AF8C7F /* InfoPlist.strings in Resources */,
 				3E98E11C181A01B000AF8C7F /* Images.xcassets in Resources */,
 				3EF0F079182A38F60032DC7F /* icon_news_list@2x.png in Resources */,
-				3E5B786E191E461B000634A7 /* logo.gif in Resources */,
 				3E2AE579181E3C43001AAE9D /* ApplicationKeeper.mp3 in Resources */,
 				3EC7F555192506910079B40F /* ShowSideMenuImage.xib in Resources */,
 				3EF0F077182A38F60032DC7F /* icon_local_list@2x.png in Resources */,

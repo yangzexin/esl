@@ -304,6 +304,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [webView sf_disableWebViewContextMenu];
     if (self.updatingHTML) {
         self.textView.alpha = .0f;
         [SFWaitingIndicator showLoading:NO inView:self.textView transparentBackground:NO identifier:@"loadingHTML"];

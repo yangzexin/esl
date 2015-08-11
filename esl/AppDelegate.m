@@ -26,6 +26,8 @@
 #import "SFSingleThreadHandler.h"
 #import "SFFileFragment.h"
 
+#import "SettingsViewController.h"
+
 NSString *const ESEnableSideMenuGestureNotification = @"ESEnableSideMenuGestureNotification";
 NSString *const ESDisableSideMenuGestureNotification = @"ESDisableSideMenuGestureNotification";
 NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
@@ -119,12 +121,18 @@ NSString *const ESShowSideMenuNotification = @"ESShowSideMenuNotification";
         DownloadsViewController *downloadsViewController = [DownloadsViewController new];
         downloadsViewController.tabBarItem.image = [UIImage imageNamed:@"icon_local_list"];
         
+        SettingsViewController *settingsViewController = [SettingsViewController new];
+        settingsViewController.tabBarItem.image = [@"⎈" sf_imageWithFont:[UIFont systemFontOfSize:40.0f] textColor:[UIColor whiteColor]];
+        
         tabBarController.viewControllers = @[[ESUIDefaults navigationControllerWithRootViewController:episodesViewController]
                                              , [ESUIDefaults navigationControllerWithRootViewController:downloadsViewController]
+                                             , [ESUIDefaults navigationControllerWithRootViewController:settingsViewController]
                                              ];
         
         tabBarController;
     });
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     return YES;
 }
