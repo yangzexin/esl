@@ -8,10 +8,6 @@
 
 #import "ESEpisode.h"
 
-#import "SFImageLabel.h"
-
-#import "SFFoundation.h"
-
 @implementation ESEpisode {
     SFImageLabelText *_titleFormatted;
 }

@@ -8,13 +8,9 @@
 
 #import "DownloadsViewController.h"
 
-#import "SFFoundation.h"
-
 #import "ESEpisode.h"
 
 #import "ESSoundDownloadManager.h"
-
-#import "SFiOSKit.h"
 
 #import "EpisodeDetailViewController.h"
 

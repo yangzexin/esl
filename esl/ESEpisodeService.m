@@ -7,12 +7,11 @@
 //
 
 #import "ESEpisodeService.h"
+
 #import "ESServiceSession.h"
 #import "ESHTTPRequest.h"
 #import "SFSharedCache.h"
-#import "NSString+SFJavaLikeStringHandle.h"
 #import "ESEpisode.h"
-#import "NSString+SFAddition.h"
 #import "SFBuildInCacheFilters.h"
 
 NSString *ESEpisodeDidUpdateNotification = @"ESEpisodeDidUpdateNotification";
@@ -92,8 +91,9 @@ NSString *kEpisodesContentPrefixURLString = @"http://www.eslpod.com/website/";
                                                      useHTTPPost:NO];
     __weak typeof(self) weakSelf = self;
     [request setResponseDataWrapper:^id(NSData *data) {
-        NSString *string = [[NSString alloc] initWithData:data encoding:NSWindowsCP1252StringEncoding];
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSWindowsCP1251StringEncoding];
         [weakSelf _storeCacheData:string];
+        
         return string;
     }];
     self.session = [ESServiceSession sessionWithRequestProxy:request responseProcessor:^id(id response, NSError *__autoreleasing *error) {

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "SFFileWritable.h"
-#import "SFCancellable.h"
 
 @interface SFPreparedFileWriter : NSObject <SFPreparedFileWritable>
 

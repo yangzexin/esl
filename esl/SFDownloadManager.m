@@ -7,8 +7,6 @@
 //
 
 #import "SFDownloadManager.h"
-#import "NSString+SFAddition.h"
-#import "NSData+SFAddition.h"
 
 @interface SFDownloadItem ()
 

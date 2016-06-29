@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "SFURLDownloader.h"
-#import "SFCancellable.h"
 #import "SFFileWritable.h"
 
 @interface SFMultiThreadURLDownloader : NSObject <SFURLDownloader>

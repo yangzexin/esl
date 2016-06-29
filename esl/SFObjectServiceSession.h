@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFDepositable.h"
 
 typedef void(^SFRequestProxyCompletion)(id response, NSError *error);
 

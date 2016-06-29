@@ -7,7 +7,6 @@
 //
 
 #import "PlayerStatusView.h"
-#import "NSString+SFiOSAddition.h"
 
 @interface PlayerStatusView ()
 

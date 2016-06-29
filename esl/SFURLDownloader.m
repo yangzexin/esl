@@ -7,8 +7,8 @@
 //
 
 #import "SFURLDownloader.h"
+
 #import "SFFileWriter.h"
-#import "NSString+SFAddition.h"
 
 NSInteger const SFURLDownloaderErrorCodeResumingFail = -100001;
 

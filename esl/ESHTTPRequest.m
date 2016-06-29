@@ -35,6 +35,7 @@
     ESHTTPRequest *adapter = [ESHTTPRequest new];
     adapter.URLString = URLString;
     adapter.useHTTPPost = useHTTPPost;
+    
     return adapter;
 }
 
@@ -69,6 +70,7 @@
     for (NSString *key in [parameters allKeys]) {
         [request setPostValue:[parameters valueForKey:key] forKey:key];
     }
+    
     return request;
 }
 

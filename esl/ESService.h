@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SFDepositable.h"
 
 typedef void(^ESServiceCompletion)(id resultObject, NSError *error);
 

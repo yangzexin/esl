@@ -12,13 +12,9 @@
 
 #import "SFDBCacheManager.h"
 
-#import "NSString+SFAddition.h"
-
 #import <Objective-LevelDB/LevelDB.h>
 
 #import "AppDelegate+SharedUtils.h"
-
-#import "SFFoundation.h"
 
 NSString *const ESSoundDownloadManagerDidFinishDownloadEpisodeNotification = @"ESSoundDownloadManagerDidFinishDownloadEpisodeNotification";
 

@@ -7,7 +7,6 @@
 //
 
 #import "SFFileCache.h"
-#import "NSString+SFAddition.h"
 
 @interface SFFileCache ()
 

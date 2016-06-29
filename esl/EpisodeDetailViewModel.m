@@ -10,11 +10,6 @@
 
 #import "ESEpisode.h"
 
-#import "NSString+SFJavaLikeStringHandle.h"
-#import "NSObject+SFDepositable.h"
-
-#import "SFRepeatTimer.h"
-
 #import "ESSoundPlayContext.h"
 
 NSString *const ESEpisodeDidStartDownloadNotification = @"ESEpisodeDidStartDownloadNotification";
