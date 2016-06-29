@@ -11,7 +11,6 @@
 		3E08069418FAB803003C2AC0 /* SFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E08069318FAB803003C2AC0 /* SFViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3E09513D19D1040700699141 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E09513A19D1040700699141 /* UIScrollView+SVInfiniteScrolling.m */; };
 		3E09513E19D1040700699141 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E09513C19D1040700699141 /* UIScrollView+SVPullToRefresh.m */; };
-		3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E105E821856D9FB007326BE /* libSFFoundation.a */; };
 		3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E105E891856D9FD007326BE /* libSFiOSKit.a */; };
 		3E19D65D1831D1A90048A788 /* ESAutoHeightWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */; };
 		3E19D66A1831FC990048A788 /* ESHighlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E19D6691831FC990048A788 /* ESHighlightManager.m */; };
@@ -52,6 +51,7 @@
 		3E72473218ED205E0055EB66 /* LocalEpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72473118ED205E0055EB66 /* LocalEpisodesViewController.m */; };
 		3E72473518ED209E0055EB66 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E72473418ED209E0055EB66 /* SettingsViewController.m */; };
 		3E84594718F4F9A10045FFAF /* BaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E84594618F4F9A10045FFAF /* BaseViewModel.m */; };
+		3E8C69CF1D240AC500922C89 /* libSFFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E8C69CE1D240AC500922C89 /* libSFFoundation.a */; };
 		3E98E10A181A01B000AF8C7F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E109181A01B000AF8C7F /* Foundation.framework */; };
 		3E98E10C181A01B000AF8C7F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */; };
 		3E98E10E181A01B000AF8C7F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E98E10D181A01B000AF8C7F /* UIKit.framework */; };
@@ -104,13 +104,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3E105E811856D9FB007326BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3EC67D611828D10000B6190E;
-			remoteInfo = SFFoundation;
-		};
 		3E105E881856D9FD007326BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */;
@@ -130,7 +123,6 @@
 		3E09513A19D1040700699141 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		3E09513B19D1040700699141 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		3E09513C19D1040700699141 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFFoundation.xcodeproj; path = ../../SFLibraries/SFFoundation/SFFoundation.xcodeproj; sourceTree = "<group>"; };
 		3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFiOSKit.xcodeproj; path = ../../SFLibraries/SFiOSKit/SFiOSKit.xcodeproj; sourceTree = "<group>"; };
 		3E19D65B1831D1A90048A788 /* ESAutoHeightWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAutoHeightWebView.h; sourceTree = "<group>"; };
 		3E19D65C1831D1A90048A788 /* ESAutoHeightWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAutoHeightWebView.m; sourceTree = "<group>"; };
@@ -209,6 +201,7 @@
 		3E72473418ED209E0055EB66 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3E84594518F4F9A10045FFAF /* BaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewModel.h; sourceTree = "<group>"; };
 		3E84594618F4F9A10045FFAF /* BaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewModel.m; sourceTree = "<group>"; };
+		3E8C69CE1D240AC500922C89 /* libSFFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSFFoundation.a; path = "../SFLibraries/SFFoundation/build/Debug-iphoneos/libSFFoundation.a"; sourceTree = "<group>"; };
 		3E98E106181A01B000AF8C7F /* esl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = esl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E98E109181A01B000AF8C7F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3E98E10B181A01B000AF8C7F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -304,9 +297,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8C69CF1D240AC500922C89 /* libSFFoundation.a in Frameworks */,
 				3EB72E691B79CA8100BFA724 /* ImageIO.framework in Frameworks */,
 				3E690417191294600099E71D /* libc++.dylib in Frameworks */,
-				3E105E8A1856DA08007326BE /* libSFFoundation.a in Frameworks */,
 				3E105E8B1856DA08007326BE /* libSFiOSKit.a in Frameworks */,
 				73F77C77737E43BEABCE884F /* libPods.a in Frameworks */,
 				3E2AE565181D40BF001AAE9D /* AVFoundation.framework in Frameworks */,
@@ -338,14 +331,6 @@
 			);
 			name = SVPullToRefresh;
 			path = Vendor/SVPullToRefresh;
-			sourceTree = "<group>";
-		};
-		3E105E7E1856D9FB007326BE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3E105E821856D9FB007326BE /* libSFFoundation.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3E105E841856D9FD007326BE /* Products */ = {
@@ -510,6 +495,7 @@
 		3E98E108181A01B000AF8C7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E8C69CE1D240AC500922C89 /* libSFFoundation.a */,
 				3EB72E681B79CA8100BFA724 /* ImageIO.framework */,
 				3EE19A4B19F1EAA600A93BE0 /* libstdc++.dylib */,
 				3E690416191294600099E71D /* libc++.dylib */,
@@ -592,7 +578,6 @@
 			isa = PBXGroup;
 			children = (
 				3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */,
-				3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */,
 			);
 			name = Dependencies;
 			path = esl;
@@ -766,10 +751,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3E105E7E1856D9FB007326BE /* Products */;
-					ProjectRef = 3E105E7D1856D9FB007326BE /* SFFoundation.xcodeproj */;
-				},
-				{
 					ProductGroup = 3E105E841856D9FD007326BE /* Products */;
 					ProjectRef = 3E105E831856D9FD007326BE /* SFiOSKit.xcodeproj */;
 				},
@@ -782,13 +763,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3E105E821856D9FB007326BE /* libSFFoundation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSFFoundation.a;
-			remoteRef = 3E105E811856D9FB007326BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		3E105E891856D9FD007326BE /* libSFiOSKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
