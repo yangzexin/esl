@@ -93,7 +93,7 @@
     showSideMenuImage.opaque = NO;
     UIImage *image = [showSideMenuImage sf_toImageLegacy];
     self.navigationItem.leftBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithCustomView:({
-        SFBlockedButton *button = [SFBlockedButton blockedButtonWithTapHandler:^{
+        SFBlockedButton *button = [SFBlockedButton blockedButtonWithTap:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:ESShowSideMenuNotification object:nil];
         }];
         [button setImage:image forState:UIControlStateNormal];

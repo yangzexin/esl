@@ -27,7 +27,7 @@
     self.title = @"My Episodes";
     
     __weak typeof(self) weakSelf = self;
-    self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemDone eventHandler:^{
+    self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemDone tap:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     }];
 }
@@ -51,7 +51,7 @@
     ESViewEpisodeController *controller = [ESViewEpisodeController viewEpisodeControllerWithEpisode:episode];
     controller.episodeManager = [ESESLEpisodeManager sharedManager];
     __weak typeof(self) weakSelf = self;
-    controller.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemDone eventHandler:^{
+    controller.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemDone tap:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     }];
     [self.navigationController pushViewController:controller animated:YES];

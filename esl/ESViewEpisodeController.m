@@ -121,23 +121,23 @@
 {
     NSMutableArray *toolbarItems = [NSMutableArray array];
     
-    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
+    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace tap:nil]];
     if (self.playing == NO
         || self.paused == YES
         || (self.playing == YES && ![[ESSoundPlayContext sharedContext].playingEpisode.uid isEqualToString:self.episode.uid])) {
         __weak typeof(self) weakSelf = self;
-        self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemPlay eventHandler:^{
+        self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemPlay tap:^{
             [weakSelf _playControlBarButtonItemTapped];
         }];
     } else {
         __weak typeof(self) weakSelf = self;
-        self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemPause eventHandler:^{
+        self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemPause tap:^{
             [weakSelf _playControlBarButtonItemTapped];
         }];
     }
     if (self.downloading) {
         __weak typeof(self) weakSelf = self;
-        self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"0%" eventHandler:^{
+        self.playControlBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"0%" tap:^{
             [UIAlertView sf_alertWithTitle:@"Download" message:@"r u sure to cancel this downloading?" completion:^(NSInteger buttonIndex, NSString *buttonTitle) {
                 if (buttonIndex != 0) {
                     [weakSelf stopRequestingServiceWithIdnentifier:@"download_sound"];
@@ -150,7 +150,7 @@
     }
     self.playerStatusView.userInteractionEnabled = self.playing;
     [toolbarItems addObject:self.playControlBarButtonItem];
-    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace eventHandler:nil]];
+    [toolbarItems addObject:[SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace tap:nil]];
     
     [self setToolbarItems:toolbarItems animated:animated];
 }

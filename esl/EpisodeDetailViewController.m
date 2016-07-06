@@ -69,7 +69,7 @@
         
         @weakify(self);
         
-        self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemAction eventHandler:^{
+        self.navigationItem.rightBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemAction tap:^{
             @strongify(self);
             NSMutableArray *actionTitles = [NSMutableArray array];
             if ([self.viewModel downloadState] == SFDownloadStateDownloaded) {
@@ -129,12 +129,12 @@
         downloadingIndicatorButton.title = [NSString stringWithFormat:@"%.0f%%", [num floatValue] * 100];
     }];
     
-    UIBarButtonItem *rewindButton = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRewind eventHandler:^{
+    UIBarButtonItem *rewindButton = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemRewind tap:^{
         @strongify(self);
         [self.viewModel rewind];
     }];
     
-    UIBarButtonItem *fastForwardButton = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFastForward eventHandler:^{
+    UIBarButtonItem *fastForwardButton = [SFBlockedBarButtonItem blockedBarButtonItemWithBarButtonSystemItem:UIBarButtonSystemItemFastForward tap:^{
         @strongify(self);
         [self.viewModel fastForward];
     }];

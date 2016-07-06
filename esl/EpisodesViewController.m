@@ -68,7 +68,7 @@
     
     @weakify(self);
     @weakify(loadMoreLabel);
-    [loadMoreLabel setTapHandler:^{
+    [loadMoreLabel setTap:^{
         @strongify(self);
         @strongify(loadMoreLabel);
         [loadMoreLabel setTitle:@"Loading .." forState:UIControlStateNormal];
@@ -118,7 +118,7 @@
     @weakify(self);
     ESEpisode *playingEpisode = [[ESSoundPlayContext sharedContext] playingEpisode];
     self.navigationItem.rightBarButtonItem = playingEpisode != nil ? ({
-            SFBlockedBarButtonItem *buttonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Listening" eventHandler:^{
+            SFBlockedBarButtonItem *buttonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Listening" tap:^{
             @strongify(self);
             ESEpisode *episode = playingEpisode;
             [self.navigationController pushViewController:[EpisodeDetailViewController controllerWithViewModel:[EpisodeDetailViewModel viewModelWithEpisode:episode]] animated:YES];

@@ -53,7 +53,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    self.nowPlayingBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" eventHandler:^{
+    self.nowPlayingBarButtonItem = [SFBlockedBarButtonItem blockedBarButtonItemWithTitle:@"Now Playing" tap:^{
         [weakSelf _viewEpisode:[ESSoundPlayContext sharedContext].playingEpisode];
     }];
     self.nowPlayingBarButtonItem.style = UIBarButtonItemStyleDone;
